@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'FCL') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'FCL') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -33,7 +33,21 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Menu
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url('/positions') }}">Pozicije</a>
+                                <a class="dropdown-item" href="{{ url('/lubrications') }}">Podmazivanje</a>
+                                <a class="dropdown-item" href="{{ url('/') }}">Preventivno održavanje</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Info</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/troubleshootings') }}">Prijava kvara</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -67,6 +81,14 @@
                                 </div>
                             </li>
                         @endguest
+
+                        <form class="form-inline my-2 my-lg-0" action="{{ route('search') }}" method="GET">
+                        @csrf 
+                        <div class="form-group">
+                            <input class="form-control mr-sm-2" type="search" name="searchvalue" placeholder="Traži poziciju..." arial-label="Search" >
+                            <button class="btn btn-primary my-2 my-sm-0" type="submit">Traži</button>
+                        </div>
+                        </form>
                     </ul>
                 </div>
             </div>
