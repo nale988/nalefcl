@@ -23,3 +23,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('search', 'SearchController@search')->name('search');
 
 Route::resource('positions', 'PositionController');
+Route::resource('spareparts', 'SparePartController');
