@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class SparePart extends Model
 {
     protected $fillable=[
-        'date',
         'description',
         'catalogue_number',
         'storage_number',
@@ -17,6 +16,7 @@ class SparePart extends Model
         'unit',
         'danger_level',
         'critical_part',
-        'spare_part_type_id'        
+        'spare_part_type_id',
+        'user_id'       
     ];
 }

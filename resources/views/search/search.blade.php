@@ -3,8 +3,7 @@
 @section('content')
 <div class="container">
 <div class="row">
-<!-- LAST WORK ORDERS -->
-<div class="col" id="basicinfo">
+<div class="col" id="search">
     <div class="card bg-light mb-3">
         <div class="card-header font-weight-bold">
             Rezultati pretrage

@@ -73,7 +73,7 @@
         </div>
 
         <div class="card-body">
-            
+
         </div>
     </div>
     <br />
@@ -124,13 +124,14 @@
             @endif
             <br />
             <div class="row">
-                    <div class="col-1">Skl. broj</div>
-                    <div class="col-4">Opis</div>
-                    <div class="col-4">Kataloški broj</div>
-                    <div class="col-1">Količina</div>
-                    <div class="col-1">Magacin</div>
-                    <div class="col-1">Vrsta</div>
-                </div>
+                <div class="col-1">Skl. broj</div>
+                <div class="col-4">Opis</div>
+                <div class="col-4">Kataloški broj</div>
+                <div class="col-1">Količina</div>
+                <div class="col-1">Magacin</div>
+                <div class="col-1">Vrsta</div>
+            </div>
+            <hr />
             @foreach($sparepartgrouped as $sparepart)
                 @if ($loop -> odd)
                     <div class="row" style="background-color:#ffffff;">

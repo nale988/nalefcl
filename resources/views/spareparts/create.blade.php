@@ -42,12 +42,17 @@
 
             <div class="form-group mb-2">
                 <label for="description">Opis</label>
-                <input type="text" class="form-control form-control-sm" name="description" id="description" placeholder="Opis rezervnog dijela">
+                <input type="text" class="form-control form-control-sm" name="description" id="description">
             </div>
 
             <div class="form-group mb-2">
                 <label for="catalogue_number">Kataloški broj</label>
-                <input type="text" class="form-control form-control-sm" name="catalogue_number" id="catalogue_number" placeholder="Kataloški broj">
+                <input type="text" class="form-control form-control-sm" name="catalogue_number" id="catalogue_number">
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="info">Grupa rezervnih dijelova</label>
+                <input type="text" class="form-control form-control-sm" name="spare_part_group" id="spare_part_group" placeholder="... reduktor // pogonska stanica // grajfer ...">
             </div>
 
             <div class="form-group mb-2">
@@ -60,9 +65,25 @@
                 <input type="text" class="form-control form-control-sm" name="drawing_position" id="drawing_position" placeholder="Pozicija na crtežu liste rezervnih dijelova">
             </div>
 
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group mb-2">
+                    <label for="drawing_position">Količina</label>
+                    <input type="number" step=".01" class="form-control form-control-sm" name="amount" id="amount" value="1">
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group mb-2">
+                    <label for="drawing_position">Jedinica mjere</label>
+                    <input type="text" class="form-control form-control-sm" name="unit" id="unit" placeholder="kom // m // kg // L // set...">
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group mb-2">
-                <label for="danger_level">Kritična zaliha</label>
-                <input type="number" class="form-control" name="danger_level" id="danger_level" placeholder="Iznos kritične zalihe u magacinu, za upozorenje za narudžbu">
+                <label for="danger_level">Signalna zaliha</label>
+                <input type="number" class="form-control" name="danger_level" id="danger_level" value="0">
             </div>
 
             <div class="form-group mb-2">
@@ -75,6 +96,7 @@
             </div>
 
             <div class="form-check mb-2">
+                <input type="hidden" value="" name="critical_part" id="critical_part">
                 <input class="form-check-input" type="checkbox" value="" name="critical_part" id="critical_part">
                 <label class="form-check-label" for="critical_part">
                     Kritični dio?
@@ -82,7 +104,6 @@
             </div>
 
             <br /><br />
-
 
             <div class="row">
                 <div class= "col-12">

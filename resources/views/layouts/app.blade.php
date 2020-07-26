@@ -33,20 +33,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Menu
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('/positions') }}">Pozicije</a>
-                                <a class="dropdown-item" href="{{ url('/lubrications') }}">Podmazivanje</a>
-                                <a class="dropdown-item" href="{{ url('/') }}">Preventivno održavanje</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Info</a>
-                            </div>
-                        </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/troubleshootings') }}">Prijava kvara</a>
+                            <a class="nav-link" href="{{ url('/positions') }}">Pozicije</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/spareparts/create') }}">Novi rezervni dio</a>
                         </li>
                     </ul>
 
@@ -83,12 +75,14 @@
                         @endguest
 
                         <form class="form-inline my-2 my-lg-0" action="{{ route('search') }}" method="GET">
-                        @csrf 
+                        @csrf
                         <div class="form-group">
                             <input class="form-control mr-sm-2" type="search" name="searchvalue" placeholder="Traži poziciju..." arial-label="Search" >
                             <button class="btn btn-primary my-2 my-sm-0" type="submit">Traži</button>
                         </div>
                         </form>
+                        &nbsp;&nbsp;
+                        <a class="btn btn-light my-2 my-sm-0" href="{{ url('advancedsearch') }}">Napredna pretraga</a>
                     </ul>
                 </div>
             </div>
