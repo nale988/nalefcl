@@ -17,6 +17,14 @@ use App\SparePartType;
 
 class SparePartController extends Controller
 {
+    public function removesparepartfile(Request $request){
+        foreach($request->all() as $key => $value){
+            $file = SparePartFile::where('id', $key)->delete();
+        }
+
+        return redirect() -> back() -> with('message', 'Uklonjen dokument!');
+    }
+
     public function index()
     {
         //
@@ -26,9 +34,6 @@ class SparePartController extends Controller
     {
         $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
         $spareparttypes = SparePartType::all()->sortBy('description');
-
-        // print_r(json_encode($spareparttype));
-        // die;
 
         return view('spareparts.create', compact('positions', 'spareparttypes'));
     }
@@ -41,7 +46,7 @@ class SparePartController extends Controller
         ]);
 
         $critpart = $request->get('critical_part');
-        if (isset($critpart)){
+        if ($critpart=='on'){
             $critical_part = 1;
         }
         else{
@@ -135,7 +140,19 @@ class SparePartController extends Controller
 
     public function edit($id)
     {
-        //
+        $sparepart = SparePart::where('id', $id)->first();
+        $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
+        $spareparttypes = SparePartType::all()->sortBy('description');
+
+        $selected_positions = SparePartConnection::where('spare_part_id', $id)->get();
+        $file = SparePartFile::where('spare_part_id', $id)
+            ->leftJoin('file_uploads', 'file_uploads.id', '=', 'spare_part_files.file_upload_id')
+            ->get(['spare_part_files.id as id', 'spare_part_files.file_upload_id as file_upload_id', 'spare_part_files.spare_part_id as spare_part_id', 'file_uploads.filename as filename', 'file_uploads.filesize as filesize', 'file_uploads.url as url']);
+
+        // print_r(json_encode($selected_positions));
+        // die;
+
+        return view('spareparts.edit', compact('sparepart', 'positions', 'spareparttypes', 'selected_positions', 'file'));
     }
 
     public function update(Request $request, $id)

@@ -29,40 +29,41 @@
 <div class= "col-12">
     <div class="card">
         <div class="card-header">
-            Novi rezervni dio
+            Uredi rezervni dio
         </div>
         <div class="card-body">
 
-        <form action="{{ route('spareparts.store') }}" method="POST" enctype="multipart/form-data" >
+        <form action="{{ route('spareparts.edit', $sparepart -> id) }}" method="POST" enctype="multipart/form-data" >
+        @method('PUT')
         @csrf
             <div class="form-group mb-2">
                 <label for="storage_number">Skladišni broj</label>
-                <input type="text" class="form-control form-control-sm" name="storage_number" id="storage_number" placeholder="Skladišni broj (uključiti i 0 ako time počinje u Navisionu)">
+                <input type="text" class="form-control form-control-sm" name="storage_number" id="storage_number" value="{{ $sparepart -> storage_number }}">
             </div>
 
             <div class="form-group mb-2">
                 <label for="description">Opis</label>
-                <input type="text" class="form-control form-control-sm" name="description" id="description">
+                <input type="text" class="form-control form-control-sm" name="description" id="description" value="{{ $sparepart -> description }}">
             </div>
 
             <div class="form-group mb-2">
                 <label for="catalogue_number">Kataloški broj</label>
-                <input type="text" class="form-control form-control-sm" name="catalogue_number" id="catalogue_number">
+                <input type="text" class="form-control form-control-sm" name="catalogue_number" id="catalogue_number" value="{{ $sparepart -> catalogue_number }}">
             </div>
 
             <div class="form-group mb-2">
                 <label for="info">Grupa rezervnih dijelova</label>
-                <input type="text" class="form-control form-control-sm" name="spare_part_group" id="spare_part_group" placeholder="... reduktor // pogonska stanica // grajfer ...">
+                <input type="text" class="form-control form-control-sm" name="spare_part_group" id="spare_part_group" value="{{ $sparepart -> spare_part_group }}">
             </div>
 
             <div class="form-group mb-2">
                 <label for="info">Info</label>
-                <input type="text" class="form-control form-control-sm" name="info" id="info" placeholder="Dodatne informacije (broj crteža, detalji i sl.)">
+                <input type="text" class="form-control form-control-sm" name="info" id="info" value="{{ $sparepart -> info }}">
             </div>
 
             <div class="form-group mb-2">
                 <label for="drawing_position">Pozicija na crtežu</label>
-                <input type="text" class="form-control form-control-sm" name="drawing_position" id="drawing_position" placeholder="Pozicija na crtežu liste rezervnih dijelova">
+                <input type="text" class="form-control form-control-sm" name="drawing_position" id="drawing_position" value="{{ $sparepart -> position }}">
             </div>
 
             <div class="row">
@@ -76,28 +77,32 @@
                 <div class="col-6">
                     <div class="form-group mb-2">
                     <label for="drawing_position">Jedinica mjere</label>
-                    <input type="text" class="form-control form-control-sm" name="unit" id="unit" placeholder="kom // m // kg // L // set...">
+                    <input type="text" class="form-control form-control-sm" name="unit" id="unit" value="{{ $sparepart -> unit }}">
                     </div>
                 </div>
             </div>
 
             <div class="form-group mb-2">
                 <label for="danger_level">Signalna zaliha</label>
-                <input type="number" class="form-control" name="danger_level" id="danger_level" value="0">
+                <input type="number" class="form-control" name="danger_level" id="danger_level" value="{{ $sparepart -> danger_level }}">
             </div>
 
             <div class="form-group mb-2">
                 <label for="spareparttype">Vrsta rezervnog dijela</label>
                 <select id="spareparttype" name="spareparttype" class="form-control form-control-sm">
                     @foreach($spareparttypes as $spareparttype)
-                        <option value="{{ $spareparttype -> id }}"> {{ $spareparttype -> description }}</option>
+                        @if($sparepart -> spare_part_type_id == $spareparttype -> id)
+                            <option value="{{ $spareparttype -> id }}"> {{ $spareparttype -> description }}</option>
+                        @else
+                            <option value="{{ $spareparttype -> id }}" selected> {{ $spareparttype -> description }}</option>
+                        @endif
                     @endforeach
                 </select>
             </div>
 
             <div class="form-check mb-2">
-                <input type="hidden" value="0" name="critical_part" id="critical_part">
-                <input class="form-check-input" type="checkbox" name="critical_part" id="critical_part">
+                <input type="hidden" value="" name="critical_part" id="critical_part">
+                <input class="form-check-input" type="checkbox" value="" name="critical_part" id="critical_part" {{ $sparepart -> critical_part ? 'checked':'' }}>
                 <label class="form-check-label" for="critical_part">
                     Kritični dio?
                 </label>
@@ -105,13 +110,33 @@
 
             <br />
 
-            <div class="card">
-                <div class="card-header">Prikači dokument</div>
-                <div class="card-body">
-                    <input id="file" type="file" name="file">
+            @if(count($file)>0)
+                @foreach($file as $files)
+                <div class="card">
+                    <div class="card-header">Prikačeni dokumenti</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="{{ URL::asset($files -> url) }}" >{{ $files -> filename }}</a>
+                            </div>
+                            <div class="col-2">
+                                {{ number_format(round($files -> filesize/1024, 0), 0, '.', ' ') }}kB
+                            </div>
+                            <div class="col-1">
+                                <a href="{{ route('removesparepartfile', $files -> id) }}" class="btn btn-danger">Ukloni</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
+                @endforeach
+            @else
+                <div class="card">
+                    <div class="card-header">Prikači dokument</div>
+                    <div class="card-body">
+                        <input id="file" type="file" name="file">
+                    </div>
+                </div>
+            @endif
             <br /><br />
 
             <div class="row">
@@ -157,10 +182,14 @@
                                         <div class="row">
                                             <div class="col-1">
                                                 <div class="form-check mb-2">
-                                                    <input class="form-check-input" type="checkbox" value="" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}">
-                                                    <label class="form-check-label" for="checkbox-{{ $position->id }}">
-                                                        &nbsp;
-                                                    </label>
+                                                    @foreach($selected_positions as $selected)
+                                                        @if($selected -> position_id === $position -> id)
+                                                            <input class="form-check-input" type="checkbox" value="" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}" checked>
+                                                        @else
+                                                            <input class="form-check-input" type="checkbox" value="" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}">
+                                                        @endif
+                                                    @endforeach
+                                                    <label class="form-check-label" for="checkbox-{{ $position->id }}">&nbsp;</label>
                                                 </div>
                                             </div>
 

@@ -24,8 +24,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('search', 'SearchController@search')->name('search');
 Route::get('advancedsearch', 'SearchController@advancedsearch')->name('advancedsearch');
 Route::get('advancedsearchresults', 'SearchController@advancedsearchresults')->name('advancedsearchresults');
+Route::get('removesparepartfile', 'SparePartController@removesparepartfile')->name('removesparepartfile');
 
 Route::resource('positions', 'PositionController');
 Route::resource('spareparts', 'SparePartController');
 
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
+
+Route::put('spareparts/{id}/edit', 'SparePart@update')->name('spareparts.edit');
