@@ -28,7 +28,7 @@ Route::get('removesparepartfile', 'SparePartController@removesparepartfile')->na
 
 Route::resource('positions', 'PositionController');
 Route::resource('spareparts', 'SparePartController');
+Route::resource('revisions', 'RevisionController');
 
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
 
-Route::put('spareparts/{id}/edit', 'SparePart@update')->name('spareparts.edit');

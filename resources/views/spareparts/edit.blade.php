@@ -33,7 +33,7 @@
         </div>
         <div class="card-body">
 
-        <form action="{{ route('spareparts.edit', $sparepart -> id) }}" method="POST" enctype="multipart/form-data" >
+        <form action="{{ route('spareparts.update', $sparepart -> id) }}" method="POST" enctype="multipart/form-data" >
         @method('PUT')
         @csrf
             <div class="form-group mb-2">
@@ -70,7 +70,7 @@
                 <div class="col-6">
                     <div class="form-group mb-2">
                     <label for="drawing_position">Količina</label>
-                    <input type="number" step=".01" class="form-control form-control-sm" name="amount" id="amount" value="1">
+                    <input type="number" step=".01" class="form-control form-control-sm" name="amount" id="amount" value="{{ $selected_positions -> first() -> amount}}">
                     </div>
                 </div>
 
@@ -84,7 +84,7 @@
 
             <div class="form-group mb-2">
                 <label for="danger_level">Signalna zaliha</label>
-                <input type="number" class="form-control" name="danger_level" id="danger_level" value="{{ $sparepart -> danger_level }}">
+                <input type="number" class="form-control form-control-sm" name="danger_level" id="danger_level" value="{{ $sparepart -> danger_level }}">
             </div>
 
             <div class="form-group mb-2">
@@ -92,17 +92,17 @@
                 <select id="spareparttype" name="spareparttype" class="form-control form-control-sm">
                     @foreach($spareparttypes as $spareparttype)
                         @if($sparepart -> spare_part_type_id == $spareparttype -> id)
-                            <option value="{{ $spareparttype -> id }}"> {{ $spareparttype -> description }}</option>
-                        @else
                             <option value="{{ $spareparttype -> id }}" selected> {{ $spareparttype -> description }}</option>
+                        @else
+                            <option value="{{ $spareparttype -> id }}"> {{ $spareparttype -> description }}</option>
                         @endif
                     @endforeach
                 </select>
             </div>
 
             <div class="form-check mb-2">
-                <input type="hidden" value="" name="critical_part" id="critical_part">
-                <input class="form-check-input" type="checkbox" value="" name="critical_part" id="critical_part" {{ $sparepart -> critical_part ? 'checked':'' }}>
+                <input type="hidden" value="0" name="critical_part" id="critical_part">
+                <input class="form-check-input" type="checkbox" name="critical_part" id="critical_part" {{ $sparepart -> critical_part ? 'checked':'' }}>
                 <label class="form-check-label" for="critical_part">
                     Kritični dio?
                 </label>
@@ -182,13 +182,22 @@
                                         <div class="row">
                                             <div class="col-1">
                                                 <div class="form-check mb-2">
+                                                    @php
+                                                        $added = 0;
+                                                    @endphp
+
                                                     @foreach($selected_positions as $selected)
-                                                        @if($selected -> position_id === $position -> id)
-                                                            <input class="form-check-input" type="checkbox" value="" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}" checked>
-                                                        @else
-                                                            <input class="form-check-input" type="checkbox" value="" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}">
+                                                        @if(($selected -> position_id) === ($position -> id))
+                                                            <input checked class="form-check-input" type="checkbox" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}" >
+                                                            @php
+                                                                $added = 1
+                                                            @endphp
                                                         @endif
                                                     @endforeach
+
+                                                    @if($added == 0)
+                                                        <input class="form-check-input" type="checkbox" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}">
+                                                    @endif
                                                     <label class="form-check-label" for="checkbox-{{ $position->id }}">&nbsp;</label>
                                                 </div>
                                             </div>
