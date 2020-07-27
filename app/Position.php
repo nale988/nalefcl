@@ -42,4 +42,13 @@ class Position extends Model
             return $this->belongsToMany('App\SparePart', 'spare_part_connections', 'position_id', 'spare_part_id')->withPivot('amount');
         }
     }
+
+    public function files(){
+        if (Auth::check()) {
+            return $this->belongsToMany('App\FileUpload', 'position_files')->where('file_uploads.user_id', Auth::user()->id);
+        }
+        else{
+            return $this->belongsToMany('App\FileUpload', 'position_files');
+        }
+    }
 }

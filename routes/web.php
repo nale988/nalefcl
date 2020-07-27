@@ -27,3 +27,5 @@ Route::get('advancedsearchresults', 'SearchController@advancedsearchresults')->n
 
 Route::resource('positions', 'PositionController');
 Route::resource('spareparts', 'SparePartController');
+
+Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');

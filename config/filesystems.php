@@ -65,6 +65,20 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'sparepartfiles' => [
+            'driver' => 'local',
+            'root' => storage_path('sp'),
+            'url' => 'storage/sp',
+            'visibility' => 'public',
+        ],
+
+        'positionfiles' => [
+            'driver' => 'local',
+            'root' => storage_path('po'),
+            'url' => 'storage/po',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

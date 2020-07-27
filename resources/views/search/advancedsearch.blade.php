@@ -35,8 +35,8 @@
                 @csrf
                 <div class="card-body">
                     <div class="form-group mb-2">
-                        <label for="description">Traženi pojam</label>
-                        <input type="text" class="form-control form-control-sm" name="description" id="description" >
+                        <label for="searchvalue">Traženi pojam</label>
+                        <input type="text" class="form-control form-control-sm" name="searchvalue" id="searchvalue" >
                     </div>
 
                     <div class="form-check mb-2">
@@ -50,6 +50,13 @@
                         <input class="form-check-input" type="checkbox" value="" name="search-spareparts" id="search-spareparts">
                         <label class="form-check-label" for="search-spareparts">
                             Traži u rezervnim dijelovima
+                        </label>
+                    </div>
+
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" value="" name="search-spareparttypes" id="search-spareparttypes">
+                        <label class="form-check-label" for="search-spareparttypes">
+                            Traži u vrsti rezervnih dijelova
                         </label>
                     </div>
 

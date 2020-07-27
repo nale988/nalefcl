@@ -17,6 +17,14 @@ class SparePart extends Model
         'danger_level',
         'critical_part',
         'spare_part_type_id',
-        'user_id'       
+        'user_id'
     ];
+
+    public function spareparttype(){
+        return $this->belongsTo('App\SparePartType', 'spare_part_type_id', 'id');
+    }
+
+    public function files(){
+        return $this->belongsToMany('App\FileUpload', 'spare_part_files');
+    }
 }

@@ -3,18 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Session;
 
 
 use App\Position;
 use App\SparePart;
+use App\SparePartFile;
 use App\SparePartConnection;
-use App\Unit;
-use App\User;
-use App\File;
-use App\DeviceType;
+use App\FileUpload;
 use App\SparePartType;
 
 class SparePartController extends Controller
@@ -50,12 +48,14 @@ class SparePartController extends Controller
             $critical_part = 0;
         }
 
-        Auth::check() ? $user=Auth::user() : $user=User::where('id', 12)->first();
-
         if (Auth::check()){
             $user = Auth::user();
         }
+        else{
+            return view('/')->with('danger', 'Niste ulogovani!');
+        }
 
+        // save spare part
         $sparepart = new SparePart([
             'description' => $request->get('description'),
             'catalogue_number' => $request->get('catalogue_number'),
@@ -73,6 +73,7 @@ class SparePartController extends Controller
         $sparepart -> save();
         $sparepart_id = $sparepart -> id;
 
+        // save connection with position
         $items_raw = collect($request);
         foreach($items_raw as $key => $value){
             $item = explode('-', $key);
@@ -84,6 +85,43 @@ class SparePartController extends Controller
                 ]);
 
                 $connection -> save();
+            }
+        }
+
+        // save file
+        $userfolder_raw = explode('@', $user -> email);
+        $userfolder = str_replace('.', '', $userfolder_raw[0]);
+
+        if ($request->hasFile('file')) {
+            if ($request->file('file')->isValid()) {
+                $validated = $request->validate([
+                    'image' => 'mimes:jpeg,png|max:2048',
+                    'document.*' => 'required|file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx|max:10245',
+                ]);
+
+                $extension = $request->file->extension();
+                $request->file->storeAs('public/sp/'.$userfolder, $request->file->hashName());
+
+                $url = Storage::disk('sparepartfiles')->url($userfolder.'/'.$request->file->hashName());
+
+                $filesize = $request->file('file')->getSize();
+
+                $document = new FileUpload([
+                    'user_id' => $user->id,
+                    'filename' => $request -> file -> getClientOriginalName(),
+                    'filesize' => $filesize,
+                    'url' => $url,
+                ]);
+
+                $document -> save();
+                $document_id = $document->id;
+
+                $connectfile = new SparePartFile([
+                    'spare_part_id' => $sparepart_id,
+                    'file_upload_id' => $document_id
+                ]);
+
+                $connectfile -> save();
             }
         }
 

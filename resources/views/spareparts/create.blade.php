@@ -33,7 +33,7 @@
         </div>
         <div class="card-body">
 
-        <form action="{{ route('spareparts.store') }}" method="POST" >
+        <form action="{{ route('spareparts.store') }}" method="POST" enctype="multipart/form-data" >
         @csrf
             <div class="form-group mb-2">
                 <label for="storage_number">Skladišni broj</label>
@@ -103,13 +103,29 @@
                 </label>
             </div>
 
+            <br />
+
+            <div class="card">
+                <div class="card-header">Prikači dokument</div>
+                <div class="card-body">
+                    <input id="file" type="file" name="file">
+                </div>
+            </div>
+
             <br /><br />
 
             <div class="row">
                 <div class= "col-12">
                     <div class="card">
                         <div class="card-header">
-                            Pripada pozicijama:
+                            <div class="row">
+                                <div class="col">
+                                    Pripada pozicijama:
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-primary btn-block" type="submit">Sačuvaj</button>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="card-body">
@@ -173,13 +189,13 @@
             </div>
 
             <div class="card-footer text-muted">
-                <button class="btn btn-primary" type="submit">Sačuvaj</button>
             </div>
         </form>
     </div>
 </div>
 </div>
 
-
+<br />
+<br />
 </div>
 @endsection

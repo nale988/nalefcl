@@ -6,14 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateFilesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
+        Schema::create('file_uploads', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('filename', 100);
@@ -23,13 +18,8 @@ class CreateFilesTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('files');
+        Schema::dropIfExists('file_uploads');
     }
 }
