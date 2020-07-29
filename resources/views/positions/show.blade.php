@@ -212,7 +212,7 @@
                                     </a>
                                 @endif
 
-                                <a href="#" title="Dodaj u potencijalnu narudžbu!">
+                                <a href="{{ route('neworder', [$position -> id, $sparepart -> id, $sparepart -> amount])}}" title="Dodaj u potencijalnu narudžbu!">
                                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M8.5 5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 .5-.5z"/>
                                         <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0v-2z"/>
@@ -254,8 +254,53 @@
 <br />
 
 
+@if(count($revisions)>0)
+<div class="card">
+    <div class="card-header">
+        Napomene za poziciju
+    </div>
+    <div class="card-body">
+        @foreach($revisions as $revision)
+        <div class="row">
+            <div class="col text-truncate ">
+                {{ $revision -> description }}
+            </div>
+
+            <div class="col-2 text-right">
+                {{ date('d. m. Y.', strtotime($revision -> created_at)) }}
+                &nbsp;&nbsp;
+                @if(count($revision -> files) > 0)
+                    @foreach($revision -> files as $file)
+                        <a href="{{ URL::asset($file -> url ) }}" style="text-decoration:none; color:#000000;">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+                                <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+                                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                            </svg>
+                        </a>
+                    @endforeach
+                @else
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+                        <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+                        <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                @endif
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+
+    <br />
+    <br />
+@endif
+
 
 <div class="card">
+    <div class="card-header">
+        Dodaj dokumentaciju za poziciju
+    </div>
     <div class="card-body">
     {{-- enctype attribute is important if your form contains file upload --}}
     {{-- Please check https://www.w3schools.com/tags/att_form_enctype.asp for further info --}}
@@ -273,6 +318,38 @@
             </div>
         </div>
     </form>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="card">
+    <div class="card-header">
+        Napomene
+    </div>
+
+    <div class="card-body">
+        <form class="m-2" method="post" action="{{ route('revisions.store')}}" enctype="multipart/form-data">
+            @csrf
+            <div class="form-group">
+                <label for="revision-content">Nova napomena</label>
+                <textarea class="form-control" name="revision_description" rows="6"></textarea>
+            </div>
+
+            <input type="hidden" name="revision_position_id" value="{{ $position -> id }}">
+            <div class="row">
+                <div class="col">&nbsp;</div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <input id="file" type="file" name="file">
+                    </div>
+                </div>
+                <div class="col-1">
+                    <button type="submit" class="btn btn-primary" value="submit" name="revision_submit">Sačuvaj</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 

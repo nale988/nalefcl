@@ -79,6 +79,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'revisionfiles' => [
+            'driver' => 'local',
+            'root' => storage_path('re'),
+            'url' => 'storage/re',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*

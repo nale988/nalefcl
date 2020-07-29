@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RevisionFiles extends Model
+class RevisionFile extends Model
 {
     protected $fillable = [
         'file_upload_id',

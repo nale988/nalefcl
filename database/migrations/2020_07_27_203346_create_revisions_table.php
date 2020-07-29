@@ -15,7 +15,6 @@ class CreateRevisionsTable extends Migration
     {
         Schema::create('revisions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('date')->nullable();
             $table->longText('description')->nullable();
             $table->foreignId('position_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

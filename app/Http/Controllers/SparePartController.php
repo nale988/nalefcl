@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Session;
 
-
 use App\Position;
 use App\SparePart;
 use App\SparePartFile;

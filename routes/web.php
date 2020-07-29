@@ -26,9 +26,11 @@ Route::get('advancedsearch', 'SearchController@advancedsearch')->name('advanceds
 Route::get('advancedsearchresults', 'SearchController@advancedsearchresults')->name('advancedsearchresults');
 Route::get('removesparepartfile', 'SparePartController@removesparepartfile')->name('removesparepartfile');
 
+Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
+Route::get('neworder/{position_id}/{spare_part_id}/{amount}', 'SparePartOrderController@neworder')->name('neworder');
+Route::get('confirmorder/{sparepartorder_id}', 'SparePartOrderController@confirmorder')->name('confirmorder');
+
 Route::resource('positions', 'PositionController');
 Route::resource('spareparts', 'SparePartController');
 Route::resource('revisions', 'RevisionController');
-
-Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
-
+Route::resource('sparepartorders', 'SparePartOrderController');

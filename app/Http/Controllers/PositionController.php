@@ -14,6 +14,7 @@ use DB;
 use Carbon\Carbon;
 use App\User;
 use App\Position;
+use App\Revision;
 use App\SparePart;
 use App\SparePartConnection;
 use App\FileUpload;
@@ -23,9 +24,6 @@ use App\SparePartType;
 class PositionController extends Controller
 {
     public function uploadpositionfile(Request $request){
-        // print_r(json_encode($request->all()));
-        // die;
-
         if (Auth::check()){
             $user = Auth::user();
         }
@@ -113,11 +111,14 @@ class PositionController extends Controller
             ->get(['spare_parts.*', 'file_uploads.filename as filename', 'file_uploads.url as fileurl', 'file_uploads.filesize as filesize', 'navision.zalihe as zalihe', 'navision.kol_na_narudzbenici as naruceno', 'navision.jedinicni_trosak as jedinicni_trosak', 'spare_part_connections.amount as amount', 'spare_part_types.description as spare_part_type_description'])
             ->groupBy('spare_part_group');
 
+        $revisions = Revision::where('position_id', $id)->with('files')->get();
 
-        //  print_r(json_encode($spareparts));
+
+
+        //  print_r(json_encode($revisions));
         //  die;
 
-        return view('positions.show', compact('position', 'spareparts', 'user'));
+        return view('positions.show', compact('position', 'spareparts', 'revisions', 'user'));
     }
 
     public function edit($id)
