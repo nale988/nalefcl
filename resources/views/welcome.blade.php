@@ -23,7 +23,7 @@
     <div class="col-10">
         <div class="card bg-light mb-3">
             <div class="card-header font-weight-bold">
-                Pregled narudžbi
+                Pregled trenutnih narudžbi
             </div>
             <div class="card-body">
                 @foreach($sparepartorders as $sparepartorder)
