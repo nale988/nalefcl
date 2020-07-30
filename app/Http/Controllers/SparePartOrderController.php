@@ -45,7 +45,7 @@ class SparePartOrderController extends Controller
             return view('sparepartorders.mobileindex', compact('sparepartorders', 'today'));
         }
         else{
-            return view('sparepartorders.index', compact('sparepartorders', 'today'));
+             return view('sparepartorders.index', compact('sparepartorders', 'today'));
         }
     }
 

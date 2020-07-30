@@ -35,7 +35,9 @@
                 <div class="col text-truncate">
                     {{ $sparepartorder -> sparepart -> storage_number }} - {{ $sparepartorder -> sparepart -> description}}
                 </div>
-
+                <div class="col-1">
+                    {{ $sparepartorder -> amount }}
+                </div>
                 <div class="col-4 text-truncate">
                     <a href="{{ route('positions.show', $sparepartorder -> position_id) }}" style="text-decoration: none;">
                         {{ $sparepartorder -> position -> position }} - {{ $sparepartorder -> position -> name}}

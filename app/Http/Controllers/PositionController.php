@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Jenssegers\Agent\Agent;
 use Session;
-
 
 use DB;
 use Carbon\Carbon;
@@ -71,8 +71,15 @@ class PositionController extends Controller
     }
     public function index()
     {
+        $agent = new Agent();
+
         $positions = Position::all()->sortBy('position')->paginate(20);
-        return view('positions.index', compact('positions'));
+        if ($agent -> isMobile()){
+            return view('positions.indexmobile', compact('positions'));
+        }
+        else{
+            return view('positions.index', compact('positions'));
+        }
     }
 
     public function create()
@@ -87,6 +94,7 @@ class PositionController extends Controller
 
     public function show($id)
     {
+        $agent = new Agent();
         $position = Position::where('id', $id)
             ->with('unit')
             ->with('devicetype')
@@ -113,12 +121,12 @@ class PositionController extends Controller
 
         $revisions = Revision::where('position_id', $id)->with('files')->get();
 
-
-
-        //  print_r(json_encode($revisions));
-        //  die;
-
-        return view('positions.show', compact('position', 'spareparts', 'revisions', 'user'));
+        if ($agent -> isMobile()){
+            return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'user'));
+        }
+        else{
+            return view('positions.show', compact('position', 'spareparts', 'revisions', 'user'));
+        }
     }
 
     public function edit($id)

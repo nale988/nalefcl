@@ -40,35 +40,35 @@
                     </div>
 
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" name="search-positions" id="search-positions">
+                        <input class="form-check-input" type="checkbox" name="search-positions" id="search-positions">
                         <label class="form-check-label" for="search-positions">
                             Traži u pozicijama
                         </label>
                     </div>
 
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" name="search-spareparts" id="search-spareparts">
+                        <input class="form-check-input" type="checkbox" name="search-spareparts" id="search-spareparts">
                         <label class="form-check-label" for="search-spareparts">
                             Traži u rezervnim dijelovima
                         </label>
                     </div>
 
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" name="search-spareparttypes" id="search-spareparttypes">
+                        <input class="form-check-input" type="checkbox" name="search-spareparttypes" id="search-spareparttypes">
                         <label class="form-check-label" for="search-spareparttypes">
                             Traži u vrsti rezervnih dijelova
                         </label>
                     </div>
 
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" name="search-files" id="search-files">
+                        <input class="form-check-input" type="checkbox" name="search-files" id="search-files">
                         <label class="form-check-label" for="search-files">
                             Traži u dokumentima
                         </label>
                     </div>
 
                     <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" name="search-revisions" id="search-revisions">
+                        <input class="form-check-input" type="checkbox" name="search-revisions" id="search-revisions">
                         <label class="form-check-label" for="search-revisions">
                             Traži u napomenama
                         </label>

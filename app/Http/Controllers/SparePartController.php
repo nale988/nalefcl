@@ -33,7 +33,7 @@ class SparePartController extends Controller
     {
         $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
         $spareparttypes = SparePartType::all()->sortBy('description');
-
+        // TODO: Add mobile view
         return view('spareparts.create', compact('positions', 'spareparttypes'));
     }
 
@@ -151,6 +151,7 @@ class SparePartController extends Controller
         // print_r(json_encode($selected_positions));
         // die;
 
+        // TODO: Add mobile view
         return view('spareparts.edit', compact('sparepart', 'positions', 'spareparttypes', 'selected_positions', 'file'));
     }
 

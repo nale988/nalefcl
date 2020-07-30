@@ -29,8 +29,12 @@
             </div>
 
             <div class="row">
-                <div class="col-12 text-truncate">
+                <div class="col-10 text-truncate">
                     {{ $sparepartorder -> sparepart -> storage_number }} - {{ $sparepartorder -> sparepart -> description}}
+                </div>
+
+                <div class="col-2 text-truncate">
+                    {{ $sparepartorder -> amount }}
                 </div>
             </div>
 
