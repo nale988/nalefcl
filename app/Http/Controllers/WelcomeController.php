@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 use App\Position;
 use App\SparePartOrder;
+use App\SparePart;
 use App\Info;
 
 class WelcomeController extends Controller
@@ -29,11 +30,17 @@ class WelcomeController extends Controller
 
         $positions = Position::all();
         $sparepartorders = SparePartOrder::where('user_id', $user->id)->where('done', 0)->with('sparepart')->with('position')->orderBy('date')->get();
+        $criticalspareparts = SparePart::where('user_id', $user->id)->where('critical_part', 1)
+            ->leftJoin('navision', 'navision.br', '=', 'spare_parts.storage_number')
+            ->where('navision.zalihe', '<=', 'spare_part.danger_level')
+            ->get(['spare_parts.*', 'navision.br as navbr', 'navision.zalihe as zalihe']);
+
         $info = Info::first();
         $today = now();
 
-        // print_r(json_encode($navision));
+        // print_r(json_encode($criticalspareparts));
         // die;
+
         if ($agent -> isMobile()){
             return view('welcomemobile', compact('positions', 'sparepartorders', 'info', 'today'));
         }

@@ -83,7 +83,7 @@
 
             <div class="form-group mb-2">
                 <label for="danger_level">Signalna zaliha</label>
-                <input type="number" class="form-control" name="danger_level" id="danger_level" value="0">
+                <input type="number" class="form-control form-control-sm" name="danger_level" id="danger_level" value="0">
             </div>
 
             <div class="form-group mb-2">
