@@ -34,8 +34,13 @@ class WelcomeController extends Controller
 
         // print_r(json_encode($navision));
         // die;
+        if ($agent -> isMobile()){
+            return view('welcomemobile', compact('positions', 'sparepartorders', 'info', 'today'));
+        }
+        else{
+            return view('welcome', compact('positions', 'sparepartorders', 'info', 'today'));
+        }
 
-        return view('welcome', compact('positions', 'sparepartorders', 'info', 'today'));
     }
 
     /**

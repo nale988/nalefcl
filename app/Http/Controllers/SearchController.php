@@ -87,9 +87,13 @@ class SearchController extends Controller
             else if($key == 'search-revisions'){
                 $revisions = Revision::where('description', 'LIKE', '%'.$request->searchvalue.'%')
                     ->where('user_id', $user -> id)
+                    ->with('position')
                     ->get();
             }
         }
+
+        // print_r(json_encode($revisions));
+        // die;
 
         if ($agent -> isMobile()){
             return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions'));
@@ -97,6 +101,5 @@ class SearchController extends Controller
         else{
             return view('search.advancedsearchresults', compact('positions', 'spareparts', 'files', 'revisions'));
         }
-
     }
 }

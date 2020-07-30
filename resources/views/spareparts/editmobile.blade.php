@@ -152,86 +152,65 @@
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-key" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
                                             <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                          </svg>
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card-body">
-                        <div class="row">
-                            <div class="col-1">
-                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                @foreach($positions as $title => $position)
-                                    @if ($loop -> first)
-                                        <a class="nav-link active text-center" id="v-pills-{{ $title }}-tab" data-toggle="pill" href="#v-pills-{{ $title }}" role="tab" aria-controls="v-pills-{{ $title }}" aria-selected="true">{{ $title }}</a>
-                                    @else
-                                        <a class="nav-link text-center" id="v-pills-{{ $title }}-tab" data-toggle="pill" href="#v-pills-{{ $title }}" role="tab" aria-controls="v-pills-{{ $title }}" aria-selected="false">{{ $title }}</a>
+                            <div class="row">
+                                <div class="col-12 text-truncate">
+                                    @foreach($positions as $title => $positiongroup)
+                                    @if(!$loop->first)
+                                        <br /><br />
                                     @endif
-                                @endforeach
-                                </div>
-                            </div>
-
-                            <div class="col-1">&nbsp;</div>
-
-                            <div class="col-10">
-                                <div class="tab-content" id="v-pills-tabContent">
-                                <br /><br />
-                                @foreach($positions as $title => $positiongroup)
-                                    @if($loop -> first)
-                                        <div class="tab-pane fade show active" id="v-pills-{{ $title }}" role="tabpanel" aria-labelledby="v-pills-{{ $title }}-tab">
-                                    @else
-                                        <div class="tab-pane fade" id="v-pills-{{ $title }}" role="tabpanel" aria-labelledby="v-pills-{{ $title }}-tab">
-                                    @endif
-                                    @foreach($positiongroup->sortBy('position') as $position)
                                         <div class="row">
-                                            <div class="col-1">
-                                                <div class="form-check mb-2">
-                                                    @php
-                                                        $added = 0;
-                                                    @endphp
+                                            <div class="col">
+                                            <h5><strong>&nbsp;{{ $title }} - {{ $positiongroup -> first() -> unit -> description }}</strong></h5>
+                                            <hr />
+                                            </div>
+                                        </div>
 
-                                                    @foreach($selected_positions as $selected)
-                                                        @if(($selected -> position_id) === ($position -> id))
-                                                            <input checked class="form-check-input" type="checkbox" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}" >
-                                                            @php
-                                                                $added = 1
-                                                            @endphp
+                                        @foreach($positiongroup->sortBy('position') as $position)
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-check mb-2">
+                                                        @php
+                                                            $added = 0;
+                                                        @endphp
+
+                                                        @foreach($selected_positions as $selected)
+                                                            @if(($selected -> position_id) === ($position -> id))
+                                                                <input checked class="form-check-input" type="checkbox" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}" >
+                                                                @php
+                                                                    $added = 1
+                                                                @endphp
+                                                            @endif
+                                                        @endforeach
+
+                                                        @if($added == 0)
+                                                            <input class="form-check-input" type="checkbox" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}">
                                                         @endif
-                                                    @endforeach
-
-                                                    @if($added == 0)
-                                                        <input class="form-check-input" type="checkbox" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}">
-                                                    @endif
-                                                    <label class="form-check-label" for="checkbox-{{ $position->id }}">&nbsp;</label>
+                                                        <label class="form-check-label" for="checkbox-{{ $position->id }}"><strong>{{ $position -> position }}</strong></label>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <div class="col-2">
-                                                <span>{{ $position -> position }}</span>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <span class="text-truncate">{{ $position -> name }}</span>
+                                                </div>
                                             </div>
-
-                                            <div class="col-4">
-                                                <span class="text-muted text-truncate">{{ $position -> name }}</span>
-                                            </div>
-
-                                            <div class="col-5">
-                                                <span class="text-muted text-truncate">{{ $position -> manufacturer }}</span>
-                                            </div>
-                                        </div>
+                                            <br />
+                                        @endforeach
                                     @endforeach
                                     </div>
-                                @endforeach
                                 </div>
                             </div>
-                        </div> <!-- ROW -->
-
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="card-footer text-muted">
+                </div>
             </div>
         </form>
     </div>

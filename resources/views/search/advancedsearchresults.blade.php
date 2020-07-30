@@ -46,6 +46,9 @@
                         </div>
                     </div>
                 </a>
+                @if(!$loop->last)
+                    <hr />
+                @endif
             @endforeach
         </div>
     </div>
@@ -65,10 +68,9 @@
       Rezultati pretrage za rezervne dijelove
     </div>
     <div class="card-body">
-
         <div class="card-text">
             @foreach($spareparts as $sparepart)
-                <a href="#" style="color: #000000; text-decoration: none;" >
+                <a href="{{ route('spareparts.edit', $sparepart -> id)}}" style="color: #000000; text-decoration: none;" >
                     <div class="row">
                         <div class="col-2 text-truncate">
                             {{ $sparepart -> storage_number }}
@@ -81,6 +83,9 @@
                         </div>
                     </div>
                 </a>
+                @if(!$loop->last)
+                    <hr />
+                @endif
             @endforeach
         </div>
     </div>
@@ -102,16 +107,19 @@
     <div class="card-body">
         <div class="card-text">
             @foreach($files as $file)
-                <a href="#" style="color: #000000; text-decoration: none;" >
+                <a href="{{URL::asset($file -> url)}}" style="color: #000000; text-decoration: none;" >
                     <div class="row">
                         <div class="col text-truncate">
                             {{ $file -> filename }}
                         </div>
-                        <div class="col-2 text-truncate">
-                            {{ $file -> filesize }}
+                        <div class="col-2 text-right text-truncate">
+                            {{ number_format(round($file -> filesize/1024, 0), 0, '.', ' ') }}kB
                         </div>
                     </div>
                 </a>
+                @if(!$loop->last)
+                    <hr />
+                @endif
             @endforeach
         </div>
     </div>
@@ -134,16 +142,24 @@
     <div class="card-body">
         <div class="card-text">
             @foreach($revisions as $revision)
-                <a href="#" style="color: #000000; text-decoration: none;" >
+                <a href="{{ route('positions.show', $revision -> position_id) }}" style="color: #000000; text-decoration: none;" >
+                    <div class="row">
+                        <div class="col">
+                            <strong>{{$revision -> position -> position }} - {{$revision -> position -> name }}</strong>
+                        </div>
+                        <div class="col-2 text-right">
+                            {{ date('d. m. Y.', strtotime($revision -> created_at)) }}
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col text-truncate">
                             {{ $revision -> description }}
                         </div>
-                        <div class="col-2 text-truncate">
-                            {{ $revision -> date }}
-                        </div>
                     </div>
                 </a>
+                @if(!$loop->last)
+                    <hr />
+                @endif
             @endforeach
         </div>
     </div>
@@ -156,3 +172,6 @@
 @endif
 </div>
 @endsection
+
+
+

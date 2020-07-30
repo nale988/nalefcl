@@ -21,4 +21,8 @@ class Revision extends Model
             return $this->belongsToMany('App\FileUpload', 'revision_files');
         }
     }
+
+    public function position(){
+        return $this->belongsTo('App\Position');
+    }
 }

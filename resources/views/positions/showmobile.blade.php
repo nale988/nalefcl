@@ -150,17 +150,17 @@
             <div class="card-body">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
             @foreach($spareparts as $title=>$sparepart)
-            <li class="nav-item">
-                @if($loop->first)
-                    @if($title === "")
-                        <a class="nav-link active" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty" aria-selected="true"><strong>Bez grupe</strong></a>
+                <li class="nav-item">
+                    @if($loop->first)
+                        @if($title === "")
+                            <a class="nav-link active" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty" aria-selected="true"><strong>Bez grupe</strong></a>
+                        @else
+                            <a class="nav-link active" id="{{ str_replace('', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="true"><strong>{{ $title }}</strong></a>
+                        @endif
                     @else
-                        <a class="nav-link active" id="{{ str_replace('', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="true"><strong>{{ $title }}</strong></a>
+                        <a class="nav-link" id="{{ str_replace(' ', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="false"><strong>{{ $title }}</strong></a>
                     @endif
-                @else
-                    <a class="nav-link" id="{{ str_replace(' ', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="false"><strong>{{ $title }}</strong></a>
-                @endif
-            </li>
+                </li>
             @endforeach
             </ul>
 
@@ -173,9 +173,11 @@
                     <div class="tab-pane fade show active" id="{{ str_replace(' ', '-', $title) }}" role="tabpanel" aria-labelledby="home-tab">
                     @endif
                 @else
-                <div class="tab-pane fade" id="{{ str_replace(' ', '-', $title) }}" role="tabpanel" aria-labelledby="{{ str_replace(' ', '-', $title) }}-tab">
+                    <div class="tab-pane fade" id="{{ str_replace(' ', '-', $title) }}" role="tabpanel" aria-labelledby="{{ str_replace(' ', '-', $title) }}-tab">
                 @endif
+
                 <br />
+
                 @foreach($sparepartgrouped as $sparepart)
                 <div class="row">
                             <div class="col-12  text-truncate">
@@ -208,7 +210,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col">
                                 @if(isset($sparepart -> fileurl))
                                     <a href="{{ URL::asset($sparepart -> fileurl) }}" class="btn btn-primary" title="{{ $sparepart -> filename}}  //  {{ number_format(round($sparepart -> filesize/1024, 0), 0, '.', ' ') }}kB" >
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

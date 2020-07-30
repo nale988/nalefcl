@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Jenssegers\Agent\Agent;
 use Session;
 
 use App\Position;
@@ -31,10 +32,18 @@ class SparePartController extends Controller
 
     public function create()
     {
+        $agent = new Agent();
+
         $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
         $spareparttypes = SparePartType::all()->sortBy('description');
-        // TODO: Add mobile view
-        return view('spareparts.create', compact('positions', 'spareparttypes'));
+
+        if ($agent -> isMobile()){
+            return view('spareparts.createmobile', compact('positions', 'spareparttypes'));
+        }
+        else{
+            return view('spareparts.create', compact('positions', 'spareparttypes'));
+        }
+
     }
 
     public function store(Request $request)
@@ -139,6 +148,8 @@ class SparePartController extends Controller
 
     public function edit($id)
     {
+        $agent = new Agent();
+
         $sparepart = SparePart::where('id', $id)->first();
         $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
         $spareparttypes = SparePartType::all()->sortBy('description');
@@ -148,11 +159,15 @@ class SparePartController extends Controller
             ->leftJoin('file_uploads', 'file_uploads.id', '=', 'spare_part_files.file_upload_id')
             ->get(['spare_part_files.id as id', 'spare_part_files.file_upload_id as file_upload_id', 'spare_part_files.spare_part_id as spare_part_id', 'file_uploads.filename as filename', 'file_uploads.filesize as filesize', 'file_uploads.url as url']);
 
-        // print_r(json_encode($selected_positions));
+        // print_r(json_encode($positions));
         // die;
 
-        // TODO: Add mobile view
-        return view('spareparts.edit', compact('sparepart', 'positions', 'spareparttypes', 'selected_positions', 'file'));
+        if ($agent -> isMobile()){
+            return view('spareparts.editmobile', compact('sparepart', 'positions', 'spareparttypes', 'selected_positions', 'file'));
+        }
+        else{
+            return view('spareparts.editmobile', compact('sparepart', 'positions', 'spareparttypes', 'selected_positions', 'file'));
+        }
     }
 
     public function update(Request $request, $id)
