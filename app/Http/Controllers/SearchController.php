@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use App\Position;
 use App\SparePart;
 use App\SparePartType;
 use App\FileUpload;
 use App\Revision;
+use App\Info;
 
 class SearchController extends Controller
 {
@@ -51,6 +53,9 @@ class SearchController extends Controller
         $spareparttypes = collect();
         $files = collect();
         $revisions = collect();
+        $navision = collect();
+
+        $info = Info::first(); // navision date
 
         $item_raw = collect($request->all());
 
@@ -90,16 +95,27 @@ class SearchController extends Controller
                     ->with('position')
                     ->get();
             }
+
+            else if($key == 'search-navision'){
+                $navisions = DB::table('navision')
+                    ->where('br', 'LIKE', '%'.$request->searchvalue.'%')
+                    ->orWhere('opis', 'LIKE', '%'.$request->searchvalue.'%')
+                    ->orWhere('opis_2', 'LIKE', '%'.$request->searchvalue.'%')
+                    ->orWhere('opis_pretrazivanja', 'LIKE', '%'.$request->searchvalue.'%')
+                    ->orWhere('opis_pretrazivanja_1', 'LIKE', '%'.$request->searchvalue.'%')
+                    ->orWhere('opis_pretrazivanja_2', 'LIKE', '%'.$request->searchvalue.'%')
+                    ->get();
+            }
         }
 
-        // print_r(json_encode($revisions));
+        // print_r(json_encode($navisions));
         // die;
 
         if ($agent -> isMobile()){
-            return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions'));
+            return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info'));
         }
         else{
-            return view('search.advancedsearchresults', compact('positions', 'spareparts', 'files', 'revisions'));
+            return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info'));
         }
     }
 }

@@ -58,7 +58,7 @@
     </div>
         <div class="card-footer">
             <div class="text-right">
-                Ukupno rezultata: {{ count($positions)}}
+                <strong>Ukupno rezultata: {{ count($positions)}}</strong>
             </div>
         </div>
   </div>
@@ -99,7 +99,7 @@
     </div>
         <div class="card-footer">
             <div class="text-right">
-                Ukupno rezultata: {{ count($spareparts)}}
+                <strong>Ukupno rezultata: {{ count($spareparts)}}</strong>
             </div>
     </div>
   </div>
@@ -133,7 +133,7 @@
     </div>
         <div class="card-footer">
             <div class="text-right">
-                Ukupno rezultata: {{ count($files)}}
+                <strong>Ukupno rezultata: {{ count($files)}}</strong>
             </div>
     </div>
   </div>
@@ -173,11 +173,80 @@
     </div>
         <div class="card-footer">
             <div class="text-right">
-                Ukupno rezultata: {{ count($revisions)}}
+                <strong>Ukupno rezultata: {{ count($revisions)}}</strong>
             </div>
     </div>
   </div>
 @endif
+
+@if(count($navisions)>0)
+<br />
+<br />
+<div class="card">
+    <div class="card-header">
+      Rezultati pretrage za Navision (baza: {{ date('d. m. Y.', strtotime($info -> navision))}})
+    </div>
+    <div class="card-body">
+        <div class="card-text">
+            @foreach($navisions as $navision)
+                    <div class="row">
+                        <div class="col">
+                            <strong>{{ $navision -> br}}</strong> - {{ $navision -> opis }}
+                        </div>
+                        <div class="col-2 text-right">
+                            {{ $navision -> zalihe }} {{ $navision -> jm_za_nabavu }}
+                        </div>
+                    </div>
+                    @if($navision -> opis_2 <>"")
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Opis 2: {{ $navision -> opis_2 }}</small>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($navision -> opis_pretrazivanja <>"")
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Opis pretraživanja: {{ $navision -> opis_pretrazivanja }}</small>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($navision -> opis_pretrazivanja_1 <>"")
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Opis pretraživanja: {{ $navision -> opis_pretrazivanja_1 }}</small>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($navision -> opis_pretrazivanja_2 <>"")
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Opis pretraživanja: {{ $navision -> opis_pretrazivanja_2 }}</small>
+                        </div>
+                    </div>
+                    @endif
+                    <div class="row">
+                        <div class="col">
+                            <small class="text-muted">Količina na narudžbenici: {{ $navision -> kol_na_narudzbenici }}</small>
+                        </div>
+                    </div>
+                @if(!$loop->last)
+                    <hr />
+                @endif
+            @endforeach
+        </div>
+    </div>
+        <div class="card-footer">
+            <div class="text-right">
+                <strong>Ukupno: {{ count($navisions)}}</strong>
+            </div>
+    </div>
+  </div>
+@endif
+
 
 </div>
 @endsection

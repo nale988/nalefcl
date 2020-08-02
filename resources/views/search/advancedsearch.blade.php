@@ -73,6 +73,13 @@
                             Traži u napomenama
                         </label>
                     </div>
+
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" name="search-navision" id="search-navision">
+                        <label class="form-check-label" for="search-navision">
+                            Traži u Navisionu
+                        </label>
+                    </div>
                 </div>
 
                 <div class="card-footer text-muted">
