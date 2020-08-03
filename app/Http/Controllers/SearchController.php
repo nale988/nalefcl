@@ -53,7 +53,7 @@ class SearchController extends Controller
         $spareparttypes = collect();
         $files = collect();
         $revisions = collect();
-        $navision = collect();
+        $navisions = collect();
 
         $info = Info::first(); // navision date
 
