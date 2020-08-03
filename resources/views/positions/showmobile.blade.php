@@ -180,21 +180,22 @@
 
                 @foreach($sparepartgrouped as $sparepart)
                 <div class="row">
-                            <div class="col-12  text-truncate">
+                            <div class="col-12  text-truncate" title="{{ $sparepart -> storage_number }}">
                                 <strong>{{ $sparepart -> storage_number }}</strong>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-10 text-truncate">
+                            <div class="col-10 text-truncate" title="{{ $sparepart -> description }}">
                                 {{ $sparepart -> description }}
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-8 text-truncate">
+                            <div class="col-8 text-truncate" title="{{ $sparepart -> catalogue_number }}">
                                 {{ $sparepart -> catalogue_number }}
                             </div>
+
                             <div class="col-4 text-right text-truncate" >
                                 {{ $sparepart -> amount }} {{ $sparepart -> unit}}
                             </div>

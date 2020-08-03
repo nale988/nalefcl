@@ -184,15 +184,15 @@
                             @else
                                 <div class="row" style="background-color:#eeeeee;">
                             @endif
-                                    <div class="col-1  text-truncate">
+                                    <div class="col-1  text-truncate" title="{{ $sparepart -> storage_number }}">
                                         {{ $sparepart -> storage_number }}
                                     </div>
 
-                                    <div class="col-3 text-truncate">
+                                    <div class="col-3 text-truncate" title="{{ $sparepart -> description }}">
                                         {{ $sparepart -> description }}
                                     </div>
 
-                                    <div class="col-3 text-truncate">
+                                    <div class="col-3 text-truncate" title="{{ $sparepart -> catalogue_number }}">
                                         {{ $sparepart -> catalogue_number }}
                                     </div>
 

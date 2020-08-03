@@ -11,6 +11,7 @@ class SparePart extends Model
         'catalogue_number',
         'storage_number',
         'info',
+        'order_number',
         'spare_part_group',
         'position',
         'unit',

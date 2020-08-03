@@ -20,6 +20,7 @@ class CreateSparePartsTable extends Migration
             $table->string('catalogue_number')->nullable();
             $table->string('storage_number')->nullable();
             $table->string('info')->nullable();
+            $table->string('order_number')->nullable();
             $table->string('spare_part_group')->nullable();
             $table->string('position')->nullable();
             $table->string('unit')->nullable();
