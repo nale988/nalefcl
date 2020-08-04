@@ -79,13 +79,6 @@ return [
             'visibility' => 'public',
         ],
 
-        'sparepartfileslocal' => [
-            'driver' => 'local',
-            'root' => '/mnt/seedbox/a_files',
-            'url' => '/mnt/seedbox/a_files/public/po',
-            'visibility' => 'public',
-        ],
-
         'revisionfiles' => [
             'driver' => 'local',
             'root' => storage_path('re'),
