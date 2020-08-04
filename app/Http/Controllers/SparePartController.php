@@ -113,9 +113,10 @@ class SparePartController extends Controller
                 ]);
 
                 $extension = $request->file->extension();
-                $request->file->storeAs('../../../../mnt/seedbox/a_files/public/sp/'.$userfolder, $request->file->hashName());
+                //$request->file->storeAs('public/sp/'.$userfolder, $request->file->hashName(), 'sparepartfileslocal');
+                $request->file->storeAs('public/sp/'.$userfolder, $request->file->hashName());
 
-                $url = Storage::disk('sparepartfileslocal')->url($userfolder.'/'.$request->file->hashName());
+                $url = Storage::disk('sparepartfiles')->url($userfolder.'/'.$request->file->hashName());
 
                 $filesize = $request->file('file')->getSize();
 
