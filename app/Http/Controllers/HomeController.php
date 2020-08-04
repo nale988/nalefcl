@@ -41,13 +41,14 @@ class HomeController extends Controller
         $positions = Position::all();
         $sparepartorders = SparePartOrder::where('user_id', $user->id)->where('done', 0)->with('sparepart')->with('position')->orderBy('date')->get();
         $info = Info::first();
+        $base = Info::find(2);
         $today = now();
 
         if ($agent -> isMobile()){
-            return view('welcomemobile', compact('positions', 'sparepartorders', 'info', 'today'));
+            return view('welcomemobile', compact('positions', 'sparepartorders', 'info', 'today', 'base'));
         }
         else{
-            return view('welcome', compact('positions', 'sparepartorders', 'info', 'today'));
+            return view('welcome', compact('positions', 'sparepartorders', 'info', 'today', 'base'));
         }
 
     }
