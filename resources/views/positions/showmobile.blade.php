@@ -205,7 +205,7 @@
                             <div class="col-8 text-truncate" title="{{ $sparepart -> spare_part_type_description }}">
                                 {{ $sparepart -> spare_part_type_description }}
                             </div>
-                            <div class="col-4 text-right text-truncate">
+                            <div class="col-6 text-right text-truncate">
                                 Magacin: {{ $sparepart -> zalihe }}
                             </div>
                         </div>
