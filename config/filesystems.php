@@ -75,7 +75,7 @@ return [
         'sparepartfileslocal' => [
             'driver' => 'local',
             'root' => storage_path('sp'),
-            'url' => '../../../../../../mnt/seedbox/a_files/',
+            'url' => '/mnt/seedbox/a_files/',
             'visibility' => 'public',
         ],
 
