@@ -284,11 +284,11 @@
 
             <div class="row text-muted">
                 <div class="col">
-                    <small>Od: {{ date('d. m. y.', strtotime($workorder -> date)) }}</small>
+                    <small>Od: {{ date('d. m. YY.', strtotime($workorder -> date)) }}</small>
                 </div>
 
                 <div class="col">
-                    <small>Do: {{ date('d. m. y.', strtotime($workorder -> date1)) }}</small>
+                    <small>Do: {{ date('d. m. YY.', strtotime($workorder -> date1)) }}</small>
                 </div>
 
                 <div class="col text-right">
