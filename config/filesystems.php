@@ -72,6 +72,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'sparepartfileslocal' => [
+            'driver' => 'local',
+            'root' => storage_path('sp'),
+            'url' => '../../../../../../mnt/seedbox/a_files/',
+            'visibility' => 'public',
+        ],
+
         'positionfiles' => [
             'driver' => 'local',
             'root' => storage_path('po'),
