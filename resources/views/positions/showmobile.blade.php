@@ -259,7 +259,6 @@
         Radni nalozi
     </div>
     <div class="card-body">
-
         @foreach($workorders as $workorder)
             <div class="row text-muted">
                 <div class="col">
@@ -285,11 +284,11 @@
 
             <div class="row text-muted">
                 <div class="col">
-                    <small>Početak: {{ date('d. m. Y.', strtotime($workorder -> date)) }}</small>
+                    <small>Od: {{ date('d. m. YY.', strtotime($workorder -> date)) }}</small>
                 </div>
 
                 <div class="col">
-                    <small>Kraj: {{ date('d. m. Y.', strtotime($workorder -> date1)) }}</small>
+                    <small>Do: {{ date('d. m. YY.', strtotime($workorder -> date1)) }}</small>
                 </div>
 
                 <div class="col text-right">
