@@ -151,15 +151,17 @@
             @foreach($spareparts as $title=>$sparepart)
             <li class="nav-item">
                 @if($loop->first)
-                    @if(trim($title) === "")
-                        <a class="nav-link active" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty" aria-selected="true"><strong>Bez grupe</strong></a>
-                    @elseif(empty(trim($title)))
+                    @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
                         <a class="nav-link active" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty" aria-selected="true"><strong>Bez grupe</strong></a>
                     @else
                         <a class="nav-link active" id="{{ str_replace('', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="true"><strong>{{ $title }}</strong></a>
                     @endif
                 @else
-                    <a class="nav-link" id="{{ str_replace(' ', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="false"><strong>{{ $title }}</strong></a>
+                    @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
+                        <a class="nav-link" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty" aria-selected="false"><strong>Bez grupe</strong></a>
+                    @else
+                        <a class="nav-link" id="{{ str_replace('', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="false"><strong>{{ $title }}</strong></a>
+                    @endif
                 @endif
             </li>
             @endforeach
@@ -168,13 +170,17 @@
             <div class="tab-content" id="myTabContent">
             @foreach($spareparts as $title=>$sparepartgrouped)
                 @if($loop->first)
-                    @if($title=== "")
-                    <div class="tab-pane fade show active" id="empty" role="tabpanel" aria-labelledby="empty-tab">
+                    @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
+                        <div class="tab-pane fade show active" id="empty" role="tabpanel" aria-labelledby="empty-tab">
                     @else
-                    <div class="tab-pane fade show active" id="{{ str_replace(' ', '-', $title) }}" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="tab-pane fade show active" id="{{ str_replace(' ', '-', $title) }}" role="tabpanel" aria-labelledby="home-tab">
                     @endif
                 @else
-                    <div class="tab-pane fade" id="{{ str_replace(' ', '-', $title) }}" role="tabpanel" aria-labelledby="{{ str_replace(' ', '-', $title) }}-tab">
+                    @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
+                        <div class="tab-pane fade" id="empty" role="tabpanel" aria-labelledby="empty-tab">
+                    @else
+                        <div class="tab-pane fade" id="{{ str_replace(' ', '-', $title) }}" role="tabpanel" aria-labelledby="home-tab">
+                    @endif
                 @endif
                     <br />
                     <div class="row">

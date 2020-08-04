@@ -113,7 +113,6 @@ class SparePartController extends Controller
                 ]);
 
                 $extension = $request->file->extension();
-                //$request->file->storeAs('public/sp/'.$userfolder, $request->file->hashName(), 'sparepartfileslocal');
                 $request->file->storeAs('public/sp/'.$userfolder, $request->file->hashName());
 
                 $url = Storage::disk('sparepartfiles')->url($userfolder.'/'.$request->file->hashName());
