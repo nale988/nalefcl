@@ -36,16 +36,17 @@ class WelcomeController extends Controller
             ->get(['spare_parts.*', 'navision.br as navbr', 'navision.zalihe as zalihe']);
 
         $info = Info::first();
+        $base = Info::find(2);
         $today = now();
 
         // print_r(json_encode($criticalspareparts));
         // die;
 
         if ($agent -> isMobile()){
-            return view('welcomemobile', compact('positions', 'sparepartorders', 'info', 'today'));
+            return view('welcomemobile', compact('positions', 'sparepartorders', 'info', 'today', 'base'));
         }
         else{
-            return view('welcome', compact('positions', 'sparepartorders', 'info', 'today'));
+            return view('welcome', compact('positions', 'sparepartorders', 'info', 'today', 'base'));
         }
 
     }

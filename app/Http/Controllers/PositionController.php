@@ -20,9 +20,18 @@ use App\SparePartConnection;
 use App\FileUpload;
 use App\PositionFile;
 use App\SparePartType;
+use App\WorkOrder;
 
 class PositionController extends Controller
 {
+    public function removepositionfile (Request $request){
+        foreach($request->all() as $key => $value){
+            $file = PositionFile::where('id', $key)->delete();
+        }
+
+        return redirect() -> back() -> with('message', 'Uklonjen dokument!');
+    }
+
     public function uploadpositionfile(Request $request){
         if (Auth::check()){
             $user = Auth::user();
@@ -102,6 +111,10 @@ class PositionController extends Controller
             ->with('files')
             ->get()->first();
 
+        $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
+        // print_r(json_encode($workorders));
+        // die;
+
         if(Auth::check()){
             $user = Auth::user();
         }
@@ -122,10 +135,10 @@ class PositionController extends Controller
         $revisions = Revision::where('position_id', $id)->with('files')->get();
 
         if ($agent -> isMobile()){
-            return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'user'));
+            return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
         }
         else{
-            return view('positions.show', compact('position', 'spareparts', 'revisions', 'user'));
+            return view('positions.show', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
         }
     }
 

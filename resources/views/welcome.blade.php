@@ -121,6 +121,12 @@
                         Navision:<br /> {{ date('d. m. Y.', strtotime($info -> navision))}}
                     </div>
                 </div>
+
+            <div class="row">
+                <div class="col">
+                    Baza RN:<br /> {{ date('d. m. Y.', strtotime($base -> navision))}}
+                </div>
+            </div>
             </div>
         </div>
     </div>

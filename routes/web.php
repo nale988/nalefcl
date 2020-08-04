@@ -17,6 +17,7 @@ Route::get('advancedsearch', 'SearchController@advancedsearch')->name('advanceds
 Route::get('advancedsearchresults', 'SearchController@advancedsearchresults')->name('advancedsearchresults');
 
 Route::get('removesparepartfile', 'SparePartController@removesparepartfile')->name('removesparepartfile');
+Route::get('removepositionfile', 'PositionController@removepositionfile')->name('removepositionfile');
 
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
 Route::get('neworder/{position_id}/{spare_part_id}/{amount}', 'SparePartOrderController@neworder')->name('neworder');

@@ -104,25 +104,32 @@
     <div class="card-body">
 
         @foreach($position -> files as $file)
-        <a href="{{URL::asset($file -> url)}}" style="text-decoration:none; color:#000000;">
             <div class="row">
                 <div class="col">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
-                        <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
-                        <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                      </svg>
-                    {{ $file -> filename }}
-                    <br />
+                    <a href="{{URL::asset($file -> url)}}" style="text-decoration:none; color:#000000;">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
+                            <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
+                            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        {{ $file -> filename }}
+                    </a>
                 </div>
+
                 <div class="col-2 text-right">
                     {{ number_format(round($file -> filesize/1024, 0), 0, '.', ' ') }}kB
                 </div>
+
                 <div class="col-2 text-right">
                     {{ date('d. m. Y.', strtotime($file -> created_at)) }}
+                    <a href="{{ route('removepositionfile', $file -> id) }}" title="Ukloni dokument!">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
-        </a>
         @endforeach
 
     </div>
@@ -256,8 +263,63 @@
 <br />
 <br />
 
+@if(count($workorders)>0)
+<br />
+<div class="card">
+    <div class="card-header">
+        Radni nalozi
+    </div>
+    <div class="card-body">
+
+        @foreach($workorders as $workorder)
+            <div class="row">
+                <div class="col">
+                    {{ $workorder -> content }}
+                </div>
+
+                <div class="col-2 text-right">
+                    {{ $workorder -> owner}}
+                </div>
+            </div>
+
+            <div class="row text-muted">
+                <div class="col-2">
+                    {{ $workorder -> number }}
+                </div>
+
+                <div class="col">
+                    {{ $workorder -> unit }}
+                </div>
+
+                <div class="col-2">
+                    {{ date('d. m. Y.', strtotime($workorder -> date)) }}
+                </div>
+
+                <div class="col-2">
+                    {{ date('d. m. Y.', strtotime($workorder -> date1)) }}
+                </div>
+                <div class="col-1 text-right">
+                    @if ($workorder -> finished ==1)
+                        <span class="badge badge-success">Završeno</span>
+                    @else
+                        <span class="badge badge-danger">Nije završeno</span>
+                    @endif
+                </div>
+            </div>
+
+            @if(!$loop->last)
+                <hr />
+            @endif
+        @endforeach
+
+    </div>
+</div>
+@endif
+
 
 @if(count($revisions)>0)
+<br />
+<br />
 <div class="card">
     <div class="card-header">
         Napomene za poziciju
@@ -329,12 +391,10 @@
         @endforeach
     </div>
 </div>
-
-    <br />
-    <br />
 @endif
 
-
+<br />
+<br />
 <div class="card">
     <div class="card-header">
         Dodaj dokumentaciju za poziciju
