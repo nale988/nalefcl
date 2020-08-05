@@ -112,8 +112,8 @@ class PositionController extends Controller
             ->get()->first();
 
         $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
-        // print_r(json_encode($workorders));
-        // die;
+        //  print_r(json_encode($position));
+        //  die;
 
         if(Auth::check()){
             $user = Auth::user();
@@ -138,7 +138,7 @@ class PositionController extends Controller
             return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
         }
         else{
-            return view('positions.show', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
+            return view('positions.showtemp', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
         }
     }
 
