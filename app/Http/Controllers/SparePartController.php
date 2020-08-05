@@ -49,7 +49,6 @@ class SparePartController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'storage_number' => 'required',
             'description' => 'required'
         ]);
 
@@ -176,7 +175,6 @@ class SparePartController extends Controller
         // die;
 
         $request->validate([
-            'storage_number' => 'required',
             'description' => 'required'
         ]);
 
