@@ -154,13 +154,13 @@
                     @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
                         <a class="nav-link active" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty" aria-selected="true"><strong>Bez grupe</strong></a>
                     @else
-                        <a class="nav-link active" id="{{ str_replace('', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="true"><strong>{{ $title }}</strong></a>
+                        <a class="nav-link active" id="{{ str_replace(' ', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="true"><strong>{{ $title }}</strong></a>
                     @endif
                 @else
                     @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
                         <a class="nav-link" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty" aria-selected="false"><strong>Bez grupe</strong></a>
                     @else
-                        <a class="nav-link" id="{{ str_replace('', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="false"><strong>{{ $title }}</strong></a>
+                        <a class="nav-link" id="{{ str_replace(' ', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="false"><strong>{{ $title }}</strong></a>
                     @endif
                 @endif
             </li>

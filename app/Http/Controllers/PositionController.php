@@ -134,11 +134,14 @@ class PositionController extends Controller
 
         $revisions = Revision::where('position_id', $id)->with('files')->get();
 
+        // print_r(json_encode($spareparts));
+        // die;
+
         if ($agent -> isMobile()){
             return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
         }
         else{
-            return view('positions.showtemp', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
+            return view('positions.show', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
         }
     }
 
