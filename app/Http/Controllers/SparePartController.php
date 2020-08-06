@@ -35,9 +35,16 @@ class SparePartController extends Controller
     public function create()
     {
         $agent = new Agent();
+        
+        if (Auth::check()){
+            $user = Auth::user();
+        }
+        else{
+            return view('/')->with('danger', 'Niste ulogovani!');
+        }
 
         $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
-        $sparepartgroups = SparePartGroup::all()->sortBy('description');
+        $sparepartgroups = SparePartGroup::where('user_id', $user -> id)->sortBy('description');
         $spareparttypes = SparePartType::all()->sortBy('description');
 
         if ($agent -> isMobile()){
