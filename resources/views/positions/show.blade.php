@@ -74,11 +74,6 @@
 
         <div class="card-body">
             <div class="row">
-                <div class="col-6">Rezervnih dijelova:</div>
-                <div class="col-6">{{ count($spareparts->flatten())}}</div>
-            </div>
-
-            <div class="row">
                 <div class="col-6">Dokumenata:</div>
                 <div class="col-6">{{ count($position -> files)}}</div>
             </div>
