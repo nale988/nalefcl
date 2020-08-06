@@ -44,7 +44,7 @@ class SparePartController extends Controller
         }
 
         $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
-        $sparepartgroups = SparePartGroup::where('user_id', $user -> id)->sortBy('description');
+        $sparepartgroups = SparePartGroup::where('user_id', $user -> id)->get()->sortBy('description');
         $spareparttypes = SparePartType::all()->sortBy('description');
 
         if ($agent -> isMobile()){
