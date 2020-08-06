@@ -14,6 +14,8 @@ use App\SparePartFile;
 use App\SparePartConnection;
 use App\FileUpload;
 use App\SparePartType;
+use App\SparePartGroup;
+use App\SparePartGroupConnection;
 
 class SparePartController extends Controller
 {
@@ -35,19 +37,23 @@ class SparePartController extends Controller
         $agent = new Agent();
 
         $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
+        $sparepartgroups = SparePartGroup::all()->sortBy('description');
         $spareparttypes = SparePartType::all()->sortBy('description');
 
         if ($agent -> isMobile()){
-            return view('spareparts.createmobile', compact('positions', 'spareparttypes'));
+            return view('spareparts.createmobile', compact('positions', 'spareparttypes', 'sparepartgroups'));
         }
         else{
-            return view('spareparts.create', compact('positions', 'spareparttypes'));
+            return view('spareparts.create', compact('positions', 'spareparttypes', 'sparepartgroups'));
         }
 
     }
 
     public function store(Request $request)
     {
+        // print_r(json_encode($request->all()));
+        // die;
+
         $request->validate([
             'description' => 'required'
         ]);
@@ -94,6 +100,15 @@ class SparePartController extends Controller
                     'position_id' => $item[1],
                     'spare_part_id' => $sparepart_id,
                     'amount' => $request -> get('amount')
+                ]);
+
+                $connection -> save();
+            }
+
+            if($item[0] == 'sparepartgroup'){
+                $connection = new SparePartGroupConnection([
+                    'spare_part_id' => $sparepart_id,
+                    'spare_part_group_id' => $item[1]
                 ]);
 
                 $connection -> save();
@@ -152,27 +167,30 @@ class SparePartController extends Controller
         $sparepart = SparePart::where('id', $id)->first();
         $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
         $spareparttypes = SparePartType::all()->sortBy('description');
+        $sparepartgroups = SparePartGroup::all()->sortBy('description');
 
         $selected_positions = SparePartConnection::where('spare_part_id', $id)->get();
+        $selected_sparepartgroups = SparePartGroupConnection::where('spare_part_id', $id)->get();
+
         $file = SparePartFile::where('spare_part_id', $id)
             ->leftJoin('file_uploads', 'file_uploads.id', '=', 'spare_part_files.file_upload_id')
             ->get(['spare_part_files.id as id', 'spare_part_files.file_upload_id as file_upload_id', 'spare_part_files.spare_part_id as spare_part_id', 'file_uploads.filename as filename', 'file_uploads.filesize as filesize', 'file_uploads.url as url']);
 
-        // print_r(json_encode($positions));
+        // print_r(json_encode($selected_sparepartgroups));
         // die;
 
         if ($agent -> isMobile()){
-            return view('spareparts.editmobile', compact('sparepart', 'positions', 'spareparttypes', 'selected_positions', 'file'));
+            return view('spareparts.editmobile', compact('sparepart', 'positions', 'sparepartgroups', 'spareparttypes', 'selected_positions', 'selected_sparepartgroups', 'file'));
         }
         else{
-            return view('spareparts.editmobile', compact('sparepart', 'positions', 'spareparttypes', 'selected_positions', 'file'));
+            return view('spareparts.edit', compact('sparepart', 'positions', 'sparepartgroups', 'spareparttypes', 'selected_positions', 'selected_sparepartgroups', 'file'));
         }
     }
 
     public function update(Request $request, $id)
     {
-        // print_r(json_encode($request->all()));
-        // die;
+        //  print_r(json_encode($request->all()));
+        //  die;
 
         $request->validate([
             'description' => 'required'
@@ -213,8 +231,20 @@ class SparePartController extends Controller
             $sparepartconnection -> delete();
         }
 
-        // positions
+        // positions and sparepart groups
         $items_raw = collect($request);
+
+        $selected_positions = SparePartConnection::where('spare_part_id', $id)->get();
+        $selected_sparepartgroups = SparePartGroupConnection::where('spare_part_id', $id)->get();
+
+        foreach($selected_positions as $positions){
+            $positions -> delete();
+        };
+
+        foreach($selected_sparepartgroups as $sparepartgroup){
+            $sparepartgroup -> delete();
+        };
+
         foreach($items_raw as $key => $value){
             $item = explode('-', $key);
             if ($item[0] == 'checkbox'){
@@ -225,7 +255,16 @@ class SparePartController extends Controller
                 ]);
 
                 $connection -> save();
-            }
+            };
+
+            if($item[0] == 'sparepartgroup'){
+                $connection = new SparePartGroupConnection([
+                    'spare_part_id' => $id,
+                    'spare_part_group_id' => $item[1],
+                ]);
+
+                $connection -> save();
+            };
         }
 
         // file

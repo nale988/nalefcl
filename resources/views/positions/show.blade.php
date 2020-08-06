@@ -212,8 +212,8 @@
                                     </div>
 
                                     <div class="col-1">
-                                        @if(isset($sparepart -> fileurl))
-                                            <a href="{{ URL::asset($sparepart -> fileurl) }}" title="{{ $sparepart -> filename}}  //  {{ number_format(round($sparepart -> filesize/1024, 0), 0, '.', ' ') }}kB" >
+                                        @if(isset($sparepart -> file_fileurl))
+                                            <a href="{{ URL::asset($sparepart -> file_fileurl) }}" title="{{ $sparepart -> file_filename}}  //  {{ number_format(round($sparepart -> file_filesize/1024, 0), 0, '.', ' ') }}kB" >
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
                                                     <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
@@ -221,7 +221,7 @@
                                                 </svg>
                                             </a>
                                         @else
-                                            <a href="{{ URL::asset($sparepart -> fileurl) }}" title="{{ $sparepart -> filename}}  //  {{ number_format(round($sparepart -> filesize/1024, 0), 0, '.', ' ') }}kB" >
+                                            <a href="{{ URL::asset($sparepart -> file_fileurl) }}" title="{{ $sparepart -> file_filename}}  //  {{ number_format(round($sparepart -> file_filesize/1024, 0), 0, '.', ' ') }}kB" >
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="white" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
                                                     <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
@@ -251,7 +251,7 @@
                                     </div>
 
                                     <div class="col-1 text-right text-truncate">
-                                        {{ $sparepart -> zalihe }}
+                                        {{ $sparepart -> navision_zalihe }}
                                     </div>
 
                                     <div class="col-2 text-truncate" title="{{ $sparepart -> spare_part_type_description }}">

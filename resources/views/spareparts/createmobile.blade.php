@@ -51,11 +51,6 @@
             </div>
 
             <div class="form-group mb-2">
-                <label for="info">Grupa rezervnih dijelova</label>
-                <input type="text" class="form-control form-control-sm" name="spare_part_group" id="spare_part_group" placeholder="... reduktor // pogonska stanica // grajfer ...">
-            </div>
-
-            <div class="form-group mb-2">
                 <label for="info">Info</label>
                 <input type="text" class="form-control form-control-sm" name="info" id="info" placeholder="Dodatne informacije (broj crteža, detalji i sl.)">
             </div>
@@ -103,6 +98,31 @@
                 </label>
             </div>
 
+            <br />
+
+            <div class="card">
+                <div class="card-header">Grupa rezervnih dijelova?</div>
+                <div class="card-body">
+                    @foreach($sparepartgroups as $sparepartgroup)
+                    <div class="row">
+                        <div class="col-1">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" value="" name="sparepartgroup-{{ $sparepartgroup->id }}" id="sparepartgroup-{{ $sparepartgroup->id }}">
+                                <label class="form-check-label" for="sparepartgroup-{{ $sparepartgroup->id }}">
+                                    &nbsp;
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <span>{{ $sparepartgroup -> description }}</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <br />
             <br />
 
             <div class="card">

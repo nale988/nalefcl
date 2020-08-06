@@ -129,8 +129,19 @@ class PositionController extends Controller
             ->leftJoin('spare_part_types', 'spare_part_types.id', '=', 'spare_parts.spare_part_type_id')
             ->leftJoin('spare_part_files', 'spare_part_files.spare_part_id', '=', 'spare_parts.id')
             ->leftJoin('file_uploads', 'file_uploads.id', '=', 'spare_part_files.file_upload_id')
-            ->get(['spare_parts.*', 'file_uploads.filename as filename', 'file_uploads.url as fileurl', 'file_uploads.filesize as filesize', 'navision.zalihe as zalihe', 'navision.kol_na_narudzbenici as naruceno', 'navision.jedinicni_trosak as jedinicni_trosak', 'spare_part_connections.amount as amount', 'spare_part_types.description as spare_part_type_description'])
-            ->groupBy('spare_part_group');
+            ->leftJoin('spare_part_group_connections', 'spare_parts.id', '=', 'spare_part_group_connections.spare_part_id')
+            ->leftJoin('spare_part_groups', 'spare_part_group_connections.spare_part_group_id', '=', 'spare_part_groups.id')
+            ->get(['spare_parts.*',
+                'navision.zalihe as navision_zalihe',
+                'navision.kol_na_narudzbenici as navision_kol_na_narudzebnici',
+                'spare_part_connections.amount as amount',
+                'spare_part_groups.description as spare_part_group_description',
+                'file_uploads.filename as file_filename',
+                'file_uploads.filesize as file_filesize',
+                'file_uploads.url as file_fileurl',
+                'spare_part_types.description as spare_part_type_description'
+                ])
+            ->groupBy('spare_part_group_description');
 
         // $spareparts = SparePartConnection::where('position_id', $id)
         //     ->leftJoin('spare_parts', 'spare_parts.id', '=', 'spare_part_connections.spare_part_id')

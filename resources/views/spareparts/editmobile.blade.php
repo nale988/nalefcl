@@ -52,11 +52,6 @@
             </div>
 
             <div class="form-group mb-2">
-                <label for="info">Grupa rezervnih dijelova</label>
-                <input type="text" class="form-control form-control-sm" name="spare_part_group" id="spare_part_group" value="{{ $sparepart -> spare_part_group }}">
-            </div>
-
-            <div class="form-group mb-2">
                 <label for="info">Info</label>
                 <input type="text" class="form-control form-control-sm" name="info" id="info" value="{{ $sparepart -> info }}">
             </div>
@@ -108,6 +103,45 @@
                 </label>
             </div>
 
+            <br />
+
+            <div class="card">
+                <div class="card-header">
+                    Grupe rezervnih dijelova
+                </div>
+                <div class="card-body">
+                    @foreach($sparepartgroups as $sparepartgroup)
+                        <div class="row">
+                            <div class="col-1">
+                                <div class="form-check mb-2">
+                                    @php
+                                        $added = 0;
+                                    @endphp
+
+                                    @foreach($selected_sparepartgroups as $selected)
+                                        @if(($selected -> spare_part_group_id) === ($sparepartgroup -> id))
+                                            <input checked class="form-check-input" type="checkbox" name="sparepartgroup-{{ $sparepartgroup->id }}" id="sparepartgroup-{{ $sparepartgroup->id }}" >
+                                            @php
+                                                $added = 1
+                                            @endphp
+                                        @endif
+                                    @endforeach
+
+                                    @if($added == 0)
+                                        <input class="form-check-input" type="checkbox" name="sparepartgroup-{{ $sparepartgroup->id }}" id="sparepartgroup-{{ $sparepartgroup->id }}">
+                                    @endif
+                                    <label class="form-check-label" for="sparepartgroup-{{ $sparepartgroup->id }}">&nbsp;</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <span>{{ $sparepartgroup -> description }}</span>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <br />
             <br />
 
             @if(count($file)>0)
