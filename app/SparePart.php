@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class SparePart extends Model
 {
@@ -27,9 +28,5 @@ class SparePart extends Model
 
     public function files(){
         return $this->belongsToMany('App\FileUpload', 'spare_part_files');
-    }
-
-    public function groups(){
-        return $this->belongsToMany('App\SparePartGroup', 'spare_part_groups');
     }
 }

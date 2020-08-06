@@ -16,6 +16,7 @@ class CreateSparePartGroupsTable extends Migration
         Schema::create('spare_part_groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('description');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

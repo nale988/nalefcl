@@ -103,7 +103,7 @@ class SparePartController extends Controller
                 ]);
 
                 $connection -> save();
-            }
+            };
 
             if($item[0] == 'sparepartgroup'){
                 $connection = new SparePartGroupConnection([
@@ -112,7 +112,7 @@ class SparePartController extends Controller
                 ]);
 
                 $connection -> save();
-            }
+            };
         }
 
         // save file
@@ -164,10 +164,17 @@ class SparePartController extends Controller
     {
         $agent = new Agent();
 
+        if (Auth::check()){
+            $user = Auth::user();
+        }
+        else{
+            return view('/')->with('danger', 'Niste ulogovani!');
+        }
+
         $sparepart = SparePart::where('id', $id)->first();
         $positions = Position::with('unit')->get()->sortBy('unit.unit_number')->groupBy('unit.unit_number');
         $spareparttypes = SparePartType::all()->sortBy('description');
-        $sparepartgroups = SparePartGroup::all()->sortBy('description');
+        $sparepartgroups = SparePartGroup::where('user_id', $user->id)->get()->sortBy('description');
 
         $selected_positions = SparePartConnection::where('spare_part_id', $id)->get();
         $selected_sparepartgroups = SparePartGroupConnection::where('spare_part_id', $id)->get();
