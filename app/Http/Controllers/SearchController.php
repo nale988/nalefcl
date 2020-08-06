@@ -24,7 +24,8 @@ class SearchController extends Controller
             ->orWhere('type', 'LIKE', '%'.$request->searchvalue.'%')
             ->orWhere('manufacturer', 'LIKE', '%'.$request->searchvalue.'%')
             ->with('unit')
-                ->get();
+            ->get()
+            ->sortBy('position');
 
         if ($agent -> isMobile()){
             return view('search.searchmobile', compact('searchresults'));
