@@ -282,7 +282,11 @@
                                     </div>
 
                                     <div class="col-1 text-right text-truncate">
-                                        <small>{{ $sparepart -> navision_zalihe }}</small>
+                                        @if(!empty($sparepart -> navision_zalihe))
+                                            <small>{{ $sparepart -> navision_zalihe }}</small>
+                                        @else
+                                            <small>0</small>
+                                        @endif
                                     </div>
 
                                     <div class="col-1 text-truncate" title="{{ $sparepart -> spare_part_type_description }}">
