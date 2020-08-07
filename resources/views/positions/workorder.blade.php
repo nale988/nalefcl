@@ -86,7 +86,7 @@
             <div class="col">
                 {{ $workorder -> contractor }}
             </div>
-            <div class="col-2 text-right">
+            <div class="col-4 text-right">
                 @if($workorder -> finished == 1)
                     <span class="badge badge-success">Završeno!</span>
                 @else
