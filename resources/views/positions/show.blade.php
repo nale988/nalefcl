@@ -277,7 +277,7 @@
                                         </a>
                                     </div>
 
-                                    <div class="col-1 text-center  text-truncate" >
+                                    <div class="col-1 text-right  text-truncate" >
                                         <small>{{ $sparepart -> amount }} {{ $sparepart -> unit}}</small>
                                     </div>
 
