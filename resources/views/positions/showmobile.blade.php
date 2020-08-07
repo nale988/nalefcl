@@ -193,6 +193,7 @@
                             <div class="col-4 text-right">
                                 <span class="badge badge-success">Kritično!</span>
                             </div>
+                            @endif
                         </div>
 
                         <div class="row">
