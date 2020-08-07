@@ -189,6 +189,9 @@
                     </div>
                     <hr />
                         @foreach($sparepartgrouped->sortBy('position') as $sparepart)
+                            @if ($sparepart -> critical_part)
+                                <strong>
+                            @endif
                             @if ($loop -> odd)
                                 <div class="row" style="background-color:#ffffff;">
                             @else
@@ -255,6 +258,9 @@
                                 </div>
                         @endforeach
                         </div>
+                        @if ($sparepart -> critical_part)
+                            </strong>
+                        @endif
                     @endforeach
             </div>
             </div>
