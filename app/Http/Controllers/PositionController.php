@@ -141,6 +141,7 @@ class PositionController extends Controller
                 'file_uploads.url as file_fileurl',
                 'spare_part_types.description as spare_part_type_description'
                 ])
+            ->sortBy('spare_part_group_description')
             ->groupBy('spare_part_group_description');
 
         // $spareparts = SparePartConnection::where('position_id', $id)
