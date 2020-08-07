@@ -188,7 +188,7 @@
                         <div class="col-1">Pozicija</div>
                     </div>
                     <hr />
-                        @foreach($sparepartgrouped as $sparepart->orderBy('position'))
+                        @foreach($sparepartgrouped->orderBy('position') as $sparepart)
                             @if ($loop -> odd)
                                 <div class="row" style="background-color:#ffffff;">
                             @else
