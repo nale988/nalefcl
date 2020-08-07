@@ -210,6 +210,35 @@
                                     </div>
 
                                     <div class="col-1">
+                                        @if(!empty($sparepart -> info))
+                                            <a href="#" data-toggle="modal" data-target="#modal-{{ $revision -> id }}" >
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-heading" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                  <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+                                                  <path fill-rule="evenodd" d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+                                                  <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z"/>
+                                            </svg>
+                                        </a>
+
+                                        <div class="modal fade col" id="modal-{{ $sparepart -> id }}" tabindex="-1" role="dialog" aria-labelledby="desc-{{ $sparepart -> id }}" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="modal-{{ $sparepart -> id }}">Detalji napomene</h5>
+                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                  </button>
+                                                </div>
+                                                <div class="modal-body d-flex text-justify">
+                                                    {!! $sparepart -> info !!}
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          @endif
+                                    
                                         @if(isset($sparepart -> file_fileurl))
                                             <a href="{{ URL::asset($sparepart -> file_fileurl) }}" title="{{ $sparepart -> file_filename}}  //  {{ number_format(round($sparepart -> file_filesize/1024, 0), 0, '.', ' ') }}kB" >
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
