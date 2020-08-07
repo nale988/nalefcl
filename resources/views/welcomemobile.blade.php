@@ -19,6 +19,7 @@
     </div>
 @endif
 
+@if(count($sparepartorders)>0)
 <div class="row">
     <div class="col">
         <div class="card bg-light mb-3">
@@ -103,6 +104,57 @@
         </div>
     </div>
 </div>
+@endif
+
+<div class="row">
+    <div class="col">
+        <div class="card bg-light mb-3">
+            <div class="card-header font-weight-bold">
+                Moji posljednji nalozi
+            </div>
+            <div class="card-body">
+                @foreach($myworkorders as $workorder)
+                <div class="row">
+                    <div class="col-6 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
+                    <div class="col-6 text-muted text-right text-truncate">{{ $workorder -> date }}</div>
+                </div>
+                <div class="row">
+                    <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
+                </div>
+                @if(!$loop->last)
+                    <hr />
+                @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card bg-light mb-3">
+            <div class="card-header font-weight-bold">
+                Posljednji nalozi
+            </div>
+            <div class="card-body">
+                @foreach($myworkorders as $workorder)
+                <div class="row">
+                    <div class="col-6 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
+                    <div class="col-6 text-muted text-right text-truncate">{{ $workorder -> owner }}</div>
+                </div>
+                <div class="row">
+                    <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
+                </div>
+                @if(!$loop->last)
+                    <hr />
+                @endif
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="row">
     <div class="col">
         <div class="card bg-light mb-3">
@@ -119,7 +171,6 @@
                     <div class="col">
                         Baza RN:<br /> {{ date('d. m. Y.', strtotime($base -> navision))}}
                     </div>
-                </div>
                 </div>
             </div>
         </div>

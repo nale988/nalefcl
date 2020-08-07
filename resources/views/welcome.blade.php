@@ -23,6 +23,66 @@
     <div class="col-10">
         <div class="card bg-light mb-3">
             <div class="card-header font-weight-bold">
+                Posljednji nalozi
+            </div>
+            <div class="card-body">
+                @foreach($workorders as $workorder)
+                    <div class="row">
+                        <div class="col-2 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
+                        <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
+                        <div class="col-2 text-muted text-truncate">{{ $workorder -> owner }}</div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="card bg-light mb-3">
+            <div class="card-header font-weight-bold">
+                Info
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        Navision:<br /> {{ date('d. m. Y.', strtotime($info -> navision))}}
+                    </div>
+                </div>
+
+            <div class="row">
+                <div class="col">
+                    Baza RN:<br /> {{ date('d. m. Y.', strtotime($base -> navision))}}
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+    <div class="card bg-light mb-3">
+        <div class="card-header font-weight-bold">
+            Moji posljednji nalozi
+        </div>
+        <div class="card-body">
+            @foreach($myworkorders as $workorder)
+            <div class="row">
+                <div class="col-2 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
+                <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
+                <div class="col-2 text-muted text-truncate">{{ $workorder -> date }}</div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    </div>
+</div>
+
+
+@if(count($sparepartorders)>0)
+<div class="row">
+    <div class="col-10">
+        <div class="card bg-light mb-3">
+            <div class="card-header font-weight-bold">
                 Pregled trenutnih narudžbi
             </div>
             <div class="card-body">
@@ -110,28 +170,8 @@
             </div>
         </div>
     </div>
-    <div class="col-2">
-        <div class="card bg-light mb-3">
-            <div class="card-header font-weight-bold">
-                Info
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                        Navision:<br /> {{ date('d. m. Y.', strtotime($info -> navision))}}
-                    </div>
-                </div>
-
-            <div class="row">
-                <div class="col">
-                    Baza RN:<br /> {{ date('d. m. Y.', strtotime($base -> navision))}}
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
 </div>
-
+@endif
 
 </div> <!-- CONTAINER -->
 @endsection

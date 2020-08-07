@@ -10,20 +10,64 @@ use Illuminate\Support\Facades\Storage;
 use Jenssegers\Agent\Agent;
 use Session;
 
-use DB;
-use Carbon\Carbon;
 use App\User;
 use App\Position;
 use App\Revision;
-use App\SparePart;
 use App\SparePartConnection;
 use App\FileUpload;
 use App\PositionFile;
-use App\SparePartType;
 use App\WorkOrder;
+use App\Unit;
 
 class PositionController extends Controller
 {
+    public function workorder($id){
+        //$agent = new Agent();
+
+        // if (Auth::check()){
+        //     $user = Auth::user();
+        // }
+        // else{
+        //     return redirect() -> back() -> with('danger', 'Niste ulogovani!');
+        // }
+
+        $workorder = WorkOrder::where('id', $id)->first();
+        $position = Position::where('position', 'LIKE', $workorder -> position)->first();
+        $units = Unit::find($position -> unit)->first();
+        // print_r(json_encode($units));
+        // die;
+
+
+        // if ($agent -> isMobile()){
+        //     return view('positions.workordermobile', compact('workorder', 'position', 'units'));
+        // }
+        // else {
+        //     return view('positions.workorder', compact('workorder', 'position', 'units'));
+        // }
+        return view('positions.workorder', compact('workorder', 'position', 'units'));
+    }
+
+    public function workorders($position){
+        $agent = new Agent();
+
+        if (Auth::check()){
+            $user = Auth::user();
+        }
+        else{
+            return redirect() -> back() -> with('danger', 'Niste ulogovani!');
+        }
+
+        $workorders = WorkOrder::where('position', 'LIKE', $position)->get()->sortByDesc('date');
+        // print_r(json_encode($workorders));
+        // die;
+        if ($agent -> isMobile()){
+            return view('positions.workordersmobile', compact('workorders'));
+        }
+        else {
+            return view('positions.workorders', compact('workorders'));
+        }
+    }
+
     public function removepositionfile (Request $request){
         foreach($request->all() as $key => $value){
             $file = PositionFile::where('id', $key)->delete();
@@ -112,7 +156,7 @@ class PositionController extends Controller
             ->get()->first();
 
         $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
-        //  print_r(json_encode($position));
+        //  print_r(json_encode($workorders));
         //  die;
 
         if(Auth::check()){

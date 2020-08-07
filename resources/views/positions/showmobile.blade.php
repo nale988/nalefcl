@@ -93,7 +93,11 @@
     </div>
 </div>
 
-
+<div class="row">
+    <div class="col text-center">
+        <a href="{{ route('workorders', $position -> position)}}" class="btn btn-danger btn-sm">Radni nalozi</a>
+    </div>
+</div>
 
 @if(count($position -> files)>0)
 <br />
@@ -209,7 +213,7 @@
                             </div>
                         </div>
                         @endif
-                        
+
                         @if(strlen($sparepart -> order_number) > 1)
                         <div class="row">
                             <div class="col text-truncate">
@@ -217,7 +221,7 @@
                             </div>
                         </div>
                         @endif
-                        
+
                         @if(strlen($sparepart -> info) > 1)
                         <div class="row">
                             <div class="col text-truncate">
@@ -225,7 +229,7 @@
                             </div>
                         </div>
                         @endif
-                        
+
                         <div class="row">
                             <div class="col-6 text-truncate" >
                                 Količina: {{ $sparepart -> amount }} {{ $sparepart -> unit}}
@@ -287,64 +291,6 @@
 
 <br />
 <br />
-
-@if(count($workorders)>0)
-<br />
-<div class="card">
-    <div class="card-header">
-        Radni nalozi
-    </div>
-    <div class="card-body">
-        @foreach($workorders as $workorder)
-            <div class="row text-muted">
-                <div class="col">
-                    <small>{{ $workorder -> number }}</small>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-justify">
-                    {{ $workorder -> content }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-right">
-                    {{ $workorder -> owner}}
-                </div>
-            </div>
-            <br />
-            <div class="row text-muted">
-                <div class="col text-truncate">
-                    <small>{{ $workorder -> unit }}</small>
-                </div>
-            </div>
-
-            <div class="row text-muted">
-                <div class="col">
-                    <small>Od: {{ date('d. m. YY.', strtotime($workorder -> date)) }}</small>
-                </div>
-
-                <div class="col">
-                    <small>Do: {{ date('d. m. YY.', strtotime($workorder -> date1)) }}</small>
-                </div>
-
-                <div class="col text-right">
-                    @if ($workorder -> finished ==1)
-                        <span class="badge badge-success">Završeno</span>
-                    @else
-                        <span class="badge badge-danger">Nije završeno</span>
-                    @endif
-                </div>
-            </div>
-
-            @if(!$loop->last)
-                <hr />
-            @endif
-        @endforeach
-
-    </div>
-</div>
-@endif
-
 
 @if(count($revisions)>0)
 <br />

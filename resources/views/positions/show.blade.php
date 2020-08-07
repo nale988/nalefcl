@@ -82,12 +82,18 @@
                 <div class="col-6">Napomena:</div>
                 <div class="col-6">{{ count($revisions)}}</div>
             </div>
+
+
         </div>
     </div>
     <br />
+    <div class="row">
+        <div class="col text-center">
+            <a href="{{ route('workorders', $position -> position)}}" class="btn btn-danger btn-sm">Radni nalozi</a>
+        </div>
+    </div>
 </div>
 </div>
-
 
 
 @if(count($position -> files)>0)
@@ -244,7 +250,7 @@
                                                   <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z"/>
                                             </svg>
                                         @endif
-                                    
+
                                         @if(isset($sparepart -> file_fileurl))
                                             <a href="{{ URL::asset($sparepart -> file_fileurl) }}" title="{{ $sparepart -> file_filename}}  //  {{ number_format(round($sparepart -> file_filesize/1024, 0), 0, '.', ' ') }}kB" >
                                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -305,63 +311,6 @@
     </div>
     </div>
 @endif
-
-<br />
-<br />
-
-@if(count($workorders)>0)
-<br />
-<div class="card">
-    <div class="card-header">
-        Radni nalozi
-    </div>
-    <div class="card-body">
-
-        @foreach($workorders as $workorder)
-            <div class="row">
-                <div class="col">
-                    {{ $workorder -> content }}
-                </div>
-
-                <div class="col-2 text-right">
-                    {{ $workorder -> owner}}
-                </div>
-            </div>
-
-            <div class="row text-muted">
-                <div class="col-2">
-                    {{ $workorder -> number }}
-                </div>
-
-                <div class="col">
-                    {{ $workorder -> unit }}
-                </div>
-
-                <div class="col-2">
-                    {{ date('d. m. Y.', strtotime($workorder -> date)) }}
-                </div>
-
-                <div class="col-2">
-                    {{ date('d. m. Y.', strtotime($workorder -> date1)) }}
-                </div>
-                <div class="col-1 text-right">
-                    @if ($workorder -> finished ==1)
-                        <span class="badge badge-success">Završeno</span>
-                    @else
-                        <span class="badge badge-danger">Nije završeno</span>
-                    @endif
-                </div>
-            </div>
-
-            @if(!$loop->last)
-                <hr />
-            @endif
-        @endforeach
-
-    </div>
-</div>
-@endif
-
 
 @if(count($revisions)>0)
 <br />
