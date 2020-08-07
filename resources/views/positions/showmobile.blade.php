@@ -181,36 +181,54 @@
                 <br />
 
                 @foreach($sparepartgrouped->sortBy('position') as $sparepart)
+                @if($sparepart -> critical_part)
+                    <strong>
+                @endif
                 <div class="row">
                             <div class="col-12  text-truncate" title="{{ $sparepart -> storage_number }}">
-                                <strong>{{ $sparepart -> storage_number }}</strong>
+                            @if(strlen($sparepart -> storage_number) < 1)
+                                <strong>Skladišni broj: - </strong>
+                            @else
+                                <strong>Skladišni broj: {{ $sparepart -> storage_number }}</strong>
+                            @endif
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-10 text-truncate" title="{{ $sparepart -> description }}">
+                            <div class="col text-truncate" title="{{ $sparepart -> description }}">
                                 {{ $sparepart -> description }}
                             </div>
                         </div>
-
+                        
+                        @if(strlen($sparepart -> catalogue_number) > 1)
                         <div class="row">
-                            <div class="col-8 text-truncate" title="{{ $sparepart -> catalogue_number }}">
-                                {{ $sparepart -> catalogue_number }}
-                            </div>
-
-                            <div class="col-4 text-right text-truncate" >
-                                {{ $sparepart -> amount }} {{ $sparepart -> unit}}
+                            <div class="col text-truncate">
+                                Kataloški broj: {{ $sparepart -> catalogue_number }}
                             </div>
                         </div>
+                        @endif
                         
-                         <div class="row">
+                        @if(strlen($sparepart -> info) > 1)
+                        <div class="row">
                             <div class="col text-truncate">
+                                Info: {{ $sparepart -> info }}
+                            </div>
+                        </div>
+                        @endif
+                        
+                        <div class="row">
+                            <div class="col-6 text-truncate" >
+                                Količina: {{ $sparepart -> amount }} {{ $sparepart -> unit}}
+                            </div>
+
+                            <div class="col-6 text-right text-truncate">
                                 Pozicija na crtežu: {{ $sparepart -> position }}
                             </div>
-                         </div>
+                        </div>
+
 
                         <div class="row">
-                            <div class="col-6 text-truncate" title="{{ $sparepart -> spare_part_type_description }}">
+                            <div class="col-6 text-truncate">
                                 {{ $sparepart -> spare_part_type_description }}
                             </div>
                             <div class="col-6 text-right text-truncate">
@@ -247,6 +265,9 @@
                             </div>
                         </div>
                 <hr />
+                @if($sparepart -> critical_part)
+                    </strong>
+                @endif
                 @endforeach
                 </div>
             @endforeach
