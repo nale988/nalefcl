@@ -181,16 +181,17 @@
                 <br />
 
                 @foreach($sparepartgrouped->sortBy('position') as $sparepart)
-                @if($sparepart -> critical_part)
-                    <strong>
-                @endif
                 <div class="row">
-                            <div class="col-12  text-truncate" title="{{ $sparepart -> storage_number }}">
+                            <div class="col-8  text-truncate" title="{{ $sparepart -> storage_number }}">
                             @if(strlen($sparepart -> storage_number) < 1)
                                 <h5> - </h5>
                             @else
                                 <h5>{{ $sparepart -> storage_number }}</h5>
                             @endif
+                            </div>
+                            @if($sparepart -> critical_part)
+                            <div class="col-4 text-right">
+                                <span class="badge badge-success">Kritično!</span>
                             </div>
                         </div>
 
@@ -239,15 +240,13 @@
                             <div class="col-6 text-truncate">
                                 {{ $sparepart -> spare_part_type_description }}
                             </div>
-                            @if(strlen($sparepart -> zalihe) > 0)
                             <div class="col-6 text-right text-truncate">
                                 Magacin: {{ $sparepart -> zalihe }}
                             </div>
-                            @endif
                         </div>
 
-                        <div class="row">
-                            <div class="col">
+                        <div class="row text-right">
+                            <div class="col-12">
                                 @if(isset($sparepart -> fileurl))
                                     <a href="{{ URL::asset($sparepart -> fileurl) }}" class="btn btn-primary" title="{{ $sparepart -> filename}}  //  {{ number_format(round($sparepart -> filesize/1024, 0), 0, '.', ' ') }}kB" >
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -275,9 +274,6 @@
                             </div>
                         </div>
                 <hr />
-                @if($sparepart -> critical_part)
-                    </strong>
-                @endif
                 @endforeach
                 </div>
             @endforeach
