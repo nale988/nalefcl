@@ -242,7 +242,7 @@
                                 {{ $sparepart -> spare_part_type_description }}
                             </div>
                             <div class="col-6 text-right text-truncate">
-                                Magacin: {{ $sparepart -> zalihe }}
+                                Magacin: {{ $sparepart -> navision_zalihe }}
                             </div>
                         </div>
 
