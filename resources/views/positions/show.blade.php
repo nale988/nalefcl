@@ -237,7 +237,7 @@
                                               </div>
                                             </div>
                                           </div>
-                                          @endif
+                                        @endif
                                     
                                         @if(isset($sparepart -> file_fileurl))
                                             <a href="{{ URL::asset($sparepart -> file_fileurl) }}" title="{{ $sparepart -> file_filename}}  //  {{ number_format(round($sparepart -> file_filesize/1024, 0), 0, '.', ' ') }}kB" >
