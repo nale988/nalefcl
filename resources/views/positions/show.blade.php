@@ -278,15 +278,15 @@
                                     </div>
 
                                     <div class="col-1 text-center  text-truncate" >
-                                        {{ $sparepart -> amount }} {{ $sparepart -> unit}}
+                                        <small>{{ $sparepart -> amount }} {{ $sparepart -> unit}}</small>
                                     </div>
 
                                     <div class="col-1 text-right text-truncate">
-                                        {{ $sparepart -> navision_zalihe }}
+                                        <small>{{ $sparepart -> navision_zalihe }}</small>
                                     </div>
 
                                     <div class="col-1 text-truncate" title="{{ $sparepart -> spare_part_type_description }}">
-                                        {{ $sparepart -> position }}
+                                        <small>{{ $sparepart -> position }}</small>
                                     </div>
                                 </div>
                         @if ($sparepart -> critical_part)
