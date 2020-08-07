@@ -202,9 +202,15 @@
                                 {{ $sparepart -> amount }} {{ $sparepart -> unit}}
                             </div>
                         </div>
+                        
+                         <div class="row">
+                            <div class="col text-truncate">
+                                Pozicija na crtežu: {{ $sparepart -> position }}
+                            </div>
+                         </div>
 
                         <div class="row">
-                            <div class="col-8 text-truncate" title="{{ $sparepart -> spare_part_type_description }}">
+                            <div class="col-6 text-truncate" title="{{ $sparepart -> spare_part_type_description }}">
                                 {{ $sparepart -> spare_part_type_description }}
                             </div>
                             <div class="col-6 text-right text-truncate">
