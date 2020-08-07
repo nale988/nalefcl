@@ -256,11 +256,11 @@
                                         {{ $sparepart -> position }}
                                     </div>
                                 </div>
-                        @endforeach
-                        </div>
                         @if ($sparepart -> critical_part)
                             </strong>
                         @endif
+                        @endforeach
+                        </div>
                     @endforeach
             </div>
             </div>
