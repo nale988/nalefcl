@@ -124,6 +124,7 @@ class PositionController extends Controller
 
         $spareparts = SparePartConnection::where('position_id', $id)
             ->leftJoin('spare_parts', 'spare_parts.id', '=', 'spare_part_connections.spare_part_id')
+            ->orderBy('spare_parts.position')
             ->leftJoin('users', 'spare_parts.user_id', '=', 'users.id')->where('users.id', '=', $user->id)
             ->leftJoin('navision', 'navision.br', '=', 'spare_parts.storage_number')
             ->leftJoin('spare_part_types', 'spare_part_types.id', '=', 'spare_parts.spare_part_type_id')
