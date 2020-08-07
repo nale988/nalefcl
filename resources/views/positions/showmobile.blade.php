@@ -187,23 +187,31 @@
                 <div class="row">
                             <div class="col-12  text-truncate" title="{{ $sparepart -> storage_number }}">
                             @if(strlen($sparepart -> storage_number) < 1)
-                                <strong>Skladišni broj: - </strong>
+                                <h5> - </h5>
                             @else
-                                <strong>Skladišni broj: {{ $sparepart -> storage_number }}</strong>
+                                <h5>{{ $sparepart -> storage_number }}</h5>
                             @endif
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col text-truncate" title="{{ $sparepart -> description }}">
-                                {{ $sparepart -> description }}
+                                <u>{{ $sparepart -> description }}</u>
                             </div>
                         </div>
-                        
+                        <br />
                         @if(strlen($sparepart -> catalogue_number) > 1)
                         <div class="row">
                             <div class="col text-truncate">
-                                Kataloški broj: {{ $sparepart -> catalogue_number }}
+                                Kat. broj: {{ $sparepart -> catalogue_number }}
+                            </div>
+                        </div>
+                        @endif
+                        
+                        @if(strlen($sparepart -> order_number) > 1)
+                        <div class="row">
+                            <div class="col text-truncate">
+                                Kat. broj: {{ $sparepart -> order_number }}
                             </div>
                         </div>
                         @endif
@@ -222,7 +230,7 @@
                             </div>
 
                             <div class="col-6 text-right text-truncate">
-                                Pozicija na crtežu: {{ $sparepart -> position }}
+                                Pozicija: {{ $sparepart -> position }}
                             </div>
                         </div>
 
@@ -231,9 +239,11 @@
                             <div class="col-6 text-truncate">
                                 {{ $sparepart -> spare_part_type_description }}
                             </div>
+                            @if(strlen($sparepart -> zalihe) > 0)
                             <div class="col-6 text-right text-truncate">
                                 Magacin: {{ $sparepart -> zalihe }}
                             </div>
+                            @endif
                         </div>
 
                         <div class="row">
