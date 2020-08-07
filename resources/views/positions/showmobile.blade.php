@@ -180,7 +180,7 @@
                 @endif
                 <br />
 
-                @foreach($sparepartgrouped as $sparepart)
+                @foreach($sparepartgrouped->sortBy('position') as $sparepart)
                 <div class="row">
                             <div class="col-12  text-truncate" title="{{ $sparepart -> storage_number }}">
                                 <strong>{{ $sparepart -> storage_number }}</strong>
