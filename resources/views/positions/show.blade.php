@@ -185,7 +185,7 @@
                         <div class="col-1">Opcije</div>
                         <div class="col-1">Količina</div>
                         <div class="col-1">Magacin</div>
-                        <div class="col-2">Vrsta</div>
+                        <div class="col-1">Pozicija</div>
                     </div>
                     <hr />
                         @foreach($sparepartgrouped as $sparepart)
@@ -249,8 +249,8 @@
                                         {{ $sparepart -> navision_zalihe }}
                                     </div>
 
-                                    <div class="col-2 text-truncate" title="{{ $sparepart -> spare_part_type_description }}">
-                                        {{ $sparepart -> spare_part_type_description }}
+                                    <div class="col-1 text-truncate" title="{{ $sparepart -> spare_part_type_description }}">
+                                        {{ $sparepart -> position }}
                                     </div>
                                 </div>
                         @endforeach
