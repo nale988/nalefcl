@@ -27,11 +27,13 @@
             </div>
             <div class="card-body">
                 @foreach($workorders as $workorder)
+                <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
                     <div class="row">
                         <div class="col-2 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
                         <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
                         <div class="col-2 text-muted text-truncate">{{ $workorder -> owner }}</div>
                     </div>
+                </a>
                 @endforeach
             </div>
         </div>
@@ -44,13 +46,13 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        Navision:<br /> {{ date('d. m. Y.', strtotime($info -> navision))}}
+                        Navision:<br /> {{ date('d. m. Y.', strtotime($info -> navision)) }}
                     </div>
                 </div>
 
             <div class="row">
                 <div class="col">
-                    Baza RN:<br /> {{ date('d. m. Y.', strtotime($base -> navision))}}
+                    Baza RN:<br /> {{ date('d. m. Y.', strtotime($base -> navision)) }}
                 </div>
             </div>
             </div>
@@ -66,11 +68,13 @@
         </div>
         <div class="card-body">
             @foreach($myworkorders as $workorder)
+            <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
             <div class="row">
                 <div class="col-2 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
                 <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
-                <div class="col-2 text-muted text-truncate">{{ $workorder -> date }}</div>
+                <div class="col-2 text-muted text-right text-truncate">{{ date('d. m. Y.', strtotime($workorder -> date)) }}</div>
             </div>
+            </a>
             @endforeach
         </div>
     </div>

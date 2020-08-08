@@ -114,13 +114,15 @@
             </div>
             <div class="card-body">
                 @foreach($myworkorders as $workorder)
+                <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
                 <div class="row">
                     <div class="col-6 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
-                    <div class="col-6 text-muted text-right text-truncate">{{ $workorder -> date }}</div>
+                    <div class="col-6 text-muted text-right text-truncate">{{ date('d. m. Y.', strtotime($workorder -> date)) }}</div>
                 </div>
                 <div class="row">
                     <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
                 </div>
+                </a>
                 @if(!$loop->last)
                     <hr />
                 @endif
@@ -138,6 +140,7 @@
             </div>
             <div class="card-body">
                 @foreach($myworkorders as $workorder)
+                <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
                 <div class="row">
                     <div class="col-6 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
                     <div class="col-6 text-muted text-right text-truncate">{{ $workorder -> owner }}</div>
@@ -145,6 +148,7 @@
                 <div class="row">
                     <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
                 </div>
+                </a>
                 @if(!$loop->last)
                     <hr />
                 @endif
