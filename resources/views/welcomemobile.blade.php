@@ -139,7 +139,7 @@
                 Posljednji nalozi
             </div>
             <div class="card-body">
-                @foreach($myworkorders as $workorder)
+                @foreach($workorders as $workorder)
                 <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
                 <div class="row">
                     <div class="col-6 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
