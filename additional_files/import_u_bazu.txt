@@ -1,0 +1,31 @@
+Import radnih naloga
+
+obrisati i prvi red s imenima kolona
+zamijeniti sve ";" s ","
+popuniti datum1 jer na tuce mjesta fali
+popuniti datum jer na par mjesta fali
+
+formatirati datum kao "YYYY-MM-DD"
+prebaciti "FALSE" i "TRUE" u 0 i 1
+obrisati sve iz attachment i attachment1
+
+number, unit, position, content, date, date1, comment, preventive_maintenance, intervention, fix, general_repair, contractor, worker1, worker2, worker3, worker4, owner, attachment, attachment1, finished, planned
+
+___________________________________________________
+import navisiona
+kopirati iz Navisiona
+zamijeniti sve ";" s "-"
+zamijeniti sve "	" s ";"
+
+u excelu Navision.xlsm importovati sve iz txta
+koristiti macro za konvertovanje iz sheeta "navision" u "Sheet2"
+kopirati sav sadržaj sheet2 u notepad i sačuvati kao *.sql
+
+________________________________
+import trebovanja
+
+formatirati datum
+prebaciti "FALSE" i "TRUE" u 0 i 1
+obrisati kolonu "Redni broj"
+
+storage_number, title, price, pieces, position, workorder_number, worker, date, service, grease
