@@ -184,7 +184,7 @@
                 @endif
                 <br />
 
-                @foreach($sparepartgrouped->sortBy('position') as $sparepart)
+                @foreach($sparepartgrouped->sortBy('storage_number') as $sparepart)
                 <div class="row">
                             <div class="col-8  text-truncate" title="{{ $sparepart -> storage_number }}">
                             @if(strlen($sparepart -> storage_number) < 1)

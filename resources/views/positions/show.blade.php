@@ -194,7 +194,7 @@
                         <div class="col-1">Pozicija</div>
                     </div>
                     <hr />
-                        @foreach($sparepartgrouped->sortBy('position') as $sparepart)
+                        @foreach($sparepartgrouped->sortBy('storage_number') as $sparepart)
                             @if ($sparepart -> critical_part)
                                 <strong>
                             @endif
