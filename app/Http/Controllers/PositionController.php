@@ -209,7 +209,7 @@ class PositionController extends Controller
             return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
         }
         else{
-            return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
+            return view('positions.show', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
         }
     }
 

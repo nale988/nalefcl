@@ -191,10 +191,15 @@
             @foreach($navisions as $navision)
                     <div class="row">
                         <div class="col">
-                            <strong>{{ $navision -> br}}</strong> - {{ $navision -> opis }}
+                            <strong>{{ $navision -> br }}</strong>
                         </div>
-                        <div class="col-2 text-right">
+                        <div class="col-6 text-right">
                             {{ $navision -> zalihe }} {{ $navision -> jm_za_nabavu }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ $navision -> opis }}
                         </div>
                     </div>
                     @if($navision -> opis_2 <>"")
