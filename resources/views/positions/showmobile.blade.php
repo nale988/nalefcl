@@ -145,25 +145,21 @@
                         Bez grupe
                     </button>
                 </div>
-
                 <div id="collapse-empty" class="collapse" aria-labelledby="heading-empty" data-parent="#accordion">
-                    @foreach($sparepartgrouped->sortBy('storage_number') as $sparepart)
-                            {{ $sparepart -> id}}
-                    @endforeach
-                </div>
             @else
                 <div class="card card-header" id="heading-{{ str_replace(' ', '-', $title) }}">
                     <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{ str_replace(' ', '-', $title) }}" aria-expanded="false" aria-controls="collapse-{{ str_replace(' ', '-', $title) }}">
                         {{ $title }}
                     </button>
                 </div>
-
                 <div id="collapse-{{ str_replace(' ', '-', $title) }}" class="collapse" aria-labelledby="heading-{{ str_replace(' ', '-', $title) }}" data-parent="#accordion">
-                    @foreach($sparepartgrouped->sortBy('storage_number') as $sparepart)
-                            {{ $sparepart -> id}}
-                    @endforeach
-                </div>
             @endif
+
+                @foreach($sparepartgrouped->sortBy('storage_number') as $sparepart)
+                    {{ $sparepart -> id}}
+                @endforeach
+
+                </div> <!-- div id collapse -->
         @endforeach
     </div>
 
