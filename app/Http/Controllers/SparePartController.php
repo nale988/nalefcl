@@ -21,6 +21,8 @@ use App\SparePartGroupConnection;
 class SparePartController extends Controller
 {
     public function dangerlevelspareparts(){
+        $agent = new Agent();
+
         if (Auth::check()){
             $user = Auth::user();
         }
@@ -52,9 +54,14 @@ class SparePartController extends Controller
         ->unique('storage_number')
         ->groupBy('position_position');
 
-        return view('spareparts.dangerlevel', compact('lowspareparts'));
-        print_r(json_encode($lowspareparts));
-        die;
+        if ($agent->isMobile()){
+            return view('spareparts.dangerlevelmobile', compact('lowspareparts'));
+        }
+        else{
+            return view('spareparts.dangerlevel', compact('lowspareparts'));
+        }
+        // print_r(json_encode($lowspareparts));
+        // die;
     }
 
     public function removesparepartfile(Request $request){
