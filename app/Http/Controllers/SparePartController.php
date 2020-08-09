@@ -53,11 +53,10 @@ class SparePartController extends Controller
         ->groupBy('position_position');
 
         return view('spareparts.dangerlevel', compact('lowspareparts'));
-
         print_r(json_encode($lowspareparts));
         die;
-
     }
+
     public function removesparepartfile(Request $request){
         foreach($request->all() as $key => $value){
             $file = SparePartFile::where('id', $key)->delete();
@@ -229,7 +228,7 @@ class SparePartController extends Controller
             ->leftJoin('file_uploads', 'file_uploads.id', '=', 'spare_part_files.file_upload_id')
             ->get(['spare_part_files.id as id', 'spare_part_files.file_upload_id as file_upload_id', 'spare_part_files.spare_part_id as spare_part_id', 'file_uploads.filename as filename', 'file_uploads.filesize as filesize', 'file_uploads.url as url']);
 
-        // print_r(json_encode($selected_sparepartgroups));
+        // print_r(json_encode($selected_positions));
         // die;
 
         if ($agent -> isMobile()){

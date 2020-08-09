@@ -65,7 +65,11 @@
                 <div class="col-6">
                     <div class="form-group mb-2">
                     <label for="drawing_position">Količina</label>
-                    <input type="number" step=".01" class="form-control form-control-sm" name="amount" id="amount" value="{{ $selected_positions -> first() -> amount}}">
+                    @if(!empty($selected_positions -> first() -> amount))
+                        <input type="number" step=".01" class="form-control form-control-sm" name="amount" id="amount" value="{{ $selected_positions -> first() -> amount}}">
+                    @else
+                        <input type="number" step=".01" class="form-control form-control-sm" name="amount" id="amount" value="1">
+                    @endif
                     </div>
                 </div>
 

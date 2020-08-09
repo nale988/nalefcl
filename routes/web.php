@@ -23,7 +23,7 @@ Route::get('removepositionfile', 'PositionController@removepositionfile')->name(
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
 Route::get('workorder/{id}', 'PositionController@workorder')->name('workorder');
 Route::get('workorders/{position}', 'PositionController@workorders') -> name('workorders');
-Route::get('neworder/{position_id}/{spare_part_id}/{amount}', 'SparePartOrderController@neworder')->name('neworder');
+Route::get('neworder/{position_id?}/{spare_part_id?}/{amount?}', 'SparePartOrderController@neworder')->name('neworder');
 Route::get('confirmorder/{sparepartorder_id}', 'SparePartOrderController@confirmorder')->name('confirmorder');
 
 Route::resource('positions', 'PositionController');
