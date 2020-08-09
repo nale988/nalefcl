@@ -137,185 +137,36 @@
 @endif
 
 @if(count($spareparts)>0)
-    <br />
-    <br />
-    <div class="row">
-    <div class= "col-12">
-        <div class="card">
-            <div class="card-header">
-                Rezervni dijelovi
-            </div>
-
-            <div class="card-body">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-            @foreach($spareparts as $title=>$sparepart)
-                <li class="nav-item">
-                    @if($loop->first)
-                        @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
-                            <a class="nav-link active" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty" aria-selected="true"><strong>Bez grupe</strong></a>
-                        @else
-                            <a class="nav-link active" id="{{ str_replace('', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="true"><strong>{{ $title }}</strong></a>
-                        @endif
-                    @else
-                        @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
-                            <a class="nav-link" id="empty-tab" data-toggle="tab" href="#empty" role="tab" aria-controls="empty" aria-selected="false"><strong>Bez grupe</strong></a>
-                        @else
-                            <a class="nav-link" id="{{ str_replace('', '-', $title) }}-tab" data-toggle="tab" href="#{{ str_replace(' ', '-', $title) }}" role="tab" aria-controls="{{ str_replace(' ', '-', $title) }}" aria-selected="false"><strong>{{ $title }}</strong></a>
-                        @endif
-                    @endif
-                </li>
-            @endforeach
-            </ul>
-
-            <div class="tab-content" id="myTabContent">
-            @foreach($spareparts as $title=>$sparepartgrouped)
-                @if($loop->first)
-                    @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
-                        <div class="tab-pane fade show active" id="empty" role="tabpanel" aria-labelledby="empty-tab">
-                    @else
-                        <div class="tab-pane fade show active" id="{{ str_replace(' ', '-', $title) }}" role="tabpanel" aria-labelledby="home-tab">
-                    @endif
-                @else
-                    @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
-                        <div class="tab-pane fade" id="empty" role="tabpanel" aria-labelledby="empty-tab">
-                    @else
-                        <div class="tab-pane fade" id="{{ str_replace(' ', '-', $title) }}" role="tabpanel" aria-labelledby="home-tab">
-                    @endif
-                @endif
-                <br />
-
-                @foreach($sparepartgrouped->sortBy('storage_number') as $sparepart)
-                <div class="row">
-                            <div class="col-8  text-truncate" title="{{ $sparepart -> storage_number }}">
-                            @if(strlen($sparepart -> storage_number) < 1)
-                                <h5> - </h5>
-                            @else
-                                <h5>{{ $sparepart -> storage_number }}</h5>
-                            @endif
-                            </div>
-                            @if($sparepart -> critical_part)
-                            <div class="col-4 text-right">
-                                <span class="badge badge-success">Kritično!</span>
-                            </div>
-                            @endif
-                        </div>
-
-                        <div class="row">
-                            <div class="col text-truncate" title="{{ $sparepart -> description }}">
-                                <u>{{ $sparepart -> description }}</u>
-                            </div>
-                        </div>
-                        <br />
-                        @if(strlen($sparepart -> catalogue_number) > 1)
-                        <div class="row">
-                            <div class="col text-truncate">
-                                Kat. broj: {{ $sparepart -> catalogue_number }}
-                            </div>
-                        </div>
-                        @endif
-
-                        @if(strlen($sparepart -> order_number) > 1)
-                        <div class="row">
-                            <div class="col text-truncate">
-                                Kat. broj: {{ $sparepart -> order_number }}
-                            </div>
-                        </div>
-                        @endif
-
-                        @if(strlen($sparepart -> info) > 1)
-                        <div class="row">
-                            <div class="col text-truncate">
-                                Info: {{ $sparepart -> info }}
-                            </div>
-                        </div>
-                        @endif
-
-                        <div class="row">
-                            <div class="col-6 text-truncate" >
-                                Količina: {{ $sparepart -> amount }} {{ $sparepart -> unit}}
-                            </div>
-
-                            <div class="col-6 text-right text-truncate">
-                                Pozicija: {{ $sparepart -> position }}
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-6 text-truncate">
-                                {{ $sparepart -> spare_part_type_description }}
-                            </div>
-                            <div class="col-6 text-right text-truncate">
-                                Magacin: {{ $sparepart -> navision_zalihe }}
-                            </div>
-                        </div>
-
-                        <div class="row text-right">
-                            <div class="col-12">
-                            @if(!empty($sparepart -> info))
-                                        <a href="#" data-toggle="modal" class="btn btn-primary" data-target="#modal-{{ $sparepart -> id }}" >
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-card-heading" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                  <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
-                                                  <path fill-rule="evenodd" d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
-                                                  <path d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z"/>
-                                            </svg>
-                                        </a>
-
-                                        <div class="modal fade col" id="modal-{{ $sparepart -> id }}" tabindex="-1" role="dialog" aria-labelledby="desc-{{ $sparepart -> id }}" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <h5 class="modal-title" id="modal-{{ $sparepart -> id }}">Detalji napomene</h5>
-                                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                  </button>
-                                                </div>
-                                                <div class="modal-body d-flex text-justify">
-                                                    {!! $sparepart -> info !!}
-                                                </div>
-                                                <div class="modal-footer">
-                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        @endif
-
-                                @if(isset($sparepart -> fileurl))
-                                    <a href="{{ URL::asset($sparepart -> fileurl) }}" class="btn btn-primary" title="{{ $sparepart -> filename}}  //  {{ number_format(round($sparepart -> filesize/1024, 0), 0, '.', ' ') }}kB" >
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
-                                            <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
-                                            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                                        </svg>
-                                    </a>
-                                @endif
-
-                                <a href="{{ route('neworder', [$position -> id, $sparepart -> id, $sparepart -> amount])}}" class="btn btn-primary"  title="Dodaj u potencijalnu narudžbu!">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M8.5 5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 .5-.5z"/>
-                                        <path fill-rule="evenodd" d="M8 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0v-2z"/>
-                                        <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                                    </svg>
-                                </a>
-
-                                <a href="{{ route('spareparts.edit', $sparepart -> id)}}" class="btn btn-primary"  title="Uredi rezervni dio">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                <hr />
-                @endforeach
+    <div id="accordion">
+        @foreach($spareparts as $title=>$sparepartgrouped)
+            @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
+                <div class="card card-header" id="heading-empty">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-empty" aria-expanded="false" aria-controls="collapse-empty">
+                        Bez grupe
+                    </button>
                 </div>
-            @endforeach
-            </div>
-            </div>
-        </div>
+
+                <div id="collapse-empty" class="collapse" aria-labelledby="heading-empty" data-parent="#accordion">
+                    @foreach($sparepartgrouped->sortBy('storage_number') as $sparepart)
+                            {{ $sparepart -> id}}
+                    @endforeach
+                </div>
+            @else
+                <div class="card card-header" id="heading-{{ str_replace(' ', '-', $title) }}">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{ str_replace(' ', '-', $title) }}" aria-expanded="false" aria-controls="collapse-{{ str_replace(' ', '-', $title) }}">
+                        {{ $title }}
+                    </button>
+                </div>
+
+                <div id="collapse-{{ str_replace(' ', '-', $title) }}" class="collapse" aria-labelledby="heading-{{ str_replace(' ', '-', $title) }}" data-parent="#accordion">
+                    @foreach($sparepartgrouped->sortBy('storage_number') as $sparepart)
+                            {{ $sparepart -> id}}
+                    @endforeach
+                </div>
+            @endif
+        @endforeach
     </div>
-    </div>
+
 @endif
 
 <br />

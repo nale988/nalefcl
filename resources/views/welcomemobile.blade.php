@@ -22,7 +22,7 @@
 @if(count($sparepartorders)>0)
 <div class="row">
     <div class="col">
-        <div class="card bg-light mb-3">
+        <div class="card border-primary mb-3">
             <div class="card-header font-weight-bold">
                 Pregled narudžbi
             </div>
@@ -108,7 +108,7 @@
 
 <div class="row">
     <div class="col">
-        <div class="card bg-light mb-3">
+        <div class="card border-success mb-3">
             <div class="card-header font-weight-bold">
                 Moji posljednji nalozi
             </div>
@@ -134,7 +134,7 @@
 
 <div class="row">
     <div class="col">
-        <div class="card bg-light mb-3">
+        <div class="card border-danger mb-3">
             <div class="card-header font-weight-bold">
                 Posljednji nalozi
             </div>

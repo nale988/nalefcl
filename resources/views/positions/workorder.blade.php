@@ -31,6 +31,7 @@
             <div class="col">
                 <strong>{{ $workorder -> number }}</strong>
             </div>
+
             <div class="col text-right">
                 @if($workorder -> preventive_maintenance)
                     <span class="badge badge-secondary">Preventivno održavanje</span>
@@ -49,6 +50,11 @@
                 @endif
             </div>
         </div>
+
+            <div class="row">
+                <div class="col">{{ $workorder -> owner }}</div>
+                <div class="col text-right"><small>{{ date('d. m. Y.', strtotime($workorder -> date)) }} - {{ date('d. m. Y.', strtotime($workorder -> date1)) }}</small></div>
+            </div>
     </div>
     <div class="card-body">
         <div class="row">
@@ -86,40 +92,39 @@
         </div>
         @endif
 
-        @if(!empty($storagespendings))
+        @if(count($storagespendings)>0)
         <br />
-            <a class="btn btn-dark" data-toggle="collapse" href="#collapseStorageSpending" role="button" aria-expanded="false" aria-controls="collapseStorageSpending">
-              Spisak trebovanja
-            </a>
-          <div class="collapse" id="collapseStorageSpending">
-            <div class="card border-secondary">
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        @foreach($storagespendings as $storagespending)
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-9 text-truncate">{{ $storagespending -> title }}</div>
-                                <div class="col-3 text-right">{{ $storagespending -> pieces }}kom</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 text-muted">{{ $storagespending -> worker }}</div>
-                                <div class="col-6 text-muted text-right">{{ date('d. m. Y.', strtotime($storagespending -> date)) }}</div>
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
+        <div class="card">
+            <div class="card-header">
+                <a data-toggle="collapse" href="#collapseStorageSpending" role="button" aria-expanded="false" aria-controls="collapseStorageSpending">
+                Spisak trebovanja
+                </a>
             </div>
-          </div>
-        @endif
-
-        <div class="row">
-            <div class="col">{{ $workorder -> owner }}</div>
-            <div class="col text-right"><small>{{ date('d. m. Y.', strtotime($workorder -> date)) }} - {{ date('d. m. Y.', strtotime($workorder -> date1)) }}</small></div>
+                <div class="collapse" id="collapseStorageSpending">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                @foreach($storagespendings as $storagespending)
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-9 text-truncate">{{ $storagespending -> title }}</div>
+                                        <div class="col-3 text-right">{{ $storagespending -> pieces }}kom</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 text-muted">{{ $storagespending -> worker }}</div>
+                                        <div class="col-6 text-muted text-right">{{ date('d. m. Y.', strtotime($storagespending -> date)) }}</div>
+                                    </div>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
         </div>
+        @endif
 
     </div>
     <div class="card-footer">
