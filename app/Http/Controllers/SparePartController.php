@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Agent\Agent;
 use Session;
+use DB;
 
 use App\Position;
 use App\SparePart;
@@ -19,6 +20,44 @@ use App\SparePartGroupConnection;
 
 class SparePartController extends Controller
 {
+    public function dangerlevelspareparts(){
+        if (Auth::check()){
+            $user = Auth::user();
+        }
+        else{
+            return view('/')->with('danger', 'Niste ulogovani!');
+        }
+
+        $lowspareparts = DB::table('spare_parts')
+        ->where('user_id', $user->id)
+        ->distinct()
+        ->leftJoin('navision', function($join){
+            $join->on('navision.br', '=', 'spare_parts.storage_number');
+            $join->on('navision.zalihe', '<', 'spare_parts.danger_level');
+        })
+        ->leftJoin('spare_part_connections', 'spare_part_connections.spare_part_id', '=', 'spare_parts.id')
+        ->leftJoin('positions', 'spare_part_connections.position_id', '=', 'positions.id')
+        ->get([
+            'spare_parts.id as id',
+            'spare_parts.storage_number as storage_number',
+            'spare_parts.description as description',
+            'spare_parts.danger_level as danger_level',
+            'navision.zalihe as zalihe',
+            'navision.kol_na_narudzbenici as kol_na_narudzbenici',
+            'spare_part_connections.amount as amount',
+            'positions.id as position_id',
+            'positions.position as position_position',
+            'positions.name as position_name',
+            ])
+        ->unique('storage_number')
+        ->groupBy('position_position');
+
+        return view('spareparts.dangerlevel', compact('lowspareparts'));
+
+        print_r(json_encode($lowspareparts));
+        die;
+
+    }
     public function removesparepartfile(Request $request){
         foreach($request->all() as $key => $value){
             $file = SparePartFile::where('id', $key)->delete();
@@ -35,7 +74,7 @@ class SparePartController extends Controller
     public function create()
     {
         $agent = new Agent();
-        
+
         if (Auth::check()){
             $user = Auth::user();
         }

@@ -11,40 +11,48 @@ use Jenssegers\Agent\Agent;
 use Session;
 
 use App\User;
+use DB;
 use App\Position;
 use App\Revision;
 use App\SparePartConnection;
 use App\FileUpload;
 use App\PositionFile;
 use App\WorkOrder;
+use App\StorageSpending;
 use App\Unit;
 
 class PositionController extends Controller
 {
     public function workorder($id){
-        //$agent = new Agent();
-
-        // if (Auth::check()){
-        //     $user = Auth::user();
-        // }
-        // else{
-        //     return redirect() -> back() -> with('danger', 'Niste ulogovani!');
-        // }
-
         $workorder = WorkOrder::where('id', $id)->first();
         $position = Position::where('position', 'LIKE', $workorder -> position)->first();
-        $units = Unit::find($position -> unit)->first();
-        // print_r(json_encode($units));
-        // die;
 
+        if(!empty($position)){
+            // ponekad neko stavi nepostojeću poziciju kao unos...
+            $unit = Unit::find($position -> unit)->first();
+            $storagespendings = StorageSpending::where('workorder_number', $workorder->number)->get()->sortBy('storage_number');
+        }
+        else{
+            $position = (object)[
+                'id' => 9999,
+                'position' => 'greška',
+                'unit_id' => 9999,
+                'name' => 'greška',
+                'type' => 'greška',
+                'manufacturer' => 'greška',
+                'unit' => [
+                        'unit_number' => '9999',
+                        'description' => 'greška'],
+                ];
 
-        // if ($agent -> isMobile()){
-        //     return view('positions.workordermobile', compact('workorder', 'position', 'units'));
-        // }
-        // else {
-        //     return view('positions.workorder', compact('workorder', 'position', 'units'));
-        // }
-        return view('positions.workorder', compact('workorder', 'position', 'units'));
+            // TODO: sortirati za grupu...
+            $unit = Unit::find(1);
+            $storagespendings = collect();
+        }
+
+        // TODO:
+        // Uraditi za mobilni i obični?
+        return view('positions.workorder', compact('workorder', 'position', 'unit', 'storagespendings'));
     }
 
     public function workorders($position){
@@ -58,8 +66,6 @@ class PositionController extends Controller
         }
 
         $workorders = WorkOrder::where('position', 'LIKE', $position)->get()->sortByDesc('date');
-        // print_r(json_encode($workorders));
-        // die;
         if ($agent -> isMobile()){
             return view('positions.workordersmobile', compact('workorders'));
         }
@@ -156,8 +162,6 @@ class PositionController extends Controller
             ->get()->first();
 
         $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
-        //  print_r(json_encode($workorders));
-        //  die;
 
         if(Auth::check()){
             $user = Auth::user();
@@ -189,7 +193,7 @@ class PositionController extends Controller
             ->sortBy('spare_part_group_description')
             ->groupBy('spare_part_group_description');
 
-        // $spareparts = SparePartConnection::where('position_id', $id)
+                // $spareparts = SparePartConnection::where('position_id', $id)
         //     ->leftJoin('spare_parts', 'spare_parts.id', '=', 'spare_part_connections.spare_part_id')
         //     ->leftJoin('users', 'spare_parts.user_id', '=', 'users.id')->where('users.id', '=', $user ->id)
         //     ->leftJoin('spare_part_types', 'spare_part_types.id', '=', 'spare_parts.spare_part_type_id')

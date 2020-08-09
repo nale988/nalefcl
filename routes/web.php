@@ -15,6 +15,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('search', 'SearchController@search')->name('search');
 Route::get('advancedsearch', 'SearchController@advancedsearch')->name('advancedsearch');
 Route::get('advancedsearchresults', 'SearchController@advancedsearchresults')->name('advancedsearchresults');
+Route::get('dangerlevelspareparts', 'SparePartController@dangerlevelspareparts')->name('dangerlevelspareparts');
 
 Route::get('removesparepartfile', 'SparePartController@removesparepartfile')->name('removesparepartfile');
 Route::get('removepositionfile', 'PositionController@removepositionfile')->name('removepositionfile');

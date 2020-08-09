@@ -27,5 +27,9 @@ import trebovanja
 formatirati datum
 prebaciti "FALSE" i "TRUE" u 0 i 1
 obrisati kolonu "Redni broj"
+zamijeniti sve ";" s "-" ili šta već
+fali par datuma, treba ih popunit
+obirsati sve bez skladišnog
 
-storage_number, title, price, pieces, position, workorder_number, worker, date, service, grease
+
+storage_number, title, price, pieces, unit, workorder_number, worker, date, service, grease

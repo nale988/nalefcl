@@ -19,7 +19,7 @@ class CreateStorageSpendingsTable extends Migration
             $table->string('title')->nullable();
             $table->string('price')->nullable();
             $table->string('pieces')->nullable();
-            $table->string('position')->nullable();
+            $table->string('unit')->nullable();
             $table->string('workorder_number')->nullable();
             $table->string('worker')->nullable();
             $table->date('date')->nullable();

@@ -49,26 +49,31 @@
                 @endif
             </div>
         </div>
-        <div class="row text-muted text-right"><div class="col">{{ $workorder -> owner }}</div></div>
     </div>
     <div class="card-body">
         <div class="row">
+            @if($position -> id <> 9999)
             <a href="{{ route('positions.show', $position -> id) }}" title="Otvori poziciju!" >
-                <div class="col">{{ $position -> position }} - {{ $position -> manufacturer }} {{ $position -> name }}</div>
+            @endif
+
+                <div class="col">
+                    <h5>{{ $position -> position }} - {{ $position -> manufacturer }} {{ $position -> name }}
+                        <small class="text-muted">({{ $unit -> unit_number }} - {{ $unit -> description }})</small>
+                    </h5>
+                </div>
+            @if($position -> id <> 9999)
             </a>
+            @endif
         </div>
         <div class="row">
-            <div class="col text-muted">{{ $units -> unit_number }} - {{ $units -> description }}</div>
-        </div>
-        <div class="row">
-            <div class="col"><small>{{ date('d. m. Y.', strtotime($workorder -> date)) }}</small></div>
-            <div class="col text-right"><small>{{ date('d. m. Y.', strtotime($workorder -> date1)) }}</small></div>
+            <div class="col">{{ $workorder -> owner }}</div>
+            <div class="col text-right"><small>{{ date('d. m. Y.', strtotime($workorder -> date)) }} - {{ date('d. m. Y.', strtotime($workorder -> date1)) }}</small></div>
         </div>
         <hr />
         <div class="row"><div class="col"><strong>Sadržaj:</strong></div></div>
         <div class="row">
             <div class="col text-justify">
-                {{ $workorder -> content }}
+                <p class="lead">{{ $workorder -> content }}</p>
             </div>
         </div>
         @if(!empty($workorder -> comment ))
@@ -80,11 +85,32 @@
             </div>
         </div>
         @endif
+
+        @if(!empty($storagespendings))
+        <hr />
+        <div class="row"><div class="col"><strong>Trebovanja:</strong></div></div>
+        <br />
+            @foreach($storagespendings as $storagespending)
+            <div class="row">
+                <div class="col text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
+            </div>
+            <div class="row">
+                <div class="col-10">{{ $storagespending -> title }}</div>
+                <div class="col-2 text-right">{{ $storagespending -> pieces }}kom</div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 text-muted">{{ $storagespending -> worker }}</div>
+                <div class="col-6 text-muted text-right">{{ date('d. m. Y.', strtotime($storagespending -> date)) }}</div>
+            </div>
+            <hr />
+            @endforeach
+        @endif
     </div>
     <div class="card-footer">
         <div class="row">
             <div class="col">
-                {{ $workorder -> contractor }}
+                <h5>{{ $workorder -> contractor }}</h5>
             </div>
             <div class="col-4 text-right">
                 @if($workorder -> finished == 1)
