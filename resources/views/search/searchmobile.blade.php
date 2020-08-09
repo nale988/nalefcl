@@ -22,7 +22,9 @@
                     </div>
                 </span>
             </a>
-            <hr />
+            @if(!$loop->last)
+                <hr />
+            @endif
             @endforeach
         </div>
     </div>
