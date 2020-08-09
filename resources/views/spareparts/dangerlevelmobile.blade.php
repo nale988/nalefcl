@@ -46,11 +46,13 @@
                         <strong>{{ $data -> storage_number }}</strong>
                     </div>
                 </div>
+
                 <div class="row">
-                    <div clas="col">
-                        {{ $data -> description }}
+                    <div clas="col text-truncate">
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $data -> description }}</p>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col text-right">
                         <a class="btn btn-dark" href="{{ route('neworder', [$data -> position_id, $data -> id, $data -> amount ])}}" title="Dodaj u potencijalnu narudžbu!">

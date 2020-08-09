@@ -61,21 +61,21 @@
                         <small class="text-muted">({{ $unit -> unit_number }} - {{ $unit -> description }})</small>
                     </h5>
                 </div>
+
             @if($position -> id <> 9999)
             </a>
             @endif
         </div>
-        <div class="row">
-            <div class="col">{{ $workorder -> owner }}</div>
-            <div class="col text-right"><small>{{ date('d. m. Y.', strtotime($workorder -> date)) }} - {{ date('d. m. Y.', strtotime($workorder -> date1)) }}</small></div>
-        </div>
         <hr />
+
         <div class="row"><div class="col"><strong>Sadržaj:</strong></div></div>
+
         <div class="row">
             <div class="col text-justify">
                 <p class="lead">{{ $workorder -> content }}</p>
             </div>
         </div>
+
         @if(!empty($workorder -> comment ))
         <hr />
         <div class="row"><div class="col text-muted"><strong>Komentar:</strong></div></div>
@@ -87,25 +87,40 @@
         @endif
 
         @if(!empty($storagespendings))
-        <hr />
-        <div class="row"><div class="col"><strong>Trebovanja:</strong></div></div>
         <br />
-            @foreach($storagespendings as $storagespending)
-            <div class="row">
-                <div class="col text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
+            <a class="btn btn-dark" data-toggle="collapse" href="#collapseStorageSpending" role="button" aria-expanded="false" aria-controls="collapseStorageSpending">
+              Spisak trebovanja
+            </a>
+          <div class="collapse" id="collapseStorageSpending">
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach($storagespendings as $storagespending)
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-9 text-truncate">{{ $storagespending -> title }}</div>
+                                <div class="col-3 text-right">{{ $storagespending -> pieces }}kom</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 text-muted">{{ $storagespending -> worker }}</div>
+                                <div class="col-6 text-muted text-right">{{ date('d. m. Y.', strtotime($storagespending -> date)) }}</div>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-10">{{ $storagespending -> title }}</div>
-                <div class="col-2 text-right">{{ $storagespending -> pieces }}kom</div>
-            </div>
-
-            <div class="row">
-                <div class="col-6 text-muted">{{ $storagespending -> worker }}</div>
-                <div class="col-6 text-muted text-right">{{ date('d. m. Y.', strtotime($storagespending -> date)) }}</div>
-            </div>
-            <hr />
-            @endforeach
+          </div>
         @endif
+
+        <div class="row">
+            <div class="col">{{ $workorder -> owner }}</div>
+            <div class="col text-right"><small>{{ date('d. m. Y.', strtotime($workorder -> date)) }} - {{ date('d. m. Y.', strtotime($workorder -> date1)) }}</small></div>
+        </div>
+
     </div>
     <div class="card-footer">
         <div class="row">
