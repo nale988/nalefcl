@@ -49,6 +49,9 @@
                     <div clas="col-4 text-truncate">
                         {{ $data -> description }}
                     </div>
+                    <div class="col-2">
+                        {{ $data -> zalihe }} ({{ $data -> danger_level }})
+                    </div>
                     <div class="col text-right">
                         <a href="{{ route('neworder', [$data -> position_id, $data -> id, $data -> amount ])}}" title="Dodaj u potencijalnu narudžbu!">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
