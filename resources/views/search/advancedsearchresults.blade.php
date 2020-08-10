@@ -60,8 +60,9 @@
   </div>
 @endif
 
-@if(count($spareparttypes)>0)
+@if(count($spareparttypes) > 0)
 <br />
+dd('test')
 <br />
 <div class="card">
     <div class="card-header">
