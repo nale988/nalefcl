@@ -95,7 +95,6 @@
                 </div>
             </div>
         </div>
-        <br />
     </div>
 </div>
 
@@ -137,9 +136,37 @@
         </a>
         <hr />
         @endforeach
-
     </div>
 </div>
+@endif
+
+@if($position -> devicetype -> id == 3)
+    @if(count($workinghours)>0)
+    <br />
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Radni sati kompresora
+        </div>
+        <div class="card-body">
+            @foreach($workinghours as $workinghour)
+            <div class="row">
+                <div class="col"><strong>{{ date('d. m. Y.', strtotime($workinghour -> date)) }}</strong></div>
+            </div>
+            <div class="row">
+                <div class="col-4 text-right">{{ $workinghour -> total }}h</div>
+                <div class="col-4 text-right">{{ $workinghour -> loaded }}h</div>
+                <div class="col-4 text-right">{{ $workinghour -> starts }} </div>
+            </div>
+            <div class="row">
+                <div class="col text-muted text-truncate"><small>{{ $workinghour -> comment }}</small></div>
+            </div>
+            @endforeach
+        </div>
+        <div class="card-footer">
+        </div>
+    </div>
+    @endif
 @endif
 
 @if(count($spareparts)>0)
@@ -286,12 +313,6 @@
                                 </svg>
                             </a>
 
-                            <a href="{{ route('revisions.edit', $revision -> id)}}" class="btn btn-primary">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                </svg>
-                            </a>
                         </div>
                     </div>
                     @if(!$loop->last)
@@ -376,6 +397,12 @@
                         <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
                     </svg>
                 @endif
+                <a href="{{ route('revisions.edit', $revision -> id)}}" class="btn btn-primary">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                    </svg>
+                </a>
             </div>
 
         </div>
@@ -410,6 +437,76 @@
     </form>
     </div>
 </div>
+
+@if($position -> devicetype -> id == 3)
+<br />
+<br />
+<div class="card">
+    <div class="card-header">
+        Dodaj radne sate za kompresor
+    </div>
+    <div class="card-body">
+    <form class="m-2" method="post" action="{{ route('storeworkinghours') }}">
+        @csrf
+        <input type="hidden" name="position_id" value="{{ $position -> id }}" />
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    @if(!empty($lastworkinghours->total))
+                    <input type="text" name="total" class="form-control" placeholder="{{ $lastworkinghours -> total }}h" />
+                    @else
+                    <input type="text" name="total" class="form-control" placeholder="Radni sati" />
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    @if(!empty($lastworkinghours->loaded))
+                        <input type="text" name="loaded" class="form-control" placeholder="{{ $lastworkinghours -> loaded}}h" />
+                    @else
+                        <input type="text" name="loaded" class="form-control" placeholder="Opterećeni sati" />
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    @if(!empty($lastworkinghours->starts))
+                        <input type="text" name="starts" class="form-control" placeholder="{{ $lastworkinghours -> starts }}" />
+                    @else
+                        <input type="text" name="starts" class="form-control" placeholder="Startovi motora" />
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="description">Komentar:</label>
+                    <textarea class="form-control" name="description" rows="1"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="date">Datum mjerenja:</label>
+                    <input type="date" name="date" class="form-control" value="{{ now()->format('Y-m-d') }}" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-dark btn-sm">Sačuvaj radne sate</button>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+@endif
 
 <br />
 <br />

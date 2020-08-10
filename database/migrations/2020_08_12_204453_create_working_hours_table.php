@@ -14,7 +14,14 @@ class CreateWorkingHoursTable extends Migration
     public function up()
     {
         Schema::create('working_hours', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->foreignId('position_id')->constrained()->onDelete('cascade');
+            $table->integer('total')->nullable();
+            $table->integer('loaded')->nullable();
+            $table->integer('starts')->nullable();
+            $table->string('comment')->nullable();
+            $table->date('date');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

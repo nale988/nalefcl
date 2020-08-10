@@ -19,16 +19,44 @@ use App\FileUpload;
 use App\PositionFile;
 use App\WorkOrder;
 use App\StorageSpending;
+use App\WorkingHour;
 use App\Unit;
 
 class PositionController extends Controller
 {
+    public function storeworkinghours(Request $request){
+        // print_r(json_encode($request->all()));
+        // die;
+
+        $request->validate([
+            'total' => 'required|integer',
+            'loaded' => 'required|integer',
+            'date' => 'required|date'
+        ]);
+
+        $user = Auth::user();
+
+        $workinghour = new WorkingHour([
+            'position_id' => $request -> get('position_id'),
+            'total' =>  $request -> get('total'),
+            'loaded' =>  $request -> get('loaded'),
+            'starts' =>  $request -> get('starts'),
+            'comment' =>  $request -> get('comment'),
+            'date' => $request -> get('date'),
+            'user_id' => $user -> id,
+        ]);
+
+        $workinghour -> save();
+        return redirect()->back()->with('message', 'Sačuvani radni sati!');
+    }
+
     public function workorder($id){
         $workorder = WorkOrder::where('id', $id)->first();
         $position = Position::where('position', 'LIKE', $workorder -> position)->first();
 
         if(!empty($position)){
             // ponekad neko stavi nepostojeću poziciju kao unos...
+            // TODO: popraviti!
             $unit = Unit::find($position -> unit)->first();
             $storagespendings = StorageSpending::where('workorder_number', $workorder->number)->get()->sortBy('storage_number');
         }
@@ -154,6 +182,14 @@ class PositionController extends Controller
     public function show($id)
     {
         $agent = new Agent();
+
+        if(Auth::check()){
+            $user = Auth::user();
+        }
+        else{
+            return redirect()->guest('login')->with('alert', 'Niste ulogovani!');;
+        }
+
         $position = Position::where('id', $id)
             ->with('unit')
             ->with('devicetype')
@@ -162,13 +198,8 @@ class PositionController extends Controller
             ->get()->first();
 
         $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
-
-        if(Auth::check()){
-            $user = Auth::user();
-        }
-        else{
-            return redirect()->guest('login')->with('alert', 'Niste ulogovani!');;
-        }
+        $workinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
+        $lastworkinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date')->take(1)->first();
 
         $spareparts = SparePartConnection::where('position_id', $id)
             ->leftJoin('spare_parts', 'spare_parts.id', '=', 'spare_part_connections.spare_part_id')
@@ -202,14 +233,14 @@ class PositionController extends Controller
 
         $revisions = Revision::where('position_id', $id)->with('files')->get();
 
-        // print_r(json_encode($spareparts));
+        // print_r(json_encode($workinghours));
         // die;
 
         if ($agent -> isMobile()){
-            return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
+            return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'user'));
         }
         else{
-            return view('positions.show', compact('position', 'spareparts', 'revisions', 'workorders', 'user'));
+            return view('positions.show', compact('position', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'user'));
         }
     }
 
