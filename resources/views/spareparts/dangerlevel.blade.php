@@ -40,6 +40,15 @@
         @else
             <div class="row"><div class="col"><strong>Bez pozicije:</strong></div></div>
         @endif
+        <div class="row">
+            <div class="col-1">&nbsp;</div>
+            <div class="col-1">Skl.br.</div>
+            <div class="col-6">Opis</div>
+            <div class="col">&nbsp;</div>
+            <div class="col-1">Nav</div>
+            <div class="col-1">Signal</div>
+            <div class="col-1">Opcije</div>
+        </div>
             @foreach($contents as $data)
                 <div class="row">
                     <div class="col-1 text-right">&rarr;</div>
@@ -50,8 +59,11 @@
                         {{ $data -> description }}
                     </div>
                     <div class="col">&nbsp;</div>
-                    <div class="col-2">
-                        {{ $data -> zalihe }} ({{ $data -> danger_level }})
+                    <div class="col-1">
+                        {{ $data -> zalihe }}
+                    </div>
+                    <div class="col-1">
+                        {{ $data -> danger_level }}
                     </div>
                     <div class="col-1 text-right">
                         <a href="{{ route('neworder', [$data -> position_id, $data -> id, $data -> amount ])}}" title="Dodaj u potencijalnu narudžbu!">
