@@ -114,10 +114,10 @@ class SearchController extends Controller
          // die;
 
         if ($agent -> isMobile()){
-            return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info'));
+            return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info', 'spareparttypes'));
         }
         else{
-            return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info'));
+            return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info', 'spareparttypes'));
         }
     }
 }
