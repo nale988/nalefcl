@@ -60,6 +60,35 @@
   </div>
 @endif
 
+@if(count($spareparttypes)>0)
+<br />
+<br />
+<div class="card">
+    <div class="card-header">
+        Rezultati pretrage za vrstu rezervnih dijelova
+    </div>
+    <div class="card-body">
+        <div class="card-text">
+        @foreach($spareparttypes as $spareparttype)
+            <a href="{{ route('spareparts.edit', $sparepart -> id)}}" style="color: #000000; text-decoration: none;" >
+                <div class="row">
+                    <div class="col-2 text-truncate">
+                        {{ $sparepart -> storage_number }}
+                    </div>
+                    <div class="col-5 text-truncate">
+                        {{ $sparepart -> description }}
+                    </div>
+                    <div class="col-5 text-truncate">
+                        {{ $sparepart -> catalogue_number }}
+                    </div>
+               </div>
+            </a>
+        @endforeach
+        </div>
+    </div>
+</div>
+@endif
+
 @if(count($spareparts)>0)
 <br />
 <br />
