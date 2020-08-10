@@ -1,7 +1,3 @@
 Radni sati kompresora
 
 Preto
-
-Pretraga za vrstu rezervnih dijelova ne radi
-
-Mogućnost editovanja napomena (lakše držati jednu napomenu s naslovom, pa editovat za nove stvari, nego da se gomilaju napomene)

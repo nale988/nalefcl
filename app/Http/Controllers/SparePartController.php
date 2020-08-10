@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Agent\Agent;
-use Session;
 use DB;
 
 use App\Position;
@@ -15,6 +14,7 @@ use App\SparePartFile;
 use App\SparePartConnection;
 use App\FileUpload;
 use App\SparePartType;
+use App\SparePartOrder;
 use App\SparePartGroup;
 use App\SparePartGroupConnection;
 
@@ -368,6 +368,29 @@ class SparePartController extends Controller
 
     public function destroy($id)
     {
-        //
+        $sparepart = SparePart::where('id', $id)->first();
+        $sparepartconnections = SparePartConnection::where('spare_part_id', $id)->get();
+        $sparepartfiles = SparePartFile::where('spare_part_id', $id)->get();
+        $sparepartgroups = SparePartGroupConnection::where('spare_part_id', $id)->get();
+        $sparepartorders = SparePartOrder::where('spare_part_id', $id)->get();
+
+        foreach($sparepartconnections as $sparepartconnection){
+            $sparepartconnection -> delete();
+        }
+
+        foreach($sparepartfiles as $sparepartfile){
+            $sparepartfile -> delete();
+        }
+
+        foreach($sparepartgroups as $sparepartgroup){
+            $sparepartgroup -> delete();
+        }
+
+        foreach($sparepartorders as $sparepartorder){
+            $sparepartorder -> delete();
+        }
+
+        $sparepart -> delete();
+        return redirect('/')->with('message', 'Obrisan rezervni dio!');
     }
 }

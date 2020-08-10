@@ -19,6 +19,7 @@ Route::get('dangerlevelspareparts', 'SparePartController@dangerlevelspareparts')
 
 Route::get('removesparepartfile', 'SparePartController@removesparepartfile')->name('removesparepartfile');
 Route::get('removepositionfile', 'PositionController@removepositionfile')->name('removepositionfile');
+Route::get('removerevisionfile/{id}', 'RevisionController@removerevisionfile')->name('removerevisionfile');
 
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
 Route::get('workorder/{id}', 'PositionController@workorder')->name('workorder');

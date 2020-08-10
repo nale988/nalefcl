@@ -29,7 +29,42 @@
 <div class= "col-12">
     <div class="card">
         <div class="card-header">
-            Uredi rezervni dio
+            <div class="row">
+                <div class="col">
+                    Uredi rezervni dio
+                </div>
+                <div class="col-2 text-right">
+                    <button type="button" class="close" data-toggle="modal" data-target="#deleteModal">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteSparePart" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteSparePart">Obriši</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Jeste li sigurni da želite obrisati rezervni dio?
+                      </div>
+                      <div class="modal-footer">
+                          <form action="{{ route('spareparts.destroy', $sparepart -> id) }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <input type="hidden" name="sparepart_id" value="{{ $sparepart -> id }}" />
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+                                <button type="submit" class="btn btn-danger">Obriši</button>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+            </div>
         </div>
         <div class="card-body">
 

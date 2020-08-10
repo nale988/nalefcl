@@ -80,7 +80,6 @@ class SearchController extends Controller
                         ->get();
             }
             else if($key == 'search-spareparttypes'){
-                // TODO: provjeriti ovaj dio - ne vraća ništa.
                 $spareparttypes = SparePartType::where('description', 'LIKE', '%'.$request->searchvalue.'%')
                     ->with('spareparts')
                         ->get();
