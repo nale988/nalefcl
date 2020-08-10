@@ -46,13 +46,13 @@
                     <div class="col-1 text-truncate text-left">
                         {{ $data -> storage_number }}
                     </div>
-                    <div clas="col-4 text-truncate">
+                    <div clas="col-7 text-truncate">
                         {{ $data -> description }}
                     </div>
                     <div class="col-2">
                         {{ $data -> zalihe }} ({{ $data -> danger_level }})
                     </div>
-                    <div class="col text-right">
+                    <div class="col-1 text-right">
                         <a href="{{ route('neworder', [$data -> position_id, $data -> id, $data -> amount ])}}" title="Dodaj u potencijalnu narudžbu!">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M8.5 5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 .5-.5z"/>
