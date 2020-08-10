@@ -35,7 +35,7 @@ class SparePartController extends Controller
         ->distinct()
         ->leftJoin('navision', function($join){
             $join->on('navision.br', '=', 'spare_parts.storage_number');
-            $join->where('navision.zalihe', '<', 'spare_parts.danger_level');
+            $join->on(DB:raw('navision.zalihe < spare_parts.danger_level'));
         })
         ->leftJoin('spare_part_connections', 'spare_part_connections.spare_part_id', '=', 'spare_parts.id')
         ->leftJoin('positions', 'spare_part_connections.position_id', '=', 'positions.id')
