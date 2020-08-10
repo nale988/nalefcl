@@ -30,6 +30,15 @@
         Signalne zalihe
     </div>
     <div class="card-body">
+         <div class="row">
+            <div class="col-1">&nbsp;</div>
+            <div class="col-1">Skl.br.</div>
+            <div class="col-6">Opis</div>
+            <div class="col">&nbsp;</div>
+            <div class="col-1">Nav</div>
+            <div class="col-1">Signal</div>
+            <div class="col-1">Opcije</div>
+        </div>
         @foreach($lowspareparts as $position => $contents)
         @if(!empty($position))
             <div class="row"><div class="col"><strong>
@@ -40,16 +49,8 @@
         @else
             <div class="row"><div class="col"><strong>Bez pozicije:</strong></div></div>
         @endif
-        <div class="row">
-            <div class="col-1">&nbsp;</div>
-            <div class="col-1">Skl.br.</div>
-            <div class="col-6">Opis</div>
-            <div class="col">&nbsp;</div>
-            <div class="col-1">Nav</div>
-            <div class="col-1">Signal</div>
-            <div class="col-1">Opcije</div>
-        </div>
             @foreach($contents as $data)
+            @if($data->zalihe < $data->danger_level)
                 <div class="row">
                     <div class="col-1 text-right">&rarr;</div>
                     <div class="col-1 text-truncate text-left">
@@ -81,6 +82,7 @@
                         </a>
                     </div>
                 </div>
+            @endif
             @endforeach
             @if(!$loop->last)
                 <hr />
