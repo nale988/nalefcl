@@ -62,6 +62,11 @@
                 <div class="col-4">Snaga:</div>
                 <div class="col">{{ $position -> power }} {{ $position -> power1 }}</div>
             </div>
+            <hr />
+            <div class="row">
+                <div class="col-4">Vrsta uređaja:</div>
+                <div class="col">{{ $position -> devicetype -> type }}</div>
+            </div>
         </div>
     </div>
 </div>
