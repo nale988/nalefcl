@@ -97,7 +97,7 @@
         </div>
     </div>
 </div>
-
+<br />
 <div class="row">
     <div class="col text-center">
         <a href="{{ route('workorders', $position -> position)}}" class="btn btn-danger btn-sm">Radni nalozi</a>
@@ -142,7 +142,6 @@
 
 @if($position -> devicetype -> id == 3)
     @if(count($workinghours)>0)
-    <br />
     <br />
     <div class="card">
         <div class="card-header">
