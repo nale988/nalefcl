@@ -46,9 +46,10 @@
                     <div class="col-1 text-truncate text-left">
                         {{ $data -> storage_number }}
                     </div>
-                    <div clas="col-7 text-truncate">
+                    <div clas="col-6 text-truncate">
                         {{ $data -> description }}
                     </div>
+                    <div class="col">&nbsp;</div>
                     <div class="col-2">
                         {{ $data -> zalihe }} ({{ $data -> danger_level }})
                     </div>
