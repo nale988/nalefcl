@@ -70,7 +70,7 @@
     <div class="card-body">
         <div class="card-text">
         @foreach($spareparttypes as $spareparttype)
-            @foreach($spareparttype -> spareparts as $sparepart
+            @foreach($spareparttype -> spareparts as $sparepart)
             <a href="{{ route('spareparts.edit', $sparepart -> id)}}" style="color: #000000; text-decoration: none;" >
                 <div class="row">
                     <div class="col-2 text-truncate">
