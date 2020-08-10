@@ -60,11 +60,8 @@
   </div>
 @endif
 
-{{ dd($spareparttypes) }}
-
 @if(count($spareparttypes) > 0)
 <br />
-{{ dd('test')}}
 <br />
 <div class="card">
     <div class="card-header">
