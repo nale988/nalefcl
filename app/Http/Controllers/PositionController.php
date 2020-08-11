@@ -204,7 +204,7 @@ class PositionController extends Controller
         }
         else{
             $workinghours = collect();
-            $lastworkinghours = collect():
+            $lastworkinghours = collect();
         }
 
         $spareparts = SparePartConnection::where('position_id', $id)
