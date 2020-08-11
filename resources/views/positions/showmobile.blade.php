@@ -339,7 +339,7 @@
         @foreach($revisions as $revision)
         <div class="row">
             <div class="col text-truncate ">
-                {{ $revision -> description }}
+                {{ strip_tags($revision -> description) }}
             </div>
         </div>
         <div class="row">
