@@ -198,8 +198,14 @@ class PositionController extends Controller
             ->get()->first();
 
         $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
-        $workinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
-        $lastworkinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date')->take(1)->first();
+        if($user->id == 1){
+            $workinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
+            $lastworkinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date')->take(1)->first();
+        }
+        else{
+            $workinghours = collect();
+            $lastworkinghours = collect():
+        }
 
         $spareparts = SparePartConnection::where('position_id', $id)
             ->leftJoin('spare_parts', 'spare_parts.id', '=', 'spare_part_connections.spare_part_id')
