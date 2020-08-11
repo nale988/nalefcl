@@ -198,6 +198,7 @@ class PositionController extends Controller
             ->get()->first();
 
         $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
+        
         if($user->id == 1){
             $workinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
             $lastworkinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date')->take(1)->first();
@@ -237,7 +238,7 @@ class PositionController extends Controller
         //     ->get()
         //     ->groupBy('spare_part_group');
 
-        $revisions = Revision::where('position_id', $id)->with('files')->get();
+        $revisions = Revision::where('position_id', $id)->where('user_id', $user->id)->with('files')->get();
 
         // print_r(json_encode($workinghours));
         // die;
