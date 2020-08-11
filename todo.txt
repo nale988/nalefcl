@@ -1,3 +1,6 @@
-Radni sati kompresora
+Mogućnost editovanja radnih sati
+Mogućnost editovanja servisa
+
+Servisi za duvaljke
 
 Preto
