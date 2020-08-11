@@ -24,6 +24,7 @@ use App\Unit;
 use App\UserRole;
 use App\BlowerService;
 use App\CompressorService;
+use App\CompressorServiceFile;
 
 class PositionController extends Controller
 {
@@ -46,6 +47,43 @@ class PositionController extends Controller
         ]);
 
         $service -> save();
+
+        $service_id = $service -> id;
+        $userfolder_raw = explode('@', $user -> email);
+        $userfolder = str_replace('.', '', $userfolder_raw[0]);
+
+        if ($request->hasFile('file')) {
+            if ($request->file('file')->isValid()) {
+                $validated = $request->validate([
+                    'image' => 'mimes:jpeg,png|max:2048',
+                    'document.*' => 'required|file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx|max:10245',
+                ]);
+
+                $extension = $request->file->extension();
+                $request->file->storeAs('public/po/'.$userfolder, $request->file->hashName());
+
+                $url = Storage::disk('positionfiles')->url($userfolder.'/'.$request->file->hashName());
+
+                $filesize = $request->file('file')->getSize();
+
+                $document = new FileUpload([
+                    'user_id' => $user->id,
+                    'filename' => $request -> file -> getClientOriginalName(),
+                    'filesize' => $filesize,
+                    'url' => $url,
+                ]);
+
+                $document -> save();
+                $document_id = $document->id;
+
+                $connectfile = new CompressorServiceFile([
+                    'compressor_service_id' => $service_id,
+                    'file_upload_id' => $document_id
+                ]);
+
+                $connectfile -> save();
+            }
+        }
         return redirect()->back()->with('message', 'Sačuvan servis kompresora!');
     }
 
@@ -260,7 +298,7 @@ class PositionController extends Controller
         }
 
         if($userrole -> services){
-            $compressorservices = CompressorService::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
+            $compressorservices = CompressorService::where('position_id', $id)->where('user_id', $user->id)->with('files')->get()->sortByDesc('date');
             $blowerservices = BlowerService::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
         }
         else{

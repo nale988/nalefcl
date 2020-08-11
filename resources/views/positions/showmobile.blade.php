@@ -29,69 +29,47 @@
     <div class= "col-12">
         <div class="card">
             <div class="card-header">
-                <strong>{{ $position -> position }}</strong> - {{ $position -> name }}
+                <a data-toggle="collapse" href="#collapseDescription"  role="button" aria-expanded="false" aria-controls="collapseDescription">
+                    <strong>{{ $position -> position }}</strong> - {{ $position -> name }}
+                </a>
             </div>
+            <div class="collapse" id="collapseDescription">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-4">Tip:</div>
+                        <div class="col">{{ $position -> type }}</div>
+                    </div>
 
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-4">Tip:</div>
-                    <div class="col">{{ $position -> type }}</div>
-                </div>
+                    <div class="row">
+                        <div class="col-4">Proizvođač:</div>
+                        <div class="col">{{ $position -> manufacturer }}</div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-4">Proizvođač:</div>
-                    <div class="col">{{ $position -> manufacturer }}</div>
-                </div>
+                    <div class="row">
+                        <div class="col-4">Godina:</div>
+                        <div class="col">{{ $position -> year }}</div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-4">Godina:</div>
-                    <div class="col">{{ $position -> year }}</div>
-                </div>
+                    <div class="row">
+                        <div class="col-4">Kapacitet:</div>
+                        <div class="col">{{ $position -> capacity }} {{ $position -> capacity1 }}</div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-4">Kapacitet:</div>
-                    <div class="col">{{ $position -> capacity }} {{ $position -> capacity1 }}</div>
-                </div>
+                    <div class="row">
+                        <div class="col-4">Brzina:</div>
+                        <div class="col">{{ $position -> speed }} {{ $position -> speed1 }}</div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-4">Brzina:</div>
-                    <div class="col">{{ $position -> speed }} {{ $position -> speed1 }}</div>
-                </div>
+                    <div class="row">
+                        <div class="col-4">Snaga:</div>
+                        <div class="col">{{ $position -> power }} {{ $position -> power1 }}</div>
+                    </div>
 
-                <div class="row">
-                    <div class="col-4">Snaga:</div>
-                    <div class="col">{{ $position -> power }} {{ $position -> power1 }}</div>
-                </div>
-
-                <hr />
-                <div class="row">
-                    <div class="col-4">Vrsta uređaja:</div>
-                    <div class="col">{{ $position -> devicetype -> type }}</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<br />
-<br />
-
-<div class="row">
-    <div class= "col-12">
-        <div class="card">
-            <div class="card-header">
-                Statistika
-            </div>
-
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-6">Dokumenata:</div>
-                    <div class="col-6">{{ count($position -> files)}}</div>
-                </div>
-
-                <div class="row">
-                    <div class="col-6">Napomena:</div>
-                    <div class="col-6">{{ count($revisions)}}</div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-4">Vrsta uređaja:</div>
+                        <div class="col">{{ $position -> devicetype -> type }}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -531,61 +509,41 @@
         </div>
         <div class="collapse" id="collapseCompressorService">
             <div class="card-body">
-            <form class="m-2" method="post" action="{{ route('storeworkinghours') }}">
+            <form class="m-2" method="post" action="{{ route('storecompressorservice') }}">
                 @csrf
                 <input type="hidden" name="position_id" value="{{ $position -> id }}" />
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            @if(!empty($lastworkinghours->total))
-                            <input type="text" name="total" class="form-control" placeholder="{{ $lastworkinghours -> total }}h" />
-                            @else
                             <input type="text" name="total" class="form-control" placeholder="Radni sati" />
-                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            @if(!empty($lastworkinghours->loaded))
-                                <input type="text" name="loaded" class="form-control" placeholder="{{ $lastworkinghours -> loaded}}h" />
-                            @else
-                                <input type="text" name="loaded" class="form-control" placeholder="Opterećeni sati" />
-                            @endif
+                            <input type="text" name="type" class="form-control" placeholder="Vrsta servisa" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="col-4">
                         <div class="form-group">
-                            @if(!empty($lastworkinghours->starts))
-                                <input type="text" name="starts" class="form-control" placeholder="{{ $lastworkinghours -> starts }}" />
-                            @else
-                                <input type="text" name="starts" class="form-control" placeholder="Startovi motora" />
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="description">Komentar:</label>
-                            <textarea class="form-control" name="description" rows="1"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="date">Datum mjerenja:</label>
                             <input type="date" name="date" class="form-control" value="{{ now()->format('Y-m-d') }}" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="description">Komentar:</label>
+                            <textarea class="form-control" name="description" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col">
-                        <button type="submit" class="btn btn-dark btn-sm">Sačuvaj radne sate</button>
+                        <button type="submit" class="btn btn-dark btn-sm">Sačuvaj servis</button>
                     </div>
                 </div>
             </form>
