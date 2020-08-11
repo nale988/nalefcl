@@ -36,7 +36,7 @@
             <input type="hidden" name="revision_id" value="{{ $revision -> id }}" />
             <div class="form-group">
                 <label for="description">Sadržaj:</label>
-                <textarea class="form-control" id="description" name="description" rows="5">{!! $revision -> description !!}</textarea>
+                <textarea class="form-control" id="description" name="description" rows="5">{!! strip_tags($revision -> description) !!}</textarea>
             </div>
             @if(count($revision -> files)>0)
             <br />
