@@ -19,15 +19,64 @@ use App\FileUpload;
 use App\PositionFile;
 use App\WorkOrder;
 use App\StorageSpending;
-use App\WorkingHour;
+use App\CompressorWorkingHour;
 use App\Unit;
+use App\UserRole;
+use App\BlowerService;
+use App\CompressorService;
 
 class PositionController extends Controller
 {
-    public function storeworkinghours(Request $request){
-        // print_r(json_encode($request->all()));
-        // die;
+    public function storecompressorservice(Request $request){
+        $request -> validate([
+            'date' => 'required',
+            'total' => 'required',
+            'type' => 'required'
+        ]);
 
+        $user = Auth::user();
+
+        $service = new CompressorService([
+            'position_id' => $request -> get('position_id'),
+            'user_id' => $user -> id,
+            'date' => $request -> get('date'),
+            'total' => $request -> get('total'),
+            'type' => $request -> get('type'),
+            'comment' => $request -> get('comment'),
+        ]);
+
+        $service -> save();
+        return redirect()->back()->with('message', 'Sačuvan servis kompresora!');
+    }
+
+    public function storeblowerservice(Request $request){
+        $request -> validate([
+            'date' => 'required',
+        ]);
+
+        $user = Auth::user();
+
+        $service = new BlowerService([
+            'position_id' => $request -> get('position_id'),
+            'user_id' => $user -> id,
+            'date' => $request -> get('date'),
+            'inspection' => $request -> get('inspection'),
+            'filter' => $request -> get('filter'),
+            'belt' => $request -> get('belt'),
+            'pulley' => $request -> get('pulley'),
+            'nonreturn_valve' => $request -> get('nonreturn_valve'),
+            'element_repair' => $request -> get('element_repair'),
+            'element_replace' => $request -> get('element_replace'),
+            'first_start' => $request -> get('first_start'),
+            'other' => $request -> get('other'),
+            'comment' => $request -> get('comment'),
+        ]);
+
+        $service -> save();
+        return redirect()->back()->with('message', 'Sačuvan servis duvaljke!');
+    }
+
+    public function storeworkinghours(Request $request){
         $request->validate([
             'total' => 'required|integer',
             'loaded' => 'required|integer',
@@ -36,7 +85,7 @@ class PositionController extends Controller
 
         $user = Auth::user();
 
-        $workinghour = new WorkingHour([
+        $workinghour = new CompressorWorkingHour([
             'position_id' => $request -> get('position_id'),
             'total' =>  $request -> get('total'),
             'loaded' =>  $request -> get('loaded'),
@@ -185,10 +234,12 @@ class PositionController extends Controller
 
         if(Auth::check()){
             $user = Auth::user();
+            $userrole = UserRole::where('user_id', $user->id)->first();
         }
         else{
             return redirect()->guest('login')->with('alert', 'Niste ulogovani!');;
         }
+
 
         $position = Position::where('id', $id)
             ->with('unit')
@@ -198,14 +249,23 @@ class PositionController extends Controller
             ->get()->first();
 
         $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
-        
-        if($user->id == 1){
-            $workinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
-            $lastworkinghours = WorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date')->take(1)->first();
+
+        if($userrole -> workhours){
+            $workinghours = CompressorWorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
+            $lastworkinghours = CompressorWorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date')->take(1)->first();
         }
         else{
             $workinghours = collect();
             $lastworkinghours = collect();
+        }
+
+        if($userrole -> services){
+            $compressorservices = CompressorService::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
+            $blowerservices = BlowerService::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
+        }
+        else{
+            $compressorservices = collect();
+            $blowerservices = collect();
         }
 
         $spareparts = SparePartConnection::where('position_id', $id)
@@ -231,23 +291,16 @@ class PositionController extends Controller
             ->sortBy('spare_part_group_description')
             ->groupBy('spare_part_group_description');
 
-                // $spareparts = SparePartConnection::where('position_id', $id)
-        //     ->leftJoin('spare_parts', 'spare_parts.id', '=', 'spare_part_connections.spare_part_id')
-        //     ->leftJoin('users', 'spare_parts.user_id', '=', 'users.id')->where('users.id', '=', $user ->id)
-        //     ->leftJoin('spare_part_types', 'spare_part_types.id', '=', 'spare_parts.spare_part_type_id')
-        //     ->get()
-        //     ->groupBy('spare_part_group');
-
         $revisions = Revision::where('position_id', $id)->where('user_id', $user->id)->with('files')->get();
 
         // print_r(json_encode($workinghours));
         // die;
 
         if ($agent -> isMobile()){
-            return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'user'));
+            return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
         }
         else{
-            return view('positions.show', compact('position', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'user'));
+            return view('positions.show', compact('position', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
         }
     }
 

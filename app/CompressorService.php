@@ -4,15 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class WorkingHour extends Model
+class CompressorService extends Model
 {
     protected $fillable=[
         'position_id',
-        'total',
-        'loaded',
-        'starts',
-        'comment',
+        'user_id',
         'date',
-        'user_id'
+        'total',
+        'type',
+        'comment'
     ];
 }

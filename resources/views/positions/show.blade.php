@@ -87,8 +87,6 @@
                 <div class="col-6">Napomena:</div>
                 <div class="col-6">{{ count($revisions)}}</div>
             </div>
-
-
         </div>
     </div>
     <br />
@@ -166,6 +164,37 @@
                 <div class="col-2 text-right">{{ $workinghour -> loaded }}h</div>
                 <div class="col-2 text-right">{{ $workinghour -> starts }} </div>
                 <div class="col text-truncate">{{ $workinghour -> comment }}</div>
+            </div>
+            @endforeach
+        </div>
+        <div class="card-footer">
+        </div>
+    </div>
+    @endif
+@endif
+
+@if($position -> devicetype -> id == 3)
+    @if(count($compressorservices) > 0)
+    <br />
+    <br />
+    <div class="card">
+        <div class="card-header">
+            Servisi kompresora
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-2">Datum</div>
+                <div class="col-2 text-right">Tip:</div>
+                <div class="col-2 text-right">Radni sati:</div>
+                <div class="col text-truncate">Komentar</div>
+            </div>
+            <hr />
+            @foreach($compressorservices as $compressorservice)
+            <div class="row">
+                <div class="col-2">{{ date('d. m. Y.', strtotime($compressorservice -> date)) }}</div>
+                <div class="col-2 text-right"><strong>{{ $compressorservice -> type }}</strong></div>
+                <div class="col-2 text-right">{{ $compressorservice -> total }}h</div>
+                <div class="col text-truncate">{{ $compressorservice -> comment }}</div>
             </div>
             @endforeach
         </div>
@@ -368,7 +397,6 @@
                 {{ date('d. m. Y.', strtotime($revision -> created_at)) }}
                 &nbsp;&nbsp;
 
-
                 <a href="#" data-toggle="modal" data-target="#modal-{{ $revision -> id }}" >
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-medical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
@@ -433,126 +461,185 @@
 @endif
 
 <br />
-<br />
 <div class="card">
     <div class="card-header">
-        Dodaj dokumentaciju za poziciju
+        <a data-toggle="collapse" href="#collapsePositionFiles"  role="button" aria-expanded="false" aria-controls="collapsePositionFiles">
+            Dodaj dokumentaciju za poziciju
+        </a>
     </div>
-    <div class="card-body">
-    {{-- enctype attribute is important if your form contains file upload --}}
-    {{-- Please check https://www.w3schools.com/tags/att_form_enctype.asp for further info --}}
-    <form class="m-2" method="post" action="{{ route('uploadpositionfile') }}" enctype="multipart/form-data">
-        @csrf
-        <input type="hidden" name="position_id" value="{{ $position -> id }}" />
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <input id="file" type="file" name="file">
+    <div class="collapse" id="collapsePositionFiles">
+        <div class="card-body">
+        {{-- enctype attribute is important if your form contains file upload --}}
+        {{-- Please check https://www.w3schools.com/tags/att_form_enctype.asp for further info --}}
+        <form class="m-2" method="post" action="{{ route('uploadpositionfile') }}" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="position_id" value="{{ $position -> id }}" />
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <input id="file" type="file" name="file">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button type="submit" class="btn btn-dark btn-sm">Dodaj dokument</button>
                 </div>
             </div>
-            <div class="col-2">
-                <button type="submit" class="btn btn-dark btn-sm">Dodaj dokument</button>
-            </div>
+        </form>
         </div>
-    </form>
     </div>
 </div>
 
 @if($position -> devicetype -> id == 3)
-    @if($user -> id == 1)
-    <br />
+    @if($userrole -> workhours == 1)
     <br />
     <div class="card">
         <div class="card-header">
+            <a data-toggle="collapse" href="#collapseCompressorWorkHours"  role="button" aria-expanded="false" aria-controls="collapseCompressorWorkHours">
             Dodaj radne sate za kompresor
+            </a>
         </div>
-        <div class="card-body">
-        <form class="m-2" method="post" action="{{ route('storeworkinghours') }}">
-            @csrf
-            <input type="hidden" name="position_id" value="{{ $position -> id }}" />
-            <div class="row">
-                <div class="col-4">
-                    <div class="form-group">
-                        @if(!empty($lastworkinghours->total))
-                        <input type="text" name="total" class="form-control" placeholder="{{ $lastworkinghours -> total }}h" />
-                        @else
-                        <input type="text" name="total" class="form-control" placeholder="Radni sati" />
-                        @endif
+        <div class="collapse" id="collapseCompressorWorkHours">
+            <div class="card-body">
+            <form class="m-2" method="post" action="{{ route('storeworkinghours') }}">
+                @csrf
+                <input type="hidden" name="position_id" value="{{ $position -> id }}" />
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            @if(!empty($lastworkinghours->total))
+                            <input type="text" name="total" class="form-control" placeholder="{{ $lastworkinghours -> total }}h" />
+                            @else
+                            <input type="text" name="total" class="form-control" placeholder="Radni sati" />
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            @if(!empty($lastworkinghours->loaded))
+                                <input type="text" name="loaded" class="form-control" placeholder="{{ $lastworkinghours -> loaded}}h" />
+                            @else
+                                <input type="text" name="loaded" class="form-control" placeholder="Opterećeni sati" />
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            @if(!empty($lastworkinghours->starts))
+                                <input type="text" name="starts" class="form-control" placeholder="{{ $lastworkinghours -> starts }}" />
+                            @else
+                                <input type="text" name="starts" class="form-control" placeholder="Startovi motora" />
+                            @endif
+                        </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        @if(!empty($lastworkinghours->loaded))
-                            <input type="text" name="loaded" class="form-control" placeholder="{{ $lastworkinghours -> loaded}}h" />
-                        @else
-                            <input type="text" name="loaded" class="form-control" placeholder="Opterećeni sati" />
-                        @endif
+                <div class="row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label for="description">Komentar:</label>
+                            <textarea class="form-control" name="description" rows="1"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="date">Datum mjerenja:</label>
+                            <input type="date" name="date" class="form-control" value="{{ now()->format('Y-m-d') }}" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        @if(!empty($lastworkinghours->starts))
-                            <input type="text" name="starts" class="form-control" placeholder="{{ $lastworkinghours -> starts }}" />
-                        @else
-                            <input type="text" name="starts" class="form-control" placeholder="Startovi motora" />
-                        @endif
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-dark btn-sm">Sačuvaj radne sate</button>
                     </div>
                 </div>
+            </form>
             </div>
-            <div class="row">
-                <div class="col-8">
-                    <div class="form-group">
-                        <label for="description">Komentar:</label>
-                        <textarea class="form-control" name="description" rows="1"></textarea>
+        </div>
+    </div>
+    @endif
+@endif
+
+@if($position -> devicetype -> id == 3)
+    @if($userrole -> services == 1)
+    <br />
+    <div class="card">
+        <div class="card-header">
+            <a data-toggle="collapse" href="#collapseCompressorService"  role="button" aria-expanded="false" aria-controls="collapseCompressorService">
+                Dodaj servis za kompresor
+            </a>
+        </div>
+        <div class="collapse" id="collapseCompressorService">
+            <div class="card-body">
+            <form class="m-2" method="post" action="{{ route('storecompressorservice') }}">
+                @csrf
+                <input type="hidden" name="position_id" value="{{ $position -> id }}" />
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <input type="text" name="total" class="form-control" placeholder="Radni sati" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <input type="text" name="type" class="form-control" placeholder="Vrsta servisa" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <input type="date" name="date" class="form-control" value="{{ now()->format('Y-m-d') }}" />
+                        </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <label for="date">Datum mjerenja:</label>
-                        <input type="date" name="date" class="form-control" value="{{ now()->format('Y-m-d') }}" />
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="description">Komentar:</label>
+                            <textarea class="form-control" name="description" rows="1"></textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <button type="submit" class="btn btn-dark btn-sm">Sačuvaj radne sate</button>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-dark btn-sm">Sačuvaj servis</button>
+                    </div>
                 </div>
+            </form>
             </div>
-        </form>
         </div>
     </div>
     @endif
 @endif
 
 <br />
-<br />
 
 <div class="card">
     <div class="card-header">
-        Napomene
+        <a data-toggle="collapse" href="#collapseRevisions"  role="button" aria-expanded="false" aria-controls="collapseRevisions">
+            Napomene
+        </a>
     </div>
+    <div class="collapse" id="collapseRevisions">
+        <div class="card-body">
+            <form class="m-2" method="post" action="{{ route('revisions.store')}}" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for="revision-content">Nova napomena</label>
+                    <textarea class="form-control" name="revision_description" rows="6"></textarea>
+                </div>
 
-    <div class="card-body">
-        <form class="m-2" method="post" action="{{ route('revisions.store')}}" enctype="multipart/form-data">
-            @csrf
-            <div class="form-group">
-                <label for="revision-content">Nova napomena</label>
-                <textarea class="form-control" name="revision_description" rows="6"></textarea>
-            </div>
-
-            <input type="hidden" name="revision_position_id" value="{{ $position -> id }}">
-            <div class="row">
-                <div class="col">&nbsp;</div>
-                <div class="col-4">
-                    <div class="form-group">
-                        <input id="file" type="file" name="file">
+                <input type="hidden" name="revision_position_id" value="{{ $position -> id }}">
+                <div class="row">
+                    <div class="col">&nbsp;</div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <input id="file" type="file" name="file">
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <button type="submit" class="btn btn-primary" value="submit" name="revision_submit">Sačuvaj</button>
                     </div>
                 </div>
-                <div class="col-1">
-                    <button type="submit" class="btn btn-primary" value="submit" name="revision_submit">Sačuvaj</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

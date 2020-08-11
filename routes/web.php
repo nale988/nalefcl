@@ -23,6 +23,8 @@ Route::get('removerevisionfile/{id}', 'RevisionController@removerevisionfile')->
 
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
 Route::post('storeworkinghours', 'PositionController@storeworkinghours')->name('storeworkinghours');
+Route::post('storecompressorservice', 'PositionController@storecompressorservice')->name('storecompressorservice');
+Route::post('storeblowerservice', 'PositionController@storeblowerservice')->name('storeblowerservice');
 
 Route::get('workorder/{id}', 'PositionController@workorder')->name('workorder');
 Route::get('workorders/{position}', 'PositionController@workorders') -> name('workorders');

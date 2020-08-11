@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkingHoursTable extends Migration
+class CreateCompressorServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateWorkingHoursTable extends Migration
      */
     public function up()
     {
-        Schema::create('working_hours', function (Blueprint $table) {
+        Schema::create('compressor_services', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('position_id')->constrained()->onDelete('cascade');
-            $table->integer('total')->nullable();
-            $table->integer('loaded')->nullable();
-            $table->integer('starts')->nullable();
-            $table->string('comment')->nullable();
-            $table->date('date');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->date('date')->nullable();
+            $table->integer('total')->nullable();
+            $table->string('type')->nullable();
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateWorkingHoursTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('working_hours');
+        Schema::dropIfExists('compressor_services');
     }
 }
