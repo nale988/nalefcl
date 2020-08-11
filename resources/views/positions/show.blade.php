@@ -361,7 +361,7 @@
         @foreach($revisions as $revision)
         <div class="row">
             <div class="col text-truncate ">
-                {{ $revision -> description }}
+                {!! $revision -> description !!}
             </div>
 
             <div class="col-2">
