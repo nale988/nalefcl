@@ -200,11 +200,13 @@ class PositionController extends Controller
         }
 
         $workorders = WorkOrder::where('position', 'LIKE', $position)->get()->sortByDesc('date');
+        $selectedposition = Position::where('position', 'LIKE', $position)->first();
+
         if ($agent -> isMobile()){
-            return view('positions.workordersmobile', compact('workorders'));
+            return view('positions.workordersmobile', compact('workorders', 'selectedposition'));
         }
         else {
-            return view('positions.workorders', compact('workorders'));
+            return view('positions.workorders', compact('workorders', 'selectedposition'));
         }
     }
 
@@ -263,6 +265,7 @@ class PositionController extends Controller
 
         return redirect('positions/'.$request -> get('position_id'))->with('message', 'Dodan novi dokument na poziciju!');
     }
+
     public function index()
     {
         $agent = new Agent();

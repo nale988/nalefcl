@@ -26,7 +26,7 @@
           <a class="nav-link" data-toggle="collapse" href="#cInfo" role="button" aria-expanded="false" aria-controls="cInfo">Karakteristike</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Radni nalozi</a>
+            <a class="nav-link" href="{{ route('workorders', $position -> position)}}">Radni nalozi</a>
         </li>
         @if(count($spareparts)>0)
         <li class="nav-item">
@@ -71,7 +71,7 @@
 @if(count($spareparts)>0)
 <div class="collapse show" id="cSpareParts">
     <br />
-    @include('positions.include_spareparts')
+    @include('positions.include_spareparts_table')
 </div>
 @endif
 
