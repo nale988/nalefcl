@@ -49,9 +49,13 @@
             <tbody>
             @foreach($sparepart->sortBy('storage_number') as $part)
             @if($part -> critical_part)
-                <tr class="table-success" title="Opis">
+                @if($part -> navision_zalihe < $part -> amount)
+                    <tr class="table-danger" title="Kritični dio">
+                @else
+                    <tr class="table-success" title="Kritični dio">
+                @endif
             @else
-                <tr title="prepis">
+                <tr>
             @endif
                     <th scope="row"><small>{{ $part -> storage_number }}</small></th>
                     <td><small>{{ $part -> description }}</small></td>
