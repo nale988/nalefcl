@@ -17,8 +17,10 @@ Route::get('advancedsearch', 'SearchController@advancedsearch')->name('advanceds
 Route::get('advancedsearchresults', 'SearchController@advancedsearchresults')->name('advancedsearchresults');
 Route::get('dangerlevelspareparts', 'SparePartController@dangerlevelspareparts')->name('dangerlevelspareparts');
 
+Route::get('favorite/{id}', 'PositionController@favorite')->name('favorite');
+
 Route::get('removesparepartfile', 'SparePartController@removesparepartfile')->name('removesparepartfile');
-Route::get('removepositionfile', 'PositionController@removepositionfile')->name('removepositionfile');
+Route::get('removepositionfile/{id}', 'PositionController@removepositionfile')->name('removepositionfile');
 Route::get('removerevisionfile/{id}', 'RevisionController@removerevisionfile')->name('removerevisionfile');
 
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');

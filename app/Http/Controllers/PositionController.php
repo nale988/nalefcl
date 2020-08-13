@@ -25,9 +25,28 @@ use App\UserRole;
 use App\BlowerService;
 use App\CompressorService;
 use App\CompressorServiceFile;
+use App\Favorite;
 
 class PositionController extends Controller
 {
+    public function favorite($id){
+        $user = Auth::user();
+        $favorite = Favorite::where('position_id', $id)->first();
+
+        if(!empty($favorite)){
+            $favorite -> delete();
+            return redirect()->back()->with('alert', 'Uklonjena pozicija iz omiljenih!');
+        }
+        else{
+            $add = new Favorite([
+                'user_id' => $user -> id,
+                'position_id' => $id,
+            ]);
+
+            $add -> save();
+            return redirect()->back()->with('message', 'Dodana pozicija u omiljene!');
+        }
+    }
     public function storecompressorservice(Request $request){
         $request -> validate([
             'date' => 'required',
@@ -189,9 +208,10 @@ class PositionController extends Controller
         }
     }
 
-    public function removepositionfile (Request $request){
-        foreach($request->all() as $key => $value){
-            $file = PositionFile::where('id', $key)->delete();
+    public function removepositionfile($id){
+        $files = PositionFile::where('file_upload_id', $id)->get();
+        foreach($files as $file){
+            $file -> delete();
         }
 
         return redirect() -> back() -> with('message', 'Uklonjen dokument!');
@@ -256,16 +276,6 @@ class PositionController extends Controller
         }
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function show($id)
     {
         $agent = new Agent();
@@ -278,14 +288,13 @@ class PositionController extends Controller
             return redirect()->guest('login')->with('alert', 'Niste ulogovani!');;
         }
 
-
         $position = Position::where('id', $id)
             ->with('unit')
             ->with('devicetype')
             ->with('spareparts')
-            ->with('files')
             ->get()->first();
 
+        $favorite = Favorite::where('position_id', $id)->first();
         $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
 
         if($userrole -> workhours){
@@ -318,6 +327,7 @@ class PositionController extends Controller
             ->get(['spare_parts.*',
                 'navision.zalihe as navision_zalihe',
                 'navision.kol_na_narudzbenici as navision_kol_na_narudzebnici',
+                'navision.jedinicni_trosak as navision_jedinicni_trosak',
                 'spare_part_connections.amount as amount',
                 'spare_part_groups.description as spare_part_group_description',
                 'file_uploads.filename as file_filename',
@@ -329,31 +339,16 @@ class PositionController extends Controller
             ->sortBy('spare_part_group_description')
             ->groupBy('spare_part_group_description');
 
-        $revisions = Revision::where('position_id', $id)->where('user_id', $user->id)->with('files')->get();
-
-        // print_r(json_encode($workinghours));
+        // print_r(json_encode($spareparts));
         // die;
 
+        $revisions = Revision::where('position_id', $id)->where('user_id', $user->id)->with('files')->get();
+
         if ($agent -> isMobile()){
-            return view('positions.showmobile', compact('position', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
+            return view('positions.showmobile', compact('position', 'favorite', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
         }
         else{
-            return view('positions.show', compact('position', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
+            return view('positions.show', compact('position', 'spareparts', 'favorite', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
         }
-    }
-
-    public function edit($id)
-    {
-
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

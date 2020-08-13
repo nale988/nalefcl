@@ -149,6 +149,10 @@ class RevisionController extends Controller
 
     public function destroy($id)
     {
-        //
+        $revision = Revision::where('id', $id)->first();
+        $position_id = $revision -> position_id;
+        $revision -> delete();
+
+        return redirect('positions/'.$position_id)->with('message', 'Obrisana revizija!');
     }
 }
