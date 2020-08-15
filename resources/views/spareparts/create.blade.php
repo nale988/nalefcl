@@ -1,31 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-@if (Session::has('message'))
-    <div class="alert alert-info">
-        {{ Session::get('message') }}
-    </div>
-@endif
-
-@if (Session::has('alert'))
-    <div class="alert alert-danger">
-        {{ Session::get('alert') }}
-    </div>
-@endif
-
-
 <div class= "col-12">
     <div class="card">
         <div class="card-header">
@@ -63,7 +38,7 @@
             <div class="row">
                 <div class="col-6">
                     <div class="form-group mb-2">
-                    <label for="drawing_position">Količina</label>
+                    <label for="amount">Količina</label>
                     <input type="number" step=".01" class="form-control form-control-sm" name="amount" id="amount" value="1">
                     </div>
                 </div>
@@ -217,5 +192,4 @@
 
 <br />
 <br />
-</div>
 @endsection

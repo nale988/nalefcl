@@ -33,7 +33,14 @@ Route::get('workorders/{position}', 'PositionController@workorders') -> name('wo
 Route::get('neworder/{position_id?}/{spare_part_id?}/{amount?}', 'SparePartOrderController@neworder')->name('neworder');
 Route::get('confirmorder/{sparepartorder_id}', 'SparePartOrderController@confirmorder')->name('confirmorder');
 
+Route::get('todos/finish/{id}', 'ToDoController@finish')->name('todos.finish');
+
+Route::get('worktimes/review', 'WorkTimeController@review')->name('worktimes.review');
+Route::get('worktimes/delete/{id}', 'WorkTimeController@delete')->name('worktimes.delete');
+
 Route::resource('positions', 'PositionController');
 Route::resource('spareparts', 'SparePartController');
 Route::resource('revisions', 'RevisionController');
 Route::resource('sparepartorders', 'SparePartOrderController');
+Route::resource('worktimes', 'WorkTimeController');
+Route::resource('todos', 'ToDoController');

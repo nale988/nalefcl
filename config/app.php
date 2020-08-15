@@ -231,6 +231,7 @@ return [
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
         'Position' => App\Position::class,
         'Favorite' => App\Favorite::class,
+        'ToDo' => App\ToDo::class,
+        'UserRole' => App\UserRole::class,
     ],
-
 ];

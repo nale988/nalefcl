@@ -13,6 +13,7 @@ class UserRole extends Model
         'workhours',
         'workorders',
         'lubrications',
+        'worktimes',
         'files',
     ];
 }

@@ -271,6 +271,10 @@ class PositionController extends Controller
         $agent = new Agent();
 
         $positions = Position::all()->sortBy('position')->paginate(20);
+
+        print_r(json_encode($positions));
+        die;
+
         if ($agent -> isMobile()){
             return view('positions.indexmobile', compact('positions'));
         }
@@ -297,7 +301,7 @@ class PositionController extends Controller
             ->with('spareparts')
             ->get()->first();
 
-        $favorite = Favorite::where('position_id', $id)->first();
+        $favorite = Favorite::where('position_id', $id)->where('user_id', $user -> id)->first();
         $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
 
         if($userrole -> workhours){

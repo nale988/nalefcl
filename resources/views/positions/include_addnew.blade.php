@@ -1,4 +1,9 @@
 <div class="card border-dark">
+    <div class="card-header bg-dark text-white text-right">
+        <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cAddNew" role="button" aria-expanded="false" aria-controls="cAddNew">
+            <small>Dodaj novo</small>
+        </a>
+    </div>
     <div class="card-body">
         <div class="card">
             <div class="card-header">
@@ -140,9 +145,7 @@
             </div>
             @endif
         @endif
-
         <br />
-
         <div class="card">
             <div class="card-header">
                 Napomene
@@ -156,6 +159,7 @@
                     </div>
 
                     <input type="hidden" name="revision_position_id" value="{{ $position -> id }}">
+
                     <div class="row">
                         <div class="col">&nbsp;</div>
                         <div class="col-4">
@@ -169,12 +173,6 @@
                     </div>
                 </form>
             </div>
-
-    </div>
-    <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cAddNew" role="button" aria-expanded="false" aria-controls="cAddNew">
-        <div class="card-footer bg-dark text-white text-right">
-            Dodaj novo...
         </div>
-    </a>
-
+    </div>
 </div>

@@ -21,6 +21,7 @@ class CreateUserRolesTable extends Migration
             $table->boolean('workhours');
             $table->boolean('workorders');
             $table->boolean('lubrications');
+            $table->boolean('worktimes');
             $table->boolean('files');
             $table->timestamps();
         });
