@@ -12,6 +12,16 @@ class WorkTimeController extends Controller
     public function index(Request $request)
     {
         $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+
+        $items = WorkTime::where('date', Carbon::today())->where('user_id', $user -> id) -> get();
+        return view('worktimes.index', compact('items'));
+    }
+
+    public function create()
+    {
+        $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+        $items = WorkTime::where('date', Carbon::today())->where('user_id', $user -> id) -> get();
+
         return view('worktimes.create', compact('items'));
     }
 
