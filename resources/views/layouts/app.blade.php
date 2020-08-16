@@ -213,11 +213,12 @@
                     </a>
                 </li>
             </ul>
+
             <form class="form-inline">
             @csrf
                 <div class="form-group" action="{{ route('search') }}" method="GET">
-                    <input class="form-control mx-2" type="search" name="searchvalue" placeholder="Traži poziciju..." arial-label="Search" >
-                    <button class="btn btn-primary" type="submit">Traži</button>
+                    <input class="form-control form-control-sm mx-2" type="text" name="searchvalue" placeholder="Traži poziciju..." arial-label="Search" >
+                    <button class="btn btn-primary btn-sm" type="submit">Traži</button>
                 </div>
             </form>
           </div>
