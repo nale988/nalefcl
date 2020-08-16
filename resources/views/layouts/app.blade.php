@@ -197,21 +197,7 @@
                         &nbsp;&nbsp;&nbsp;FCLukavac
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('sparepartorders.index') }}" title="Narudžbe">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart3" fill="white" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                        </svg>
-                    </a>
-                </li>
-                <li class="nav-item text-white">
-                    <a class="nav-link" href="{{ route('dangerlevelspareparts') }}" title="Signalne zalihe">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-octagon" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                    </svg>
-                    </a>
-                </li>
+
             </ul>
 
             <form class="form-inline">
