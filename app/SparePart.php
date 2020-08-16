@@ -29,4 +29,5 @@ class SparePart extends Model
     public function files(){
         return $this->belongsToMany('App\FileUpload', 'spare_part_files');
     }
+
 }

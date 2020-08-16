@@ -71,7 +71,7 @@
     </div>
     <div class="card-footer bg-dark text-white text-right">
         <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cRevisions" role="button" aria-expanded="false" aria-controls="cRevisions">
-            Napomene
+            <small>Napomene</small>
         </a>
     </div>
 </div>

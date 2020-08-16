@@ -187,7 +187,7 @@
         <div class="navbar navbar-dark bg-dark box-shadow">
           <div class="container">
             <ul class="nav">
-                <li class="nav-item">
+                <li>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -204,6 +204,7 @@
                         </svg>
                     </a>
                 </li>
+                <!--
                 <li class="nav-item text-white">
                     <a class="nav-link" href="{{ route('dangerlevelspareparts') }}" title="Signalne zalihe">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-octagon" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -212,13 +213,27 @@
                     </svg>
                     </a>
                 </li>
+                -->
             </ul>
 
             <form class="form-inline mt-2 mt-md-0" action="{{ route('search') }}" method="GET">
                 @csrf
-                <input class="form-control mr-sm-2" type="text" placeholder="Traži poziciju" aria-label="Search">
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">Traži</button>
+                <input class="form-control mr-sm-2" type="text" name="searchvalue" placeholder="Traži..." aria-label="Search">
+                <div class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Traži<span class="caret"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                        <button class="dropdown-item" type="submit" name="searchwhere" value="position">u pozicijama</button>
+                        <button class="dropdown-item" type="submit" name="searchwhere" value="spareparts">u rezervnim dijelovima</button>
+                        <button class="dropdown-item" type="submit" name="searchwhere" value="spareparttypes">u vrsti rezervnih dijelova</button>
+                        <button class="dropdown-item" type="submit" name="searchwhere" value="documents">u imenima dokumenata</button>
+                        <button class="dropdown-item" type="submit" name="searchwhere" value="revisions">u napomenama</button>
+                        <button class="dropdown-item" type="submit" name="searchwhere" value="navision">u Navisionu</button>
+                    </div>
+                </div>
             </form>
+
           </div>
         </div>
       </header>

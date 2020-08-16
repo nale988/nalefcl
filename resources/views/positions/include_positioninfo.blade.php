@@ -50,7 +50,7 @@
     </div>
     <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cInfo" role="button" aria-expanded="false" aria-controls="cInfo">
         <div class="card-footer bg-dark text-white text-right">
-            Karakteristike
+            <small>Karakteristike</small>
         </div>
     </a>
 </div>

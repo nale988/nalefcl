@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="card-body">
-        @foreach($spareparts as $title => $sparepart)
+    @foreach($spareparts as $title => $sparepart)
         @if($loop->first)
             @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
                 <div class="collapse show" id="cEmpty">
@@ -34,13 +34,30 @@
                 <div class="collapse" id="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}">
             @endif
         @endif
+        <div class="card-header">
+            <div class="row">
+                <div class="col-6">
+                    @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
+                        <strong>Bez grupe</strong> (ukupno: {{ count($sparepart)}})
+                    @else
+                        <strong>{{ $title }}</strong> (ukupno: {{ count($sparepart)}})
+                    @endif
+                </div>
+                <div class="col text-right">
+                    <span class="table-danger">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    Kritični dijelovi kojih nema dovoljno
+                    <span class="table-success">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    Kritični dijelovi koji su OK
+                </div>
+            </div>
+        </div>
         <table class="table table-hover table-sm">
             <thead>
                 <tr>
                     <th scope="col">Skl. broj</th>
                     <th scope="col">Opis</th>
                     <th scope="col">Kat. broj</th>
-                    <th scope="col">Opcije</th>
+                    <th scope="col-auto">Opcije</th>
                     <th scope="col" class="text-right">Količina</th>
                     <th scope="col" class="text-right">Magacin</th>
                     <th scope="col" class="text-right">Cijena</th>
@@ -115,16 +132,8 @@
             @endforeach
             </tbody>
         </table>
-        <br />
-        <div class="card-footer text-left">
-            @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
-                Bez grupe (ukupno: {{ count($sparepart)}})
-            @else
-                {{ $title }} (ukupno: {{ count($sparepart)}})
-            @endif
-        </div>
     </div>
-
-        @endforeach
+    <br />
+    @endforeach
     </div>
 </div>
