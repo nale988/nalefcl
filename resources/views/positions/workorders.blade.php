@@ -31,21 +31,6 @@
                     {{ $workorder -> unit }}
                 </div>
 
-                <div class="col text-right">
-                    @if($workorder -> intervention)
-                        <span class="badge badge-light">Intervencija</span>
-                    @endif
-                    @if($workorder -> fix)
-                        <span class="badge badge-light">Popravak izrada</span>
-                    @endif
-                    @if($workorder -> general_repair)
-                        <span class="badge badge-light">Remont</span>
-                    @endif
-                    @if($workorder -> preventive_maintenance)
-                        <span class="badge badge-light">Preventivni pregled</span>
-                    @endif
-                </div>
-
                 <div class="col-2">
                     {{ date('d. m. Y.', strtotime($workorder -> date)) }}
                 </div>
@@ -53,7 +38,7 @@
                 <div class="col-2">
                     {{ date('d. m. Y.', strtotime($workorder -> date1)) }}
                 </div>
-                <div class="col-2 text-right">
+                <div class="col-1 text-right">
                     @if ($workorder -> finished ==1)
                         <span class="badge badge-success">Završeno</span>
                     @else

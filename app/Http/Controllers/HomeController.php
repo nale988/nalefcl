@@ -32,13 +32,24 @@ class HomeController extends Controller
     {
         $agent = new Agent();
 
-        $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+        if (Auth::check()){
+            $user = Auth::user();
+        }
+        else{
+            return redirect('login');
+        }
 
         $sparepartorders = SparePartOrder::where('user_id', $user->id)->where('done', 0)->with('sparepart')->with('position')->orderBy('date')->get();
-        $workorders = WorkOrder::orderByDesc('date')->get()->take(10);
+        $workorders = WorkOrder::all()->sortByDesc('date')->take(10);
         $username_raw = explode(" ", $user -> name);
         $username = $username_raw[1]." ".substr($username_raw[0], 0, 1);
-        $myworkorders = WorkOrder::where('owner', $username)->orderByDesc('date')->get()->take(10);
+        $myworkorders = WorkOrder::where('owner', $username)->get()->sortByDesc('date')->take(10);
+
+        // $positions = Position::all();
+        // $criticalspareparts = SparePart::where('user_id', $user->id)->where('critical_part', 1)
+        //     ->leftJoin('navision', 'navision.br', '=', 'spare_parts.storage_number')
+        //     ->where('navision.zalihe', '<=', 'spare_part.danger_level')
+        //     ->get(['spare_parts.*', 'navision.br as navbr', 'navision.zalihe as zalihe']);
 
         $info = Info::first();
         $base = Info::find(2);
