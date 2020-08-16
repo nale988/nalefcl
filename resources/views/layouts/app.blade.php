@@ -188,8 +188,13 @@
           <div class="container">
             <ul class="nav">
                 <li class="nav-item">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </li>
+                <li class="nav-item">
                     <a class="navbar-brand" href="{{ route('home')}}">
-                        FCLukavac
+                        &nbsp;&nbsp;&nbsp;FCLukavac
                     </a>
                 </li>
                 <li class="nav-item">
@@ -207,29 +212,14 @@
                     </svg>
                     </a>
                 </li>
-
             </ul>
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                    <form class="form-group mx-2" action="{{ route('search') }}" method="GET">
-                        @csrf
-                        <div class="row">
-                            <div class="col-4">&nbsp;</div>
-                            <div class="col-6">
-                                <input class="form-control mx-2" type="search" name="searchvalue" placeholder="Traži poziciju..." arial-label="Search" >
-                            </div>
-                            <div class="col-2">
-                                <button class="btn btn-primary" type="submit">Traži</button>
-                            </div>
-                        </div>
-                    </form>
-                </li>
-                <li class="nav-item">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                </li>
-            </ul>
+            <div class="form-inline">
+                <form class="form-group mx-2" action="{{ route('search') }}" method="GET">
+                @csrf
+                    <input class="form-control mx-2" type="search" name="searchvalue" placeholder="Traži poziciju..." arial-label="Search" >
+                    <button class="btn btn-primary" type="submit">Traži</button>
+                </form>
+            </div>
           </div>
         </div>
       </header>
