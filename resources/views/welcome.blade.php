@@ -1,28 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-@if (Session::has('message'))
-    <div class="alert alert-info">
-        {{ Session::get('message') }}
-    </div>
-@endif
 
 <div class="row">
-    <div class="col-12">
-        <div class="card border-primary mb-3">
-            <div class="card-header font-weight-bold">
+    <div class="col-10">
+        <div class="card">
+            <div class="card-header border-dark bg-dark text-white">
                 Posljednji nalozi
             </div>
             <div class="card-body">
@@ -38,12 +21,33 @@
             </div>
         </div>
     </div>
+    <div class="col-2">
+        <div class="card">
+            <div class="card-header border-dark bg-dark text-white">
+                Pareto
+            </div>
+            <div class="card-body border-dark ">
+                @foreach($pareto as $item)
+                <div class="row">
+                    <div class="col-8">
+                        {{ $item -> position }}
+                    </div>
+                    <div class="col text-right">
+                        {{ $item -> totalworkorders }}
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 </div>
+
+<br />
 
 <div class="row">
     <div class="col-12">
-    <div class="card border-success mb-3">
-        <div class="card-header font-weight-bold">
+    <div class="card">
+        <div class="card-header border-dark bg-dark text-white">
             Moji posljednji nalozi
         </div>
         <div class="card-body">
@@ -61,5 +65,4 @@
     </div>
 </div>
 
-</div> <!-- CONTAINER -->
 @endsection
