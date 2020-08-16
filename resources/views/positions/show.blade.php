@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-<nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-primary">
+<nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-primary" style="z-index: 1;">
     <a class="navbar-brand" href="#">{{ $position -> position }}</a>
 
     @if(!empty($favorite))

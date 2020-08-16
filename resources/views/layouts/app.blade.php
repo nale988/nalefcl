@@ -220,7 +220,7 @@
                 @csrf
                 <input class="form-control mr-sm-2" type="text" name="searchvalue" placeholder="Traži..." aria-label="Search">
                 <div class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="z-index:2;">
                         Traži<span class="caret"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
