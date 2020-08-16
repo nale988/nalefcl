@@ -7,7 +7,7 @@
         <div class="col-sm-2">
             <div class="form-group mb-2">
                 <label for="date">Datum</label>
-                <input type="date" class="form-control form-control-sm" name="date" id="date" value="{{ now()->format('Y-m-d') }}">
+                <input type="date" class="form-control form-control-sm" name="date" id="date" value="{{ now()->modify('+1 day')->format('Y-m-d') }} }}">
             </div>
         </div>
         <div class="col-sm-10">
