@@ -36,21 +36,8 @@ class WelcomeController extends Controller
         $myworkorders = WorkOrder::where('owner', $username)->get()->sortByDesc('date')->take(10);
 
 
-        $pareto = WorkOrder::where(DB::raw('YEAR(date)'), '=', '2020')
-            ->leftJoin('positions', 'positions.position', '=', 'work_orders.position')
-            ->selectRaw('work_orders.position, count(work_orders.position) as totalworkorders')
-            ->where(function($q){
-                $q->where('intervention', 1)
-                  ->orWhere('fix', 1);
-            })
-            ->orderBy('totalworkorders', 'desc')
-            ->groupBy('work_orders.position')
-            ->get()
-            ->take(10);
-
-        print_r(json_encode($pareto));
-        die;
-
+        $info = Info::first();
+        $base = Info::find(2);
         $today = now();
 
 
@@ -59,10 +46,10 @@ class WelcomeController extends Controller
         // die;
 
         if ($agent -> isMobile()){
-             return view('welcomemobile', compact('workorders', 'myworkorders', 'sparepartorders', 'today'));
+             return view('welcomemobile', compact('workorders', 'myworkorders', 'sparepartorders', 'info', 'today', 'base'));
         }
         else{
-            return view('welcome', compact('workorders', 'myworkorders', 'sparepartorders', 'today'));
+            return view('welcome', compact('workorders', 'myworkorders', 'sparepartorders', 'info', 'today', 'base'));
         }
 
     }
