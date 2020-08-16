@@ -211,10 +211,17 @@
             </ul>
             <ul class="nav justify-content-end">
                 <li class="nav-item">
-                    <form class="form-inline mx-2" action="{{ route('search') }}" method="GET">
+                    <form class="form-group mx-2" action="{{ route('search') }}" method="GET">
                         @csrf
-                        <input class="form-control mx-2" type="search" name="searchvalue" placeholder="Traži poziciju..." arial-label="Search" >
-                        <button class="btn btn-primary" type="submit">Traži</button>
+                        <div class="row">
+                            <div class="col-4">&nbsp;</div>
+                            <div class="col-6">
+                                <input class="form-control mx-2" type="search" name="searchvalue" placeholder="Traži poziciju..." arial-label="Search" >
+                            </div>
+                            <div class="col-2">
+                                <button class="btn btn-primary" type="submit">Traži</button>
+                            </div>
+                        </div>
                     </form>
                 </li>
                 <li class="nav-item">
