@@ -30,7 +30,7 @@
             <div class="row">
               <div class="col-sm-3 py-4">
                 @if(Illuminate\Support\Facades\Auth::check())
-                    <h4 class="text-white"><u>Omiljene pozicije</u></h4>
+                    <h4 class="text-white"><u>Odabrane pozicije</u></h4>
                     <ul class="list-unstyled">
                         @foreach(Favorite::leftJoin('positions', 'favorites.position_id', '=', 'positions.id')->where('user_id', Illuminate\Support\Facades\Auth::user() -> id)->get()->sortBy('position') as $favorite)
                             <li><small><a href="{{ route('positions.show', $favorite->position_id) }}" class="text-white text-truncate" style="text-decoration:none;">&nbsp;&nbsp;&nbsp;{{ $favorite -> position }} - {{ $favorite -> name }}</a></small></li>
@@ -45,11 +45,11 @@
                     @foreach(App\ToDo::where('done', 0)->where('user_id', Illuminate\Support\Facades\Auth::user() -> id)->get()->sortByDesc('urgent')->groupBy('urgent') as $urgent => $todos)
                         @foreach($todos as $todo)
                             @if($loop -> first && $urgent == 1)
-                                <li>&nbsp;&nbsp;<strong><span class="text-white">Hitno:</span></strong></li>
+                                <li>&nbsp;&nbsp;<strong><span class="text-white">Bitno:</span></strong></li>
                             @endif
 
                             @if($loop -> first && $urgent == 0)
-                                <li>&nbsp;&nbsp;<strong><span class="text-white">Ostali poslovi:</span></strong></li>
+                                <li>&nbsp;&nbsp;<strong><span class="text-white">Ostalo:</span></strong></li>
                             @endif
                             <li>
                                 @if($todo -> urgent == 1)

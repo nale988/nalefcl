@@ -28,14 +28,16 @@
             </div>
             <div class="card-body border-dark ">
                 @foreach($pareto as $item)
-                <div class="row">
-                    <div class="col-8">
-                        {{ $item -> position }}
+                <a style="text-decoration: none; color: #000000;" href="{{ route('workorders', $item -> position)}}">
+                    <div class="row">
+                        <div class="col-8">
+                            {{ $item -> position }}
+                        </div>
+                        <div class="col text-right">
+                            {{ $item -> totalworkorders }}
+                        </div>
                     </div>
-                    <div class="col text-right">
-                        {{ $item -> totalworkorders }}
-                    </div>
-                </div>
+                </a>
                 @endforeach
             </div>
         </div>
