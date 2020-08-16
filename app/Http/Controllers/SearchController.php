@@ -95,12 +95,7 @@ class SearchController extends Controller
     public function advancedsearchresults(Request $request){
         $agent = new Agent();
 
-        if (Auth::check()){
-            $user = Auth::user();
-        }
-        else{
-            return view('/');
-        }
+        $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
 
         $positions = collect();
         $spareparts = collect();
@@ -161,9 +156,6 @@ class SearchController extends Controller
                     ->get();
             }
         }
-
-        // print_r(json_encode($spareparttypes));
-        // die;
 
         if ($agent -> isMobile()){
             return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info', 'spareparttypes'));
