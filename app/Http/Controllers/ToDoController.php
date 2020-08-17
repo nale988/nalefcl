@@ -19,7 +19,7 @@ class ToDoController extends Controller
         $todo -> done = 1;
         $todo -> save();
 
-        return redirect()->back()->with('message', 'Potvrđena narudžba');
+        return redirect()->back()->with('message', 'Uklonjena napomena.');
     }
     public function create()
     {
