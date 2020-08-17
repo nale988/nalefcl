@@ -55,9 +55,9 @@
             <thead>
                 <tr>
                     <th scope="col">Skl. broj</th>
-                    <th scope="col">Opis</th>
-                    <th scope="col">Kat. broj</th>
-                    <th scope="col-auto">Opcije</th>
+                    <th scope="col" class="text-nowrap">Opis</th>
+                    <th scope="col" class="text-nowrap">Kat. broj</th>
+                    <th scope="col" class="text-nowrap">Opcije</th>
                     <th scope="col" class="text-right">Količina</th>
                     <th scope="col" class="text-right">Magacin</th>
                     <th scope="col" class="text-right">Cijena</th>
@@ -75,9 +75,9 @@
                 <tr>
             @endif
                     <th scope="row"><small>{{ $part -> storage_number }}</small></th>
-                    <td><small>{{ $part -> description }}</small></td>
-                    <td><small>{{ $part -> catalogue_number }}</small></td>
-                    <td>
+                    <td class="text-nowrap"><small>{{ $part -> description }}</small></td>
+                    <td class="text-nowrap"><small>{{ $part -> catalogue_number }}</small></td>
+                    <td class="text-nowrap">
                         @if(isset($part -> file_fileurl))
                         <a href="{{ URL::asset($part -> file_fileurl) }}" title="{{ $part -> file_filename}}  //  {{ number_format(round($part -> file_filesize/1024, 0), 0, '.', ' ') }}kB" >
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
