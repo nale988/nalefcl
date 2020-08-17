@@ -49,7 +49,7 @@ class HomeController extends Controller
         ->orderBy('totalworkorders', 'desc')
         ->groupBy('work_orders.position')
         ->get()
-        ->take(10);
+        ->take(15);
 
         // print_r(json_encode($pareto));
         // die;

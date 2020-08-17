@@ -94,7 +94,7 @@
                     <li>
                         <div class="row">
                             <div class="col-auto">
-                                <small><a href="{{ route('todos.create') }}" class="btn btn-sm btn-outline-primary">Dodaj novo</a></small>
+                                <small><a href="{{ route('todos.create') }}" class="btn btn-sm btn-outline-danger">Dodaj novo</a></small>
                             </div>
                         </div>
                     </li>
@@ -147,41 +147,41 @@
                         @endif
                     @endif
                 </ul>
-                    <h4 class="text-white"><u>Korisnik</u></h4>
-                    <ul class="list-unstyled">
-                    <li>
+                <h4 class="text-white"><u>Korisnik</u></h4>
+                <ul class="list-unstyled">
+                <li>
                     @guest
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
                     @else
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
-
-                        <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
+
+                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                     @endguest
                     <li class="nav-item">
                         <span class="text-white"><small>Nav: {{ Config::get('sitesettings.navision_date')}}</small></span>
                         <span class="text-white"><small>RN: {{ Config::get('sitesettings.workorders_date')}}</small></span>
                     </li>
-                  </li>
+                </li>
                 </ul>
               </div>
             </div>
@@ -222,13 +222,15 @@
 
             <form class="form-inline mt-2 mt-md-0" action="{{ route('search') }}" method="GET">
                 @csrf
-                <input class="form-control mr-sm-2" type="text" name="searchvalue" placeholder="Traži..." aria-label="Search">
-                <div class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="z-index:2;">
-                        Traži<span class="caret"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <button class="dropdown-item" type="submit" name="searchwhere" value="position">u pozicijama</button>
+                <input class="form-control mr-sm-2" type="text" name="searchvalue" placeholder="..." aria-label="Search">
+                <div class="btn-group">
+                    <button class="btn btn-danger" type="submit" name="searchwhere" value="position">Traži</button>
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <h6 class="dropdown-header">Pretraga</h6>
+                        <div class="dropdown-divider"></div>
                         <button class="dropdown-item" type="submit" name="searchwhere" value="spareparts">u rezervnim dijelovima</button>
                         <button class="dropdown-item" type="submit" name="searchwhere" value="spareparttypes">u vrsti rezervnih dijelova</button>
                         <button class="dropdown-item" type="submit" name="searchwhere" value="documents">u imenima dokumenata</button>
@@ -237,7 +239,6 @@
                     </div>
                 </div>
             </form>
-
           </div>
         </div>
       </header>
