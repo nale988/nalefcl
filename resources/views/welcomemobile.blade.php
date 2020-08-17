@@ -10,7 +10,7 @@
         <div class="card-body">
             @foreach($pareto as $position)
             <div class="row">
-                <div class="col-4 text-right text-truncate">
+                <div class="col-3 text-right text-truncate">
                     <a href="{{ route('workorders', $position -> position)}}" style="color:#000000">
                         {{ $position -> position }}
                     </a>
