@@ -40,8 +40,8 @@
 
 <div class="row">
     <div class="col">
-        <div class="card border-danger mb-3">
-            <div class="card-header font-weight-bold">
+        <div class="card mb-3">
+            <div class="card-header bg-dark text-white">
                 Posljednji nalozi Mašinskog održavanja
             </div>
             <div class="card-body">
@@ -68,8 +68,8 @@
 
 <div class="row">
     <div class="col">
-        <div class="card border-success mb-3">
-            <div class="card-header font-weight-bold">
+        <div class="card mb-3">
+            <div class="card-header bg-dark text-white">
                 Moji posljednji nalozi
             </div>
             <div class="card-body">
