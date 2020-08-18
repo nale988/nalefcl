@@ -27,8 +27,10 @@
         </div>
 
             <div class="row">
-                <div class="col">{{ $workorder -> owner }}</div>
-                <div class="col text-right"><small>{{ date('d. m. Y.', strtotime($workorder -> date)) }} - {{ date('d. m. Y.', strtotime($workorder -> date1)) }}</small></div>
+                <div class="col-12">
+                    <small><div class="float-left">{{ $workorder -> owner }}</div></small>
+                    <small><div class="float-right"><small>{{ date('d. m. y.', strtotime($workorder -> date)) }} - {{ date('d. m. y.', strtotime($workorder -> date1)) }}</small></div></small>
+                </div>
             </div>
     </div>
     <div class="card-body">
