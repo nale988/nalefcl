@@ -346,9 +346,6 @@ class PositionController extends Controller
             ->sortBy('spare_part_group_description')
             ->groupBy('spare_part_group_description');
 
-        // print_r(json_encode($spareparts));
-        // die;
-
         $revisions = Revision::where('position_id', $id)->where('user_id', $user->id)->with('files')->get();
 
         if ($agent -> isMobile()){

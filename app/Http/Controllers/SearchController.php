@@ -162,9 +162,6 @@ class SearchController extends Controller
             }
         }
 
-        // print_r(json_encode($spareparttypes));
-        // die;
-
         if ($agent -> isMobile()){
             return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info', 'spareparttypes'));
         }

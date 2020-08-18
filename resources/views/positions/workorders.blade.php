@@ -5,11 +5,10 @@
 @if(count($workorders)>0)
 <br />
 <div class="card">
-    <div class="card-header">
-        Radni nalozi za <a href="{{ route('positions.show', $selectedposition->id) }}"">{{ $selectedposition -> position }} - {{ $selectedposition -> name }}</a>
+    <div class="card-header bg-dark text-white">
+        Radni nalozi za <a href="{{ route('positions.show', $selectedposition->id) }}" style="color:#ffffff; text-decoration:none;">{{ $selectedposition -> position }} - {{ $selectedposition -> name }}</a>
     </div>
     <div class="card-body">
-
         @foreach($workorders as $workorder)
         <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
             <div class="row">
@@ -51,7 +50,9 @@
                 <hr />
             @endif
         @endforeach
-
+        <div class="card-footer bg-dark text-white">
+            {{ count($workorders) }}
+        </div>
     </div>
 </div>
 @endif

@@ -1,37 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-@if (Session::has('message'))
-    <div class="alert alert-info">
-        {{ Session::get('message') }}
-    </div>
-@endif
-
-@if (Session::has('alert'))
-    <div class="alert alert-danger">
-        {{ Session::get('alert') }}
-    </div>
-@endif
-
 <div class="card">
-    <div class="card-header">
+    <div class="card-header bg-dark text-white">
         <div class="row">
             <div class="col">
                 <strong>{{ $workorder -> number }}</strong>
             </div>
-
             <div class="col text-right">
                 @if($workorder -> preventive_maintenance)
                     <span class="badge badge-secondary">Preventivno održavanje</span>
@@ -59,7 +34,7 @@
     <div class="card-body">
         <div class="row">
             @if($position -> id <> 9999)
-            <a href="{{ route('positions.show', $position -> id) }}" title="Otvori poziciju!" >
+            <a href="{{ route('positions.show', $position -> id) }}" style="text-decoration: none; color: #000000" title="Otvori poziciju!" >
             @endif
 
                 <div class="col">
@@ -95,8 +70,8 @@
         @if(count($storagespendings)>0)
         <br />
         <div class="card">
-            <div class="card-header">
-                <a data-toggle="collapse" href="#collapseStorageSpending" role="button" aria-expanded="false" aria-controls="collapseStorageSpending">
+            <div class="card-header bg-light">
+                <a style="color: #000000" data-toggle="collapse" href="#collapseStorageSpending" role="button" aria-expanded="false" aria-controls="collapseStorageSpending">
                 Spisak trebovanja
                 </a>
             </div>
@@ -107,11 +82,11 @@
                                 @foreach($storagespendings as $storagespending)
                                 <li class="list-group-item">
                                     <div class="row">
-                                        <div class="col text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
+                                        <div class="col-8 text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
+                                        <div class="col-4 text-right">{{ $storagespending -> pieces }}kom</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-9 text-truncate">{{ $storagespending -> title }}</div>
-                                        <div class="col-3 text-right">{{ $storagespending -> pieces }}kom</div>
+                                        <div class="col-12 text-truncate">{{ $storagespending -> title }}</div>
                                     </div>
                                     <div class="row">
                                         <div class="col-6 text-muted">{{ $storagespending -> worker }}</div>
@@ -127,7 +102,7 @@
         @endif
 
     </div>
-    <div class="card-footer">
+    <div class="card-footer bg-dark text-white">
         <div class="row">
             <div class="col">
                 <h5>{{ $workorder -> contractor }}</h5>
@@ -149,7 +124,5 @@
             </div>
         </div>
     </div>
-</div>
-
 </div>
 @endsection
