@@ -123,6 +123,9 @@
                         @endif
                     @endforeach
                 </div>
+                <div class="card-footer bg-dark text-white">
+                    Ukupno: {{ count($storagespendings) }}
+                </div>
             </div>
         </div>
 </div>
