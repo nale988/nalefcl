@@ -190,8 +190,6 @@ class PositionController extends Controller
     }
 
     public function workorders($position){
-        $agent = new Agent();
-
         if (Auth::check()){
             $user = Auth::user();
         }
@@ -201,13 +199,7 @@ class PositionController extends Controller
 
         $workorders = WorkOrder::where('position', 'LIKE', $position)->get()->sortByDesc('date');
         $selectedposition = Position::where('position', 'LIKE', $position)->first();
-
-        if ($agent -> isMobile()){
-            return view('positions.workordersmobile', compact('workorders', 'selectedposition'));
-        }
-        else {
-            return view('positions.workorders', compact('workorders', 'selectedposition'));
-        }
+        return view('positions.workorders', compact('workorders', 'selectedposition'));
     }
 
     public function removepositionfile($id){

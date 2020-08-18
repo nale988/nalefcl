@@ -11,33 +11,31 @@
     <div class="card-body">
         @foreach($workorders as $workorder)
         <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
-            <div class="row">
+            <div class="row text-muted">
                 <div class="col">
-                    {{ $workorder -> content }}
+                    <small>{{ $workorder -> number }}</small>
                 </div>
-
-                <div class="col-2 text-right">
+                <div class="col text-right">
                     {{ $workorder -> owner}}
                 </div>
-            </div>
 
+            </div>
+            <div class="row">
+                <div class="col text-justify">
+                    {{ $workorder -> content }}
+                </div>
+            </div>
+            <br />
             <div class="row text-muted">
-                <div class="col-2">
-                    {{ $workorder -> number }}
+                <div class="col">
+                    <small>Od: {{ date('d. m. y.', strtotime($workorder -> date)) }}</small>
                 </div>
 
                 <div class="col">
-                    {{ $workorder -> unit }}
+                    <small>Do: {{ date('d. m. y.', strtotime($workorder -> date1)) }}</small>
                 </div>
 
-                <div class="col-2">
-                    {{ date('d. m. Y.', strtotime($workorder -> date)) }}
-                </div>
-
-                <div class="col-2">
-                    {{ date('d. m. Y.', strtotime($workorder -> date1)) }}
-                </div>
-                <div class="col-1 text-right">
+                <div class="col text-right">
                     @if ($workorder -> finished ==1)
                         <span class="badge badge-success">Završeno</span>
                     @else
@@ -50,9 +48,6 @@
                 <hr />
             @endif
         @endforeach
-        <div class="card-footer bg-dark text-white">
-            {{ count($workorders) }}
-        </div>
     </div>
 </div>
 @endif
