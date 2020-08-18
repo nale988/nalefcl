@@ -16,7 +16,7 @@
                     <small>{{ $workorder -> number }}</small>
                 </div>
                 <div class="col text-right">
-                    {{ $workorder -> owner}}
+                    <small>{{ $workorder -> owner}}</small>
                 </div>
 
             </div>

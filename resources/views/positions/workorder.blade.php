@@ -67,39 +67,6 @@
         </div>
         @endif
 
-        @if(count($storagespendings)>0)
-        <br />
-        <div class="card">
-            <div class="card-header bg-light">
-                <a style="color: #000000" data-toggle="collapse" href="#collapseStorageSpending" role="button" aria-expanded="false" aria-controls="collapseStorageSpending">
-                Spisak trebovanja
-                </a>
-            </div>
-                <div class="collapse" id="collapseStorageSpending">
-                    <div class="card">
-                        <div class="card-body">
-                            <ul class="list-group list-group-flush">
-                                @foreach($storagespendings as $storagespending)
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-8 text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
-                                        <div class="col-4 text-right">{{ $storagespending -> pieces }}kom</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 text-truncate">{{ $storagespending -> title }}</div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 text-muted">{{ $storagespending -> worker }}</div>
-                                        <div class="col-6 text-muted text-right">{{ date('d. m. Y.', strtotime($storagespending -> date)) }}</div>
-                                    </div>
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        @endif
 
     </div>
     <div class="card-footer bg-dark text-white">
@@ -125,4 +92,39 @@
         </div>
     </div>
 </div>
+
+
+@if(count($storagespendings)>0)
+<br />
+<div class="card">
+    <div class="card-header bg-dark">
+        <a style="color: #ffffff" data-toggle="collapse" href="#collapseStorageSpending" role="button" aria-expanded="false" aria-controls="collapseStorageSpending">
+        Spisak trebovanja
+        </a>
+    </div>
+        <div class="collapse" id="collapseStorageSpending">
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        @foreach($storagespendings as $storagespending)
+                        <li class="list-group-item">
+                            <div class="row">
+                                <div class="col-8 text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
+                                <div class="col-4 text-right">{{ $storagespending -> pieces }}kom</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-truncate">{{ $storagespending -> title }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 text-muted">{{ $storagespending -> worker }}</div>
+                                <div class="col-6 text-muted text-right">{{ date('d. m. y.', strtotime($storagespending -> date)) }}</div>
+                            </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+</div>
+@endif
 @endsection
