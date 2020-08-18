@@ -202,8 +202,6 @@ class PositionController extends Controller
         $workorders = WorkOrder::where('position', 'LIKE', $position)->get()->sortByDesc('date');
         $selectedposition = Position::where('position', 'LIKE', $position)->first();
 
-        return view('positions.workorders', compact('workorders', 'selectedposition'));
-
         if ($agent -> isMobile()){
             return view('positions.workordersmobile', compact('workorders', 'selectedposition'));
         }

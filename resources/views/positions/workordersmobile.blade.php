@@ -5,7 +5,7 @@
 @if(count($workorders)>0)
 <br />
 <div class="card">
-    <div class="card-header">
+    <div class="card-header bg-dark text-white">
         Radni nalozi
     </div>
     <div class="card-body">
@@ -55,7 +55,6 @@
                 <hr />
             @endif
         @endforeach
-
     </div>
 </div>
 @endif
