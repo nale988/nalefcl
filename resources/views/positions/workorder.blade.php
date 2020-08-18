@@ -93,7 +93,6 @@
     </div>
 </div>
 
-
 @if(count($storagespendings)>0)
 <br />
 <div class="card">
@@ -105,23 +104,24 @@
         <div class="collapse" id="collapseStorageSpending">
             <div class="card">
                 <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        @foreach($storagespendings as $storagespending)
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-8 text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
-                                <div class="col-4 text-right">{{ $storagespending -> pieces }}kom</div>
+                    @foreach($storagespendings as $storagespending)
+                        <div class="row">
+                            <div class="col-8 text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
+                            <div class="col-4 text-right">{{ $storagespending -> pieces }}kom</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-truncate">{{ $storagespending -> title }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                            <small><div class="float-left text-muted">{{ $storagespending -> worker }}</div></small>
+                            <small><div class="text-muted float-right">{{ date('d. m. y.', strtotime($storagespending -> date)) }}</div></small>
                             </div>
-                            <div class="row">
-                                <div class="col-12 text-truncate">{{ $storagespending -> title }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 text-muted">{{ $storagespending -> worker }}</div>
-                                <div class="col-6 text-muted text-right">{{ date('d. m. y.', strtotime($storagespending -> date)) }}</div>
-                            </div>
-                        </li>
-                        @endforeach
-                    </ul>
+                        </div>
+                        @if(!$loop->last)
+                            <hr />
+                        @endif
+                    @endforeach
                 </div>
             </div>
         </div>
