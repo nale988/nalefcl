@@ -17,7 +17,12 @@ class WelcomeController extends Controller
     public function index()
     {
         $agent = new Agent();
-        $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+        if(Auth::check()) {
+            $user = Auth::user();
+        }
+        else {
+            return redirect('/login')->with('alert', 'Niste ulogovani');
+        }
 
         //
         // MUST UPDATE HOME CONTROLLER!

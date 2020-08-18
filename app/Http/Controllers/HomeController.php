@@ -32,7 +32,13 @@ class HomeController extends Controller
     public function index()
     {
         $agent = new Agent();
-        $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+
+        if(Auth::check()) {
+            $user = Auth::user();
+        }
+        else {
+            return redirect('/login')->with('alert', 'Niste ulogovani');
+        }
 
         $workorders = WorkOrder::all()->sortByDesc('date')->take(10);
         $username_raw = explode(" ", $user -> name);

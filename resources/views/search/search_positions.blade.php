@@ -7,22 +7,26 @@
     </div>
     <div class="card-body">
         @foreach($searchresults as $position)
-            <a href="{{ route('positions.show', $position->id) }}" style="color: #000000; text-decoration:none;">
+
                 <div class="row">
-                    <div class="col-sm-2 text-truncate">
+                    <a href="{{ route('positions.show', $position->id) }}" style="color: #000000; text-decoration:none;">
+                    <div class="col-sm text-truncate">
                         <strong>{{ $position -> position }}</strong>
                     </div>
-                    <div class="col-sm-4 text-truncate">
+                    <div class="col-sm text-truncate">
                         {{ $position -> name }}
                     </div>
                     <div class="col-sm text-truncate">
                         {{ $position -> manufacturer }}
                     </div>
+                    </a>
+                </div>
+                <div class="row text-muted">
                     <div class="col-sm text-truncate">
-                        {{ $position -> type }}
+                        <div class="float-left">{{ $position -> type }}</div>
+                        <div class="float-right"><a href="{{ route('workorders', $position -> position)}}" class="btn btn-secondary btn-sm">Radni nalozi</a></div>
                     </div>
                 </div>
-            </a>
         @if(!$loop->last)
             <hr />
         @endif
