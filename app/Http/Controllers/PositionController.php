@@ -47,6 +47,7 @@ class PositionController extends Controller
             return redirect()->back()->with('message', 'Dodana pozicija u omiljene!');
         }
     }
+
     public function storecompressorservice(Request $request){
         $request -> validate([
             'date' => 'required',
@@ -113,24 +114,71 @@ class PositionController extends Controller
 
         $user = Auth::user();
 
+        $inspection = ($request -> get('inspection') == 'on' ? 1 : 0);
+        $filter = ($request -> get('filter') == 'on' ? 1 : 0);
+        $belt = ($request -> get('belt') == 'on' ? 1 : 0);
+        $pulley = ($request -> get('pulley') == 'on' ? 1 : 0);
+        $nonreturn_valve = ($request -> get('nonreturn_valve') == 'on' ? 1 : 0);
+        $element_repair = ($request -> get('element_repair') == 'on' ? 1 : 0);
+        $element_replace = ($request -> get('element_replace') == 'on' ? 1 : 0);
+        $first_start = ($request -> get('first_start') == 'on' ? 1 : 0);
+        $other = ($request -> get('other') == 'on' ? 1 : 0);
+
         $service = new BlowerService([
             'position_id' => $request -> get('position_id'),
             'user_id' => $user -> id,
             'date' => $request -> get('date'),
-            'inspection' => $request -> get('inspection'),
-            'filter' => $request -> get('filter'),
-            'belt' => $request -> get('belt'),
-            'pulley' => $request -> get('pulley'),
-            'nonreturn_valve' => $request -> get('nonreturn_valve'),
-            'element_repair' => $request -> get('element_repair'),
-            'element_replace' => $request -> get('element_replace'),
-            'first_start' => $request -> get('first_start'),
-            'other' => $request -> get('other'),
+            'inspection' => $inspection,
+            'filter' => $filter,
+            'belt' => $belt,
+            'pulley' => $pulley,
+            'nonreturn_valve' => $nonreturn_valve,
+            'element_repair' => $element_repair,
+            'element_replace' => $element_replace,
+            'first_start' => $first_start,
+            'other' => $other,
             'comment' => $request -> get('comment'),
         ]);
 
         $service -> save();
-        return redirect()->back()->with('message', 'Sačuvan servis duvaljke!');
+        $service_id = $service -> id;
+        $userfolder_raw = explode('@', $user -> email);
+        $userfolder = str_replace('.', '', $userfolder_raw[0]);
+
+        if ($request->hasFile('file')) {
+            if ($request->file('file')->isValid()) {
+                $validated = $request->validate([
+                    'image' => 'mimes:jpeg,png|max:2048',
+                    'document.*' => 'required|file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx|max:10245',
+                ]);
+
+                $extension = $request->file->extension();
+                $request->file->storeAs('public/po/'.$userfolder, $request->file->hashName());
+
+                $url = Storage::disk('positionfiles')->url($userfolder.'/'.$request->file->hashName());
+
+                $filesize = $request->file('file')->getSize();
+
+                $document = new FileUpload([
+                    'user_id' => $user->id,
+                    'filename' => $request -> file -> getClientOriginalName(),
+                    'filesize' => $filesize,
+                    'url' => $url,
+                ]);
+
+                $document -> save();
+                $document_id = $document->id;
+
+                $connectfile = new CompressorServiceFile([
+                    'compressor_service_id' => $service_id,
+                    'file_upload_id' => $document_id
+                ]);
+
+                $connectfile -> save();
+            }
+        }
+
+        return redirect('positions/'.$request->get('position_id'))->with('message', 'Sačuvana izmjena!');
     }
 
     public function storeworkinghours(Request $request){
@@ -154,6 +202,28 @@ class PositionController extends Controller
 
         $workinghour -> save();
         return redirect()->back()->with('message', 'Sačuvani radni sati!');
+    }
+
+    public function editworkinghours($id){
+        $workhours = CompressorWorkingHour::where('id', $id)->first();
+        return view('positions.editcompressorworkhours', compact('workhours'));
+    }
+
+    public function updateworkinghours(Request $request){
+        $request -> validate([
+            'total' => 'required',
+        ]);
+
+        $workhours = CompressorWorkingHour::where('id', $request -> get('id'))->first();
+
+        $workhours -> total = $request -> get('total');
+        $workhours -> loaded = $request -> get('loaded');
+        $workhours -> starts = $request -> get('starts');
+        $workhours -> comment = $request -> get('comment');
+        $workhours -> date = $request -> get('date');
+
+        $workhours -> save();
+        return redirect('positions/'.$workhours->position_id)->with('message', 'Sačuvana izmjena!');
     }
 
     public function workorder($id){
@@ -197,7 +267,7 @@ class PositionController extends Controller
             return redirect() -> back() -> with('danger', 'Niste ulogovani!');
         }
 
-        $workorders = WorkOrder::where('position', 'LIKE', $position)->get()->sortByDesc('date');
+        $workorders = WorkOrder::where('position', 'LIKE', $position)->get()->sortByDesc('date')->paginate(10);
         $selectedposition = Position::where('position', 'LIKE', $position)->first();
         return view('positions.workorders', compact('workorders', 'selectedposition'));
     }
@@ -258,25 +328,11 @@ class PositionController extends Controller
         return redirect('positions/'.$request -> get('position_id'))->with('message', 'Dodan novi dokument na poziciju!');
     }
 
-    public function index()
-    {
-        $agent = new Agent();
-
-        $positions = Position::all()->sortBy('position')->paginate(20);
-
-        print_r(json_encode($positions));
-        die;
-
-        if ($agent -> isMobile()){
-            return view('positions.indexmobile', compact('positions'));
-        }
-        else{
-            return view('positions.index', compact('positions'));
-        }
+    public function index(){
+        return redirect('/');
     }
 
-    public function show($id)
-    {
+    public function show($id){
         $agent = new Agent();
 
         if(Auth::check()){

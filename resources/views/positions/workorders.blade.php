@@ -48,6 +48,8 @@
                 <hr />
             @endif
         @endforeach
+        <br />
+        <div aria-label="Pagination" class="pagination pagination-sm justify-content-center">{!! $workorders->render() !!}</div>
     </div>
 </div>
 @endif

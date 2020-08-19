@@ -96,13 +96,11 @@ class SparePartController extends Controller
         return redirect() -> back() -> with('message', 'Uklonjen dokument!');
     }
 
-    public function index()
-    {
+    public function index(){
         //
     }
 
-    public function create()
-    {
+    public function create(){
         $agent = new Agent();
 
         if (Auth::check()){
@@ -125,8 +123,7 @@ class SparePartController extends Controller
 
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         // print_r(json_encode($request->all()));
         // die;
 
@@ -231,13 +228,11 @@ class SparePartController extends Controller
         return redirect()->back()->with('message', 'Sačuvan novi rezervni dio!');
     }
 
-    public function show($id)
-    {
-        //
+    public function show($id){
+        return redirect('/');
     }
 
-    public function edit($id)
-    {
+    public function edit($id){
         $agent = new Agent();
 
         if (Auth::check()){
@@ -270,11 +265,7 @@ class SparePartController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
-    {
-        //  print_r(json_encode($request->all()));
-        //  die;
-
+    public function update(Request $request, $id){
         $request->validate([
             'description' => 'required'
         ]);
@@ -392,8 +383,7 @@ class SparePartController extends Controller
         die;
     }
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         $sparepart = SparePart::where('id', $id)->first();
         $sparepartconnections = SparePartConnection::where('spare_part_id', $id)->get();
         $sparepartfiles = SparePartFile::where('spare_part_id', $id)->get();

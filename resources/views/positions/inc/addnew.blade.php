@@ -29,7 +29,128 @@
             </div>
         </div>
 
+        @if($position -> devicetype -> id == 6)
+        <!-- duvaljka servis -->
+            @if($userrole -> services == 1)
+            <br />
+            <div class="card">
+            <div class="card-header">Dodaj servis za duvaljku</div>
+                <div class="card-body">
+                    <form class="m-2" method="post" action="{{ route('storeblowerservice') }}" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="position_id" value="{{ $position -> id }}" />
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="inspection" id="inspection">
+                                <input class="form-check-input" type="checkbox" name="inspection" id="inspection">
+                                <label class="form-check-label" for="inspection">
+                                    Pregled
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="filter" id="filter">
+                                <input class="form-check-input" type="checkbox" name="filter" id="filter">
+                                <label class="form-check-label" for="filter">
+                                    Usisni filter
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="belt" id="belt">
+                                <input class="form-check-input" type="checkbox" name="belt" id="belt">
+                                <label class="form-check-label" for="belt">
+                                    Remen
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="pulley" id="pulley">
+                                <input class="form-check-input" type="checkbox" name="pulley" id="pulley">
+                                <label class="form-check-label" for="pulley">
+                                    Remenica
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="oil" id="oil">
+                                <input class="form-check-input" type="checkbox" name="oil" id="oil">
+                                <label class="form-check-label" for="oil">
+                                    Ulje
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="nonreturn_valve" id="nonreturn_valve">
+                                <input class="form-check-input" type="checkbox" name="nonreturn_valve" id="nonreturn_valve">
+                                <label class="form-check-label" for="nonreturn_valve">
+                                    Nepovratni ventil
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="other" id="other">
+                                <input class="form-check-input" type="checkbox" name="other" id="other">
+                                <label class="form-check-label" for="other">
+                                    Drugo
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="element_repair" id="element_repair">
+                                <input class="form-check-input" type="checkbox" name="element_repair" id="element_repair">
+                                <label class="form-check-label" for="element_repair">
+                                    Remont elementa
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="element_replace" id="element_replace">
+                                <input class="form-check-input" type="checkbox" name="element_replace" id="element_replace">
+                                <label class="form-check-label" for="element_replace">
+                                    Zamjena elementa
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="first_start" id="first_start">
+                                <input class="form-check-input" type="checkbox" name="first_start" id="first_start">
+                                <label class="form-check-label" for="first_start">
+                                    Puštanje u pogon
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="description">Komentar:</label>
+                                <textarea class="form-control" name="comment" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <input id="file" type="file" name="file">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-inline float-right">
+                            <input type="date" name="date" class="form-control" value="{{ now()->format('Y-m-d') }}" />
+                            <button type="submit" class="btn btn-dark btn-sm ml-2">Sačuvaj servis</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            @endif
+        @endif
+
         @if($position -> devicetype -> id == 3)
+        <!-- kompresor radni sati -->
             @if($userrole -> workhours == 1)
             <br />
             <div class="card">

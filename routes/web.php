@@ -22,9 +22,11 @@ Route::get('favorite/{id}', 'PositionController@favorite')->name('favorite');
 Route::get('removesparepartfile', 'SparePartController@removesparepartfile')->name('removesparepartfile');
 Route::get('removepositionfile/{id}', 'PositionController@removepositionfile')->name('removepositionfile');
 Route::get('removerevisionfile/{id}', 'RevisionController@removerevisionfile')->name('removerevisionfile');
+Route::get('editworkinghours/{id}', 'PositionController@editworkinghours')->name('editworkinghours');
 
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
 Route::post('storeworkinghours', 'PositionController@storeworkinghours')->name('storeworkinghours');
+Route::post('updateworkinghours', 'PositionController@updateworkinghours')->name('updateworkinghours');
 Route::post('storecompressorservice', 'PositionController@storecompressorservice')->name('storecompressorservice');
 Route::post('storeblowerservice', 'PositionController@storeblowerservice')->name('storeblowerservice');
 

@@ -1,4 +1,9 @@
 <div class="card border-dark">
+    <div class="card-header bg-dark text-white text-right">
+        <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cRevisions" role="button" aria-expanded="false" aria-controls="cRevisions">
+            <small>Napomene</small>
+        </a>
+    </div>
     <div class="card-body">
         @foreach($revisions as $revision)
         <div class="row">
@@ -69,9 +74,5 @@
         @endforeach
 
     </div>
-    <div class="card-footer bg-dark text-white text-right">
-        <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cRevisions" role="button" aria-expanded="false" aria-controls="cRevisions">
-            <small>Napomene</small>
-        </a>
-    </div>
+
 </div>

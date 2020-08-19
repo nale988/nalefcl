@@ -65,54 +65,54 @@
 
 <br />
 <div class="collapse" id="cInfo">
-    @include('positions.include_positioninfo')
+    @include('positions.inc.positioninfo')
 </div>
 
 @if(count($spareparts)>0)
 <div class="collapse show" id="cSpareParts">
     <br />
-    @include('positions.include_spareparts_table')
+    @include('positions.inc.spareparts_table')
 </div>
 @endif
 
 @if(count($position -> files)>0)
 <div class="collapse" id="cDocuments">
     <br />
-    @include('positions.include_documents')
+    @include('positions.inc.documents')
 </div>
 @endif
 
 @if(count($workinghours)>0)
 <div class="collapse" id="cCompressorWorkHours">
     <br />
-    @include('positions.include_compressorworkhours')
+    @include('positions.inc.compressorworkhours')
 </div>
 @endif
 
 @if(count($compressorservices)>0)
 <div class="collapse" id="cCompressorServices">
     <br />
-    @include('positions.include_compressorservices')
+    @include('positions.inc.compressorservices')
 </div>
 @endif
 
 @if(count($blowerservices)>0)
 <div class="collapse" id="cBlowerServices">
     <br />
-    @include('positions.include_blowerservices')
+    @include('positions.inc.blowerservices')
 </div>
 @endif
 
 @if(count($revisions)>0)
 <div class="collapse" id="cRevisions">
     <br />
-    @include('positions.include_revisions')
+    @include('positions.inc.revisions')
 </div>
 @endif
 
 <div class="collapse" id="cAddNew">
     <br />
-    @include('positions.include_addnew')
+    @include('positions.inc.addnew')
 </div>
 
 @endsection

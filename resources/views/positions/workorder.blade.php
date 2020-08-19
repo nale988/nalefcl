@@ -80,7 +80,7 @@
                 @if($workorder -> finished == 1)
                     <span class="badge badge-success">Završeno!</span>
                 @else
-                    <span class="badge badge-danger">Završeno!</span>
+                    <span class="badge badge-danger">Nije završeno!</span>
                 @endif
             </div>
         </div>
