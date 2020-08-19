@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class BlowerService extends Model
 {
@@ -22,4 +23,13 @@ class BlowerService extends Model
         'other',
         'comment'
     ];
+
+    public function files(){
+        if (Auth::check()) {
+            return $this->belongsToMany('App\FileUpload', 'blower_service_files')->where('file_uploads.user_id', Auth::user()->id);
+        }
+        else{
+            return $this->belongsToMany('App\FileUpload', 'blower_service_files');
+        }
+    }
 }

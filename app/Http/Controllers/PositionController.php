@@ -23,6 +23,7 @@ use App\CompressorWorkingHour;
 use App\Unit;
 use App\UserRole;
 use App\BlowerService;
+use App\BlowerServiceFile;
 use App\CompressorService;
 use App\CompressorServiceFile;
 use App\Favorite;
@@ -118,6 +119,7 @@ class PositionController extends Controller
         $filter = ($request -> get('filter') == 'on' ? 1 : 0);
         $belt = ($request -> get('belt') == 'on' ? 1 : 0);
         $pulley = ($request -> get('pulley') == 'on' ? 1 : 0);
+        $oil = ($request -> get('oil') == 'on' ? 1 : 0);
         $nonreturn_valve = ($request -> get('nonreturn_valve') == 'on' ? 1 : 0);
         $element_repair = ($request -> get('element_repair') == 'on' ? 1 : 0);
         $element_replace = ($request -> get('element_replace') == 'on' ? 1 : 0);
@@ -130,6 +132,7 @@ class PositionController extends Controller
             'date' => $request -> get('date'),
             'inspection' => $inspection,
             'filter' => $filter,
+            'oil' => $oil,
             'belt' => $belt,
             'pulley' => $pulley,
             'nonreturn_valve' => $nonreturn_valve,
@@ -169,8 +172,8 @@ class PositionController extends Controller
                 $document -> save();
                 $document_id = $document->id;
 
-                $connectfile = new CompressorServiceFile([
-                    'compressor_service_id' => $service_id,
+                $connectfile = new BlowerServiceFile([
+                    'blower_service_id' => $service_id,
                     'file_upload_id' => $document_id
                 ]);
 
@@ -179,6 +182,15 @@ class PositionController extends Controller
         }
 
         return redirect('positions/'.$request->get('position_id'))->with('message', 'Sačuvana izmjena!');
+    }
+
+    public function editblowerservice($id){
+        $blowerservice = BlowerService::where('id', $id)->first();
+        return view('postions.editblowerservice', compact('blowerservice'));
+    }
+
+    public function updateblowerservice(Request $request){
+        //
     }
 
     public function storeworkinghours(Request $request){
@@ -281,6 +293,24 @@ class PositionController extends Controller
         return redirect() -> back() -> with('message', 'Uklonjen dokument!');
     }
 
+    public function removeblowerservicefile($id){
+        $files = BlowerServiceFile::where('file_upload_id', $id)->get();
+        foreach($files as $file){
+            $file -> delete();
+        }
+
+        return redirect() -> back() -> with('message', 'Uklonjen dokument!');
+    }
+
+    public function removecompressorservicefile($id){
+        $files = CompressorServiceFile::where('file_upload_id', $id)->get();
+        foreach($files as $file){
+            $file -> delete();
+        }
+
+        return redirect() -> back() -> with('message', 'Uklonjen dokument!');
+    }
+
     public function uploadpositionfile(Request $request){
         if (Auth::check()){
             $user = Auth::user();
@@ -363,7 +393,7 @@ class PositionController extends Controller
 
         if($userrole -> services){
             $compressorservices = CompressorService::where('position_id', $id)->where('user_id', $user->id)->with('files')->get()->sortByDesc('date');
-            $blowerservices = BlowerService::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
+            $blowerservices = BlowerService::where('position_id', $id)->where('user_id', $user->id)->with('files')->get()->sortByDesc('date');
         }
         else{
             $compressorservices = collect();

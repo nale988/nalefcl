@@ -40,7 +40,7 @@
                     @csrf
                     <input type="hidden" name="position_id" value="{{ $position -> id }}" />
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="form-check mb-2">
                                 <input type="hidden" value="0" name="inspection" id="inspection">
                                 <input class="form-check-input" type="checkbox" name="inspection" id="inspection">
@@ -64,7 +64,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="form-check mb-2">
                                 <input type="hidden" value="0" name="pulley" id="pulley">
                                 <input class="form-check-input" type="checkbox" name="pulley" id="pulley">
@@ -88,17 +88,7 @@
                             </div>
                         </div>
 
-                        <div class="col-4">
-                            <div class="form-check mb-2">
-                                <input type="hidden" value="0" name="other" id="other">
-                                <input class="form-check-input" type="checkbox" name="other" id="other">
-                                <label class="form-check-label" for="other">
-                                    Drugo
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="col-4">
+                        <div class="col-3">
                             <div class="form-check mb-2">
                                 <input type="hidden" value="0" name="element_repair" id="element_repair">
                                 <input class="form-check-input" type="checkbox" name="element_repair" id="element_repair">
@@ -118,6 +108,16 @@
                                 <input class="form-check-input" type="checkbox" name="first_start" id="first_start">
                                 <label class="form-check-label" for="first_start">
                                     Puštanje u pogon
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-check mb-2">
+                                <input type="hidden" value="0" name="other" id="other">
+                                <input class="form-check-input" type="checkbox" name="other" id="other">
+                                <label class="form-check-label" for="other">
+                                    Drugo
                                 </label>
                             </div>
                         </div>
@@ -216,6 +216,7 @@
         @endif
 
         @if($position -> devicetype -> id == 3)
+        <!-- kompresor servis -->
             @if($userrole -> services == 1)
             <br />
             <div class="card">
@@ -268,6 +269,7 @@
         @endif
         <br />
         <div class="card">
+            <!-- napomene -->
             <div class="card-header">
                 Napomene
             </div>
