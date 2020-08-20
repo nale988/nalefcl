@@ -23,6 +23,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+<?php
+    $urgents = App\ToDo::where('done', 0)->where('user_id', Illuminate\Support\Facades\Auth::user() -> id)->get()->sortByDesc('urgent')->groupBy('urgent');
+    $favorites = Favorite::leftJoin('positions', 'favorites.position_id', '=', 'positions.id')->where('user_id', Illuminate\Support\Facades\Auth::user() -> id)->get()->sortBy('position');
+    $orders = App\SparePartOrder::where('user_id', Auth::user() -> id)->where('done', 0)->get();
+    $todoscount = 0;
+?>
 <div id="app">
     <header>
         <div class="collapse bg-dark" id="navbarHeader">
@@ -32,7 +38,7 @@
                 @if(Illuminate\Support\Facades\Auth::check())
                     <h4 class="text-white"><u>Odabrane pozicije</u></h4>
                     <ul class="list-unstyled">
-                        @foreach(Favorite::leftJoin('positions', 'favorites.position_id', '=', 'positions.id')->where('user_id', Illuminate\Support\Facades\Auth::user() -> id)->get()->sortBy('position') as $favorite)
+                        @foreach($favorites as $favorite)
                             <li><small><a href="{{ route('positions.show', $favorite->position_id) }}" class="text-white text-truncate" style="text-decoration:none;">&nbsp;&nbsp;&nbsp;{{ $favorite -> position }} - {{ $favorite -> name }}</a></small></li>
                         @endforeach
                     </ul>
@@ -42,7 +48,7 @@
             @if(Illuminate\Support\Facades\Auth::check())
                 <h4 class="text-white"><u>Poslovi</u></h4>
                 <ul class="list-unstyled">
-                    @foreach(App\ToDo::where('done', 0)->where('user_id', Illuminate\Support\Facades\Auth::user() -> id)->get()->sortByDesc('urgent')->groupBy('urgent') as $urgent => $todos)
+                    @foreach($urgents as $urgent => $todos)
                         @foreach($todos as $todo)
                             @if($loop -> first && $urgent == 1)
                                 <li>&nbsp;&nbsp;<strong><span class="text-white">Bitno:</span></strong></li>
@@ -57,6 +63,12 @@
                                 @else
                                     <div class="row text-muted text-truncate">
                                 @endif
+
+                                @if($todo -> urgent == 1 && now() -> gt($todo -> date))
+                                    <?php
+                                        ++$todoscount
+                                    ?>
+                                @endif
                                     <div class="col">
                                         <a href="{{ route('todos.finish', $todo -> id) }}" class="text-white">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -67,22 +79,23 @@
 
                                         <small>{{ date('d. m. Y', strtotime($todo -> date)) }}: {{ $todo -> description }}</small>
                                         @if(now() -> gt($todo -> date))
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"/>
-                                            <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.053.224l-1.5 3a.5.5 0 1 1-.894-.448L7.5 8.882V5a.5.5 0 0 1 .5-.5z"/>
-                                            <path d="M.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"/>
-                                            <path fill-rule="evenodd" d="M11.646 14.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1-.708.708l-1-1a.5.5 0 0 1 0-.708zm-7.292 0a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708zM5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-                                            <path d="M7 1h2v2H7V1z"/>
-                                        </svg>
-                                    @else
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="#343A40" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"/>
-                                            <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.053.224l-1.5 3a.5.5 0 1 1-.894-.448L7.5 8.882V5a.5.5 0 0 1 .5-.5z"/>
-                                            <path d="M.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"/>
-                                            <path fill-rule="evenodd" d="M11.646 14.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1-.708.708l-1-1a.5.5 0 0 1 0-.708zm-7.292 0a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708zM5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-                                            <path d="M7 1h2v2H7V1z"/>
-                                        </svg>
-                                    @endif
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"/>
+                                                <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.053.224l-1.5 3a.5.5 0 1 1-.894-.448L7.5 8.882V5a.5.5 0 0 1 .5-.5z"/>
+                                                <path d="M.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"/>
+                                                <path fill-rule="evenodd" d="M11.646 14.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1-.708.708l-1-1a.5.5 0 0 1 0-.708zm-7.292 0a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708zM5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+                                                <path d="M7 1h2v2H7V1z"/>
+                                            </svg>
+
+                                        @else
+                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="#343A40" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"/>
+                                                <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.053.224l-1.5 3a.5.5 0 1 1-.894-.448L7.5 8.882V5a.5.5 0 0 1 .5-.5z"/>
+                                                <path d="M.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"/>
+                                                <path fill-rule="evenodd" d="M11.646 14.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1-.708.708l-1-1a.5.5 0 0 1 0-.708zm-7.292 0a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708zM5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
+                                                <path d="M7 1h2v2H7V1z"/>
+                                            </svg>
+                                        @endif
                                     </div>
                                 </div>
                             </li>
@@ -201,13 +214,26 @@
                         &nbsp;&nbsp;&nbsp;FCLukavac
                     </a>
                 </li>
+                @if(count($orders) > 0)
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('sparepartorders.index') }}" title="Narudžbe">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart3" fill="white" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                         </svg>
+                        <span class="badge badge-pill badge-danger">{{ count($orders) }}</span>
                     </a>
                 </li>
+                @endif
+                @if($todoscount > 0)
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#navbarHeader" title="Poslovi kojima je isteklo vrijeme">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-lightning" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
+                        </svg>
+                        <span class="badge badge-pill badge-danger">{{ $todoscount }}</span>
+                    </a>
+                </li>
+                @endif
                 <!--
                 <li class="nav-item text-white">
                     <a class="nav-link" href="{{ route('dangerlevelspareparts') }}" title="Signalne zalihe">

@@ -39,8 +39,6 @@ class SparePartOrderController extends Controller
 
         $sparepartorders = SparePartOrder::where('user_id', $user -> id) -> where('done', 0)->with('sparepart')->with('position')->orderBy('date')->get();
         $today = now();
-        // print_r(json_encode($today));
-        // die;
         if ($agent -> isMobile()){
             return view('sparepartorders.mobileindex', compact('sparepartorders', 'today'));
         }
