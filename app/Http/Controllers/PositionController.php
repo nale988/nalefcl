@@ -81,9 +81,9 @@ class PositionController extends Controller
                 ]);
 
                 $extension = $request->file->extension();
-                $request->file->storeAs('public/po/'.$userfolder, $request->file->hashName());
+                $request->file->storeAs('public/se/'.$userfolder, $request->file->hashName());
 
-                $url = Storage::disk('positionfiles')->url($userfolder.'/'.$request->file->hashName());
+                $url = Storage::disk('servicefiles')->url($userfolder.'/'.$request->file->hashName());
 
                 $filesize = $request->file('file')->getSize();
 
@@ -156,9 +156,9 @@ class PositionController extends Controller
                 ]);
 
                 $extension = $request->file->extension();
-                $request->file->storeAs('public/po/'.$userfolder, $request->file->hashName());
+                $request->file->storeAs('public/se/'.$userfolder, $request->file->hashName());
 
-                $url = Storage::disk('positionfiles')->url($userfolder.'/'.$request->file->hashName());
+                $url = Storage::disk('servicefiles')->url($userfolder.'/'.$request->file->hashName());
 
                 $filesize = $request->file('file')->getSize();
 
@@ -185,12 +185,82 @@ class PositionController extends Controller
     }
 
     public function editblowerservice($id){
-        $blowerservice = BlowerService::where('id', $id)->first();
-        return view('postions.editblowerservice', compact('blowerservice'));
+        $blowerservice = BlowerService::where('id', $id)->with('files')->first();
+        return view('positions.editblowerservice', compact('blowerservice'));
     }
 
     public function updateblowerservice(Request $request){
-        //
+        $request -> validate([
+            'date' => 'required',
+        ]);
+
+        $user = Auth::user();
+
+        $inspection = ($request -> get('inspection') == 'on' ? 1 : 0);
+        $filter = ($request -> get('filter') == 'on' ? 1 : 0);
+        $belt = ($request -> get('belt') == 'on' ? 1 : 0);
+        $pulley = ($request -> get('pulley') == 'on' ? 1 : 0);
+        $oil = ($request -> get('oil') == 'on' ? 1 : 0);
+        $nonreturn_valve = ($request -> get('nonreturn_valve') == 'on' ? 1 : 0);
+        $element_repair = ($request -> get('element_repair') == 'on' ? 1 : 0);
+        $element_replace = ($request -> get('element_replace') == 'on' ? 1 : 0);
+        $first_start = ($request -> get('first_start') == 'on' ? 1 : 0);
+        $other = ($request -> get('other') == 'on' ? 1 : 0);
+
+        $blowerservice = BlowerService::where('id', $request -> get('id'))->first();
+
+        $blowerservice -> inspection = $inspection;
+        $blowerservice -> filter = $filter;
+        $blowerservice -> belt = $belt;
+        $blowerservice -> pulley = $pulley;
+        $blowerservice -> oil = $oil;
+        $blowerservice -> nonreturn_valve = $nonreturn_valve;
+        $blowerservice -> element_repair = $element_repair;
+        $blowerservice -> element_replace = $element_replace;
+        $blowerservice -> first_start = $first_start;
+        $blowerservice -> other = $other;
+        $blowerservice -> comment = $request -> get('comment');
+        $blowerservice -> date = $request -> get('date');
+
+        $blowerservice -> save();
+
+        $userfolder_raw = explode('@', $user -> email);
+        $userfolder = str_replace('.', '', $userfolder_raw[0]);
+
+        if ($request->hasFile('file')) {
+            if ($request->file('file')->isValid()) {
+                $validated = $request->validate([
+                    'image' => 'mimes:jpeg,png|max:2048',
+                    'document.*' => 'required|file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx|max:10245',
+                ]);
+
+                $extension = $request->file->extension();
+                $request->file->storeAs('public/se/'.$userfolder, $request->file->hashName());
+
+                $url = Storage::disk('servicefiles')->url($userfolder.'/'.$request->file->hashName());
+
+                $filesize = $request->file('file')->getSize();
+
+                $document = new FileUpload([
+                    'user_id' => $user->id,
+                    'filename' => $request -> file -> getClientOriginalName(),
+                    'filesize' => $filesize,
+                    'url' => $url,
+                ]);
+
+                $document -> save();
+                $document_id = $document->id;
+
+                $connectfile = new BlowerServiceFile([
+                    'blower_service_id' => $blowerservice -> id,
+                    'file_upload_id' => $document_id
+                ]);
+
+                $connectfile -> save();
+            }
+        }
+
+        return redirect('positions/'.$blowerservice -> position_id)->with('message', 'Sačuvana izmjena na servisu duvaljki.');
     }
 
     public function storeworkinghours(Request $request){

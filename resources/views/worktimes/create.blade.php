@@ -45,7 +45,11 @@
         <div class="col-sm-4">
             <div class="form-group mb-2">
                 <label for="worktime_hours">Regularni radni sati</label>
-                <input type="number" step=".1" class="form-control form-control-sm" name="worktime_hours" id="worktime_hours" value="8">
+                @if(count($items)>0)
+                    <input type="number" step=".1" class="form-control form-control-sm" name="worktime_hours" id="worktime_hours" value="0">
+                @else
+                    <input type="number" step=".1" class="form-control form-control-sm" name="worktime_hours" id="worktime_hours" value="8">
+                @endif
             </div>
         </div>
         <div class="col-sm-4">
@@ -65,7 +69,7 @@
         <div class="col-sm-4">
             <div class="form-check mb-2">
                 <input type="hidden" value="0" name="regulartime" id="regulartime">
-                <input class="form-check-input" type="checkbox" name="regulartime" id="regulartime">
+                <input class="form-check-input" type="checkbox" name="regulartime" id="regulartime" checked>
                 <label class="form-check-label" for="regulartime">
                     Regularni radni sati?
                 </label>
@@ -101,9 +105,9 @@
                         <th scope="col">Kraj</th>
                         <th scope="col">Opis</th>
                         <th scope="col">Radni nalog</th>
-                        <th scope="col">Sati rada</th>
-                        <th scope="col">Prekovremeni sati</th>
-                        <th scope="col">Opcije</th>
+                        <th scope="col" class="text-right">Sati rada</th>
+                        <th scope="col" class="text-right">Prekovremeni sati</th>
+                        <th scope="col" class="text-right">Opcije</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -246,24 +246,33 @@
 
 <main class="py-4">
     @if ($errors->any())
-        <div class="alert alert-danger text-center">
+        <div class="alert alert-danger alert-dismissible text-center">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Zatvori">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
 
     @if (Session::has('message'))
-        <div class="alert alert-info text-center" role="alert">
+        <div class="alert alert-info alert-dismissible text-center" role="alert">
             {{ Session::get('message') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Zatvori">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
 
     @if (Session::has('alert'))
-        <div class="alert alert-danger text-center" role="alert">
+        <div class="alert alert-danger alert-dismissible text-center" role="alert">
             {{ Session::get('alert') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Zatvori">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
 

@@ -1,7 +1,7 @@
 <div id="scoped-content">
     <style type="text/css" scoped>
         th.rotate {
-            height:130px;
+            height:150px;
             white-space: nowrap;
             position:relative;
         }
@@ -11,7 +11,7 @@
             position:absolute;
             left:0;
             right:0;
-            top: 80px;
+            top: 105px;
             margin:auto;
         }
     </style>

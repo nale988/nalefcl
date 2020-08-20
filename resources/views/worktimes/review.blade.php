@@ -11,9 +11,9 @@
                     <th scope="col">Kraj</th>
                     <th scope="col">Opis</th>
                     <th scope="col">Radni nalog</th>
-                    <th scope="col">Sati rada</th>
-                    <th scope="col">Prekovremeni sati</th>
-                    <th scope="col">Opcije</th>
+                    <th scope="col" class="text-right">Sati rada</th>
+                    <th scope="col" class="text-right">Prekovremeni sati</th>
+                    <th scope="col" class="text-right">Opcije</th>
                 </tr>
             </thead>
             <tbody>

@@ -86,6 +86,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'servicefiles' => [
+            'driver' => 'local',
+            'root' => storage_path('se'),
+            'url' => 'storage/se',
+            'visibility' => 'public',
+        ],
+
         'revisionfiles' => [
             'driver' => 'local',
             'root' => storage_path('re'),

@@ -25,9 +25,6 @@
         <li class="nav-item">
           <a class="nav-link" data-toggle="collapse" href="#cInfo" role="button" aria-expanded="false" aria-controls="cInfo">Karakteristike</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('workorders', $position -> position)}}">Radni nalozi</a>
-        </li>
         @if(count($spareparts)>0)
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">Rezervni dijelovi</a>
@@ -59,6 +56,11 @@
         </li>
         @endif
         <a class="nav-link" data-toggle="collapse" href="#cAddNew" role="button" aria-expanded="false" aria-controls="cAddNew">Dodaj novo</a>
+
+        <li><a class="nav-link">//</a></li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('workorders', $position -> position)}}">Radni nalozi</a>
+        </li>
       </ul>
     </div>
   </nav>

@@ -1,12 +1,12 @@
 <div class="card border-dark">
-    <div class="card-header bg-dark text-white text-right">
+    <div class="card-header bg-secondary text-white bg-dark text-white text-right">
         <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cAddNew" role="button" aria-expanded="false" aria-controls="cAddNew">
             <small>Dodaj novo</small>
         </a>
     </div>
     <div class="card-body">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header bg-secondary text-white bg-secondary text-white">
                     Dodaj dokumentaciju za poziciju
             </div>
             <div class="card-body">
@@ -34,7 +34,7 @@
             @if($userrole -> services == 1)
             <br />
             <div class="card">
-            <div class="card-header">Dodaj servis za duvaljku</div>
+            <div class="card-header bg-secondary text-white">Dodaj servis za duvaljku</div>
                 <div class="card-body">
                     <form class="m-2" method="post" action="{{ route('storeblowerservice') }}" enctype="multipart/form-data">
                     @csrf
@@ -154,7 +154,7 @@
             @if($userrole -> workhours == 1)
             <br />
             <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-secondary text-white">
                     Dodaj radne sate za kompresor
                 </div>
                 <div class="card-body">
@@ -220,7 +220,7 @@
             @if($userrole -> services == 1)
             <br />
             <div class="card">
-                <div class="card-header">
+                <div class="card-header bg-secondary text-white">
                     Dodaj servis za kompresor
                 </div>
                 <div class="card-body">
@@ -270,7 +270,7 @@
         <br />
         <div class="card">
             <!-- napomene -->
-            <div class="card-header">
+            <div class="card-header bg-secondary text-white">
                 Napomene
             </div>
             <div class="card-body">

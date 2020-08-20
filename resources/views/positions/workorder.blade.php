@@ -108,7 +108,7 @@
                 <div class="card-body">
                     @foreach($storagespendings as $storagespending)
                         <div class="row">
-                            <div class="col-8 text-muted"><strong>{{ $storagespending -> storage_number }}</strong></div>
+                            <div class="col-8"><strong>{{ $storagespending -> storage_number }}</strong></div>
                             <div class="col-4 text-right">{{ $storagespending -> pieces }}kom</div>
                         </div>
                         <div class="row">
