@@ -132,4 +132,44 @@
         </div>
 </div>
 @endif
+
+@if(count($storagespendings)>0)
+<br />
+<div class="card">
+    <div class="card-header bg-dark">
+        <a style="color: #ffffff" data-toggle="collapse" href="#collapseStorageSpending" role="button" aria-expanded="false" aria-controls="collapseStorageSpending">
+        Spisak trebovanja
+        </a>
+    </div>
+        <div class="collapse" id="collapseStorageSpending">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <th scope="col">Skl. broj</th>
+                            <th scope="col">Opis</th>
+                            <th scope="col">Komada</th>
+                            <th scope="col">Izuzeo</th>
+                            <th scope="col">Datum</th>
+                        </thead>
+                        <tbody>
+                            @foreach($storagespendings as $storagespending)
+                                <tr>
+                                    <th scope="row"><small><strong>{{ $storagespending -> storage_number }}</strong></small></th>
+                                    <td class="text-nowrap"><small>{{ $storagespending -> title }}</small></td>
+                                    <td class="text-nowrap"><small>{{ $storagespending -> pieces }}</small></td>
+                                    <td class="text-nowrap"><small>{{ $storagespending -> worker }}</small></td>
+                                    <td class="text-nowrap"><small>{{ date('d. m. y.', strtotime($storagespending -> date)) }}</small></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer bg-dark text-white">
+                    Ukupno: {{ count($storagespendings) }}
+                </div>
+            </div>
+        </div>
+</div>
+@endif
 @endsection

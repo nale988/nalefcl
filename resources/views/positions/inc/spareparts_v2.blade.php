@@ -36,7 +36,7 @@
                     @foreach($spareparts->sortBy('storage_number') as $title => $parts)
                     @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
                         <tr id="sp_nogroup">
-                            <th scope="row" colspan="5" id="">
+                            <th scope="row" colspan="5">
                                 Bez grupe
                             </th>
                     @else
