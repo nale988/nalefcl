@@ -144,6 +144,7 @@
         <div class="collapse" id="collapseStorageSpending">
             <div class="card">
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table class="table table-hover table-sm">
                         <thead>
                             <th scope="col">Skl. broj</th>
@@ -164,6 +165,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
                 </div>
                 <div class="card-footer bg-dark text-white">
                     Ukupno: {{ count($storagespendings) }}
