@@ -49,7 +49,7 @@
                 <h4 class="text-white"><u>Poslovi</u></h4>
                 <ul class="list-unstyled">
                     @foreach($urgents as $urgent => $todos)
-                        @foreach($todos as $todo)
+                        @foreach($todos->sortByDesc('date') as $todo)
                             @if($loop -> first && $urgent == 1)
                                 <li>&nbsp;&nbsp;<strong><span class="text-white">Bitno:</span></strong></li>
                             @endif
