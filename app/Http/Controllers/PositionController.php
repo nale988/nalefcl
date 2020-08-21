@@ -497,7 +497,7 @@ class PositionController extends Controller
         $revisions = Revision::where('position_id', $id)->where('user_id', $user->id)->with('files')->get();
 
         if ($agent -> isMobile()){
-            return view('positions.showmobile', compact('position', 'favorite', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
+            return view('positions.show', compact('position', 'favorite', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
         }
         else{
             return view('positions.show', compact('position', 'spareparts', 'favorite', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
