@@ -79,20 +79,12 @@
                 <div class="card-header">Grupa rezervnih dijelova?</div>
                 <div class="card-body">
                     @foreach($sparepartgroups as $sparepartgroup)
-                    <div class="row">
-                        <div class="col-1">
-                            <div class="form-check mb-2">
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" value="" name="sparepartgroup-{{ $sparepartgroup->id }}" id="sparepartgroup-{{ $sparepartgroup->id }}">
                                 <label class="form-check-label" for="sparepartgroup-{{ $sparepartgroup->id }}">
-                                    &nbsp;
+                                    <span class="mx-2">{{ $sparepartgroup -> description }}</span>
                                 </label>
                             </div>
-                        </div>
-
-                        <div class="col">
-                            <span>{{ $sparepartgroup -> description }}</span>
-                        </div>
-                    </div>
                     @endforeach
                 </div>
             </div>

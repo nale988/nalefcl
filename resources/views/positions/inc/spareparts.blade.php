@@ -52,6 +52,7 @@
             </div>
         </div>
         <table class="table table-hover table-sm">
+            <caption>This page took {{ (microtime(true) - LARAVEL_START) }} seconds to render</caption>
             <thead>
                 <tr>
                     <th scope="col">Skl. broj</th>

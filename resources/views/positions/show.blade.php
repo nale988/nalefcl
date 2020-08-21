@@ -73,7 +73,7 @@
 @if(count($spareparts)>0)
 <div class="collapse show" id="cSpareParts">
     <br />
-    @include('positions.inc.spareparts_table')
+    @include('positions.inc.spareparts')
 </div>
 @endif
 
