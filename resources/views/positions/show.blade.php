@@ -80,7 +80,7 @@
 @if(count($position -> files)>0)
 <div class="collapse" id="cDocuments">
     <br />
-    @include('positions.inc.documentstable')
+    @include('positions.inc.documents')
 </div>
 @endif
 
