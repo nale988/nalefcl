@@ -181,7 +181,7 @@ class PositionController extends Controller
             }
         }
 
-        return redirect('positions/'.$request->get('position_id'))->with('message', 'Sačuvana izmjena!');
+        return redirect('positions/'.$request->get('position_id'))->with('message', 'Dodan novi servis duvaljke!');
     }
 
     public function editblowerservice($id){

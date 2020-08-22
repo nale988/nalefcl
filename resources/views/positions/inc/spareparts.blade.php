@@ -1,7 +1,7 @@
 <div class="card border-dark">
     <div class="card-header bg-dark text-white">
         <div class="row">
-            <div class="col-6 text-left">
+            <div class="col-12 text-left">
                 <div class="btn-group" role="group" aria-label="Rezervni dijelovi">
                     @foreach($spareparts as $title=>$sparepart)
                         @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
@@ -11,11 +11,6 @@
                         @endif
                     @endforeach
                 </div>
-            </div>
-            <div class="col-6 text-right">
-                <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">
-                    <small>Rezervni dijelovi</small>
-                </a>
             </div>
         </div>
     </div>
@@ -136,5 +131,12 @@
         </div>
     </div>
     @endforeach
+    </div>
+    <div class="card-footer bg-dark text-white">
+        <div class="col text-right">
+            <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">
+                <small>Rezervni dijelovi</small>
+            </a>
+        </div>
     </div>
 </div>

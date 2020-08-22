@@ -9,18 +9,18 @@
             <table class="table table-hover table-sm">
                 <thead class="thead-inverse">
                     <tr>
-                        <th>Opis</th>
-                        <th class="text-center">Datum</th>
-                        <th class="text-right">Datum</th>
-                        <th class="text-right">&nbsp;</th>
+                        <th style="white-space: nowrap;">Opis</th>
+                        <th class="text-center" style="white-space: nowrap;">Datum</th>
+                        <th class="text-right" style="white-space: nowrap;">Datum</th>
+                        <th class="text-right" style="white-space: nowrap;">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($revisions as $revision)
                     <tr>
-                        <td>{{ strip_tags($revision -> description) }}</td>
-                        <td>{{ date('d. m. Y.', strtotime($revision -> created_at)) }}</td>
-                        <td>
+                        <td style="white-space: nowrap;">{{ strip_tags($revision -> description) }}</td>
+                        <td style="white-space: nowrap;">{{ date('d. m. Y.', strtotime($revision -> created_at)) }}</td>
+                        <td style="white-space: nowrap;">
                             <a href="#" data-toggle="modal" data-target="#modalrev-{{ $revision -> id }}" >
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-medical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>

@@ -5,20 +5,20 @@
         </a>
     </div>
     <div class="card-body">
-        <div class="table-responsive">
+        <div class="table-responsive-sm">
             <table class="table table-hover table-sm">
                 <thead class="thead-inverse">
                     <tr>
                         <th>Naslov</th>
-                        <th class="text-right">Veličina</th>
-                        <th class="text-right">Datum</th>
-                        <th class="text-right">&nbsp;</th>
+                        <th class="text-right" style="white-space: nowrap;">Veličina</th>
+                        <th class="text-right" style="white-space: nowrap;">Datum</th>
+                        <th class="text-right" style="white-space: nowrap;">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($position -> files as $file)
                     <tr>
-                        <td>
+                        <td style="white-space: nowrap;">
                             <a href="{{URL::asset($file -> url)}}" style="text-decoration:none; color:#000000;">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
@@ -28,13 +28,13 @@
                                 {{ $file -> filename }}
                             </a>
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" style="white-space: nowrap;">
                             {{ number_format(round($file -> filesize/1024, 0), 0, '.', ' ') }}kB
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" style="white-space: nowrap;">
                             {{ date('d. m. Y.', strtotime($file -> created_at)) }}
                         </td>
-                        <td class="text-right">
+                        <td class="text-right" style="white-space: nowrap;">
                             <a href="#" data-toggle="modal" data-target="#modalfile-{{ $file -> id }}" >
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-diamond" fill="red" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z"/>

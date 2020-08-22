@@ -27,7 +27,7 @@
             <table class="table table-hover table-sm">
                 <thead>
                     <tr>
-                        <th scope="col" style="width: 80px;">Datum</th>
+                        <th scope="col" style="width: 80px; white-space: nowrap;">Datum</th>
                         <th scope="col" class="rotate"><div><span>Pregled</span></div></th>
                         <th scope="col" class="rotate"><div><span>Filter</span></div></th>
                         <th scope="col" class="rotate"><div><span>Remen</span></div></th>
@@ -51,13 +51,13 @@
                         @else
                             <tr>
                         @endif
-                                <th scope="row"><small>
+                                <th scope="row" style="white-space: nowrap;"><small>
                                     <a href="{{ route('editblowerservice', $blowerservice -> id) }}" style="text-decoration: none; color: #000000;">
                                         {{ date('d. m. Y.', strtotime($blowerservice -> date)) }}
                                     </a>
                                 </small></th>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                 @if($blowerservice -> inspection)
                                     &#9746;
                                 @else
@@ -65,7 +65,7 @@
                                 @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if($blowerservice -> filter)
                                         &#9746;
                                     @else
@@ -73,7 +73,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if($blowerservice -> belt)
                                         &#9746;
                                     @else
@@ -81,7 +81,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if($blowerservice -> pulley)
                                         &#9746;
                                     @else
@@ -89,7 +89,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if($blowerservice -> oil)
                                         &#9746;
                                     @else
@@ -97,7 +97,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if($blowerservice -> nonreturn_valve)
                                         &#9746;
                                     @else
@@ -105,7 +105,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if($blowerservice -> element_repair)
                                         &#9746;
                                     @else
@@ -113,7 +113,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if($blowerservice -> element_replace)
                                         &#9746;
                                     @else
@@ -121,7 +121,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if($blowerservice -> first_start)
                                         &#9746;
                                     @else
@@ -129,7 +129,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if($blowerservice -> other)
                                         &#9746;
                                     @else
@@ -137,7 +137,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
+                                <td class="text-center" style="white-space: nowrap;">
                                     @if(count($blowerservice -> files)>0)
                                         @foreach($blowerservice -> files as $file)
                                         <a href="{{ URL::asset($file -> url) }}" title="{{ $file -> filename}}  //  {{ number_format(round($file -> filesize/1024, 0), 0, '.', ' ') }}kB" >
@@ -157,7 +157,7 @@
                                     @endif
                                 </td>
 
-                                <td><small>{{ $blowerservice -> comment}}</small></td>
+                                <td style="white-space: nowrap;"><small>{{ $blowerservice -> comment}}</small></td>
                         </tr>
                     @endforeach
                 </tbody>

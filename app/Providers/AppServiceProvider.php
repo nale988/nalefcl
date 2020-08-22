@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
@@ -49,34 +50,7 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-            // if(Auth::check()){
-            //     $user = Auth::user();
-
-            //     $urgents = ToDo::where('user_id', $user -> id)
-            //             ->where('done', 0)
-            //             ->get()
-            //             ->sortByDesc('date');
-
-            //     $favorites = Favorite::leftJoin('positions', 'favorites.position_id', '=', 'positions.id')
-            //         ->where('user_id', $user -> id)
-            //         ->get()
-            //         ->sortBy('position');
-
-            //     $orders = SparePartOrder::where('user_id', $user -> id)
-            //         ->where('done', 0)
-            //         ->count();
-
-            //     $todoscount = ToDo::where('user_id', $user->id)
-            //         ->where('urgent', 1)
-            //         ->whereDate('date', '>=', Carbon::now())
-            //         ->count();
-            // }
-            // else {
-            //     $orders = 0;
-            //     $todoscount = 0;
-            //     $favorites = collect();
-            //     $urgents = collect();
-            // }
+            Schema::defaultStringLength(191);
 
             view()->composer('*', function ($view){
                 if(Auth::check()){
