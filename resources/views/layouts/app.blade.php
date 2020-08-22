@@ -24,11 +24,11 @@
 </head>
 <body>
 <?php
-@if(Auth::check())
+if(Auth::check()){
     $urgents = App\ToDo::where('done', 0)->where('user_id', Illuminate\Support\Facades\Auth::user() -> id)->get()->sortByDesc('urgent')->groupBy('urgent');
     $favorites = Favorite::leftJoin('positions', 'favorites.position_id', '=', 'positions.id')->where('user_id', Illuminate\Support\Facades\Auth::user() -> id)->get()->sortBy('position');
     $orders = App\SparePartOrder::where('user_id', Auth::user() -> id)->where('done', 0)->get();
-@endif
+}
     $todoscount = 0;
 ?>
 <div id="app">
