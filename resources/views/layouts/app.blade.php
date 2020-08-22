@@ -29,6 +29,11 @@ if(Auth::check()){
     $favorites = Favorite::leftJoin('positions', 'favorites.position_id', '=', 'positions.id')->where('user_id', Illuminate\Support\Facades\Auth::user() -> id)->get()->sortBy('position');
     $orders = App\SparePartOrder::where('user_id', Auth::user() -> id)->where('done', 0)->get();
 }
+else{
+    $orders = collect();
+    $favorites = collect();
+    $urgents = collect();
+}
     $todoscount = 0;
 ?>
 <div id="app">
