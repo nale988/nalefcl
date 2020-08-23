@@ -2,7 +2,7 @@
     <div class="card-header bg-dark text-white">
         <div class="row">
             <div class="col-12 text-left">
-                <div class="btn-group" role="group" aria-label="Rezervni dijelovi">
+                <div class="btn-group flex-wrap" role="group" aria-label="Rezervni dijelovi">
                     @foreach($spareparts as $title=>$sparepart)
                         @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
                             <a class="btn btn-dark btn-sm" data-toggle="collapse" href="#cEmpty" role="button" aria-expanded="false" aria-controls="cEmpty">Bez grupe</a>
@@ -31,18 +31,12 @@
         @endif
         <div class="card-header">
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 text-nowrap">
                     @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
                         <strong>Bez grupe</strong> (ukupno: {{ count($sparepart)}})
                     @else
                         <strong>{{ $title }}</strong> (ukupno: {{ count($sparepart)}})
                     @endif
-                </div>
-                <div class="col text-right">
-                    <span class="table-danger">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    Kritični dijelovi kojih nema dovoljno
-                    <span class="table-success">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    Kritični dijelovi koji su OK
                 </div>
             </div>
         </div>
@@ -107,17 +101,17 @@
                                 </svg>
                             </a>
                         </td>
-                        <td class="text-right">
+                        <td class="text-nowrap text-right">
                             <small>{{ $part -> amount }} {{ $part -> unit}}</small>
                         </td>
-                        <td class="text-right">
+                        <td class="text-nowrap text-right">
                             @if(!empty($part -> navision_zalihe))
                                 <small>{{ $part -> navision_zalihe }}</small>
                             @else
                                 <small>0</small>
                             @endif
                         </td>
-                        <td class="text-right">
+                        <td class="text-nowrap text-right">
                             @if(!empty($part -> navision_jedinicni_trosak))
                                 <small>{{ round($part -> navision_jedinicni_trosak, 2)}}</small>
                             @else
@@ -126,6 +120,17 @@
                         </td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td colspan="7">
+                        <span class="table-danger text-wrap">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <small>Kritični dijelovi kojih nema dovoljno</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="7"><span class="table-success text-wrap">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <small>Kritični dijelovi koji su OK</small>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
