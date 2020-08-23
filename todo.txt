@@ -1,6 +1,9 @@
-Mogućnost editovanja radnih sati
-Mogućnost editovanja servisa
+$table->foreignId('from_id')->nullable()
+    ->references('id')->on('users')
+    ->onDelete('cascade');
 
-Servisi za duvaljke
+$table->boolean('seen')->default(false);
 
-Preto
+
+// change search
+$term = '%'.implode("%", str_split(str_replace(" ", "", $search))).'%';

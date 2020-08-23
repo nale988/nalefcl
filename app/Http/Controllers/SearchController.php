@@ -23,6 +23,9 @@ class SearchController extends Controller
             redirect() -> back() -> with('danger', 'Unesite traženi pojam.');
         }
 
+        // ToDo:
+        //$term = '%'.implode("%", str_split(str_replace(" ", "", $search))).'%';
+
         if($request -> get('searchwhere') == 'position'){
             $searchresults = Position::where('position', 'LIKE', '%'.$request->searchvalue.'%')
             ->orWhere('name', 'LIKE', '%'.$request->searchvalue.'%')
