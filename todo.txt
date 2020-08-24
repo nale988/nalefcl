@@ -1,3 +1,9 @@
+Odgađanje todos
+Lista svih mojih naloga po datumima (lakše se snać)
+Izmjena pretrage prema donjem navodu
+
+
+
 $table->foreignId('from_id')->nullable()
     ->references('id')->on('users')
     ->onDelete('cascade');
@@ -7,3 +13,5 @@ $table->boolean('seen')->default(false);
 
 // change search
 $term = '%'.implode("%", str_split(str_replace(" ", "", $search))).'%';
+
+
