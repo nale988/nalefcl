@@ -1,30 +1,5 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-@if (Session::has('message'))
-    <div class="alert alert-info">
-        {{ Session::get('message') }}
-    </div>
-@endif
-
-@if (Session::has('alert'))
-    <div class="alert alert-danger">
-        {{ Session::get('alert') }}
-    </div>
-@endif
-
 @if(count($positions)>0)
 <div class="card">
     <div class="card-header">
@@ -216,7 +191,7 @@
 <br />
 <div class="card">
     <div class="card-header">
-      Rezultati pretrage za Navision (baza: {{ date('d. m. Y.', strtotime($info -> navision))}})
+      Rezultati pretrage za Navision (baza: {{ date('d. m. Y.', strtotime(Config::get('sitesettings.navision_date')))}})
     </div>
     <div class="card-body">
         <div class="card-text">
@@ -279,8 +254,6 @@
   </div>
 @endif
 
-
-</div>
 @endsection
 
 
