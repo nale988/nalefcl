@@ -44,8 +44,8 @@ class WelcomeController extends Controller
             ->orderBy('totalworkorders', 'desc')
             ->groupBy('work_orders.position')
             ->get()
-            ->take(30);
-
+            ->take(Config::get('sitesettings.pareto'));
+        
         // print_r(json_encode($pareto));
         // die;
 
