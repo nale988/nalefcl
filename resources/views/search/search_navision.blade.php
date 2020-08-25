@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header border-dark bg-dark text-white">
-        <strong>Pretraga u Navisionu (baza: {{ date('d. m. Y.', strtotime($info -> navision)) }})</strong>
+        <strong>Pretraga u Navisionu (baza: {{ date('d. m. Y.', strtotime(Config::get('sitesettings.navision_date'))) }})</strong>
     </div>
     <div class="card-body">
         <!-- TODO: Make mobile friendly -->
