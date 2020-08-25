@@ -11,8 +11,25 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('img/icon.png') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        #btnTop {
+            position: fixed;
+            bottom:80px;
+            right:20px;
+            display: none;
+            z-index: 999;
+            text-align: center;
+        }
+
+        $btnTop:hoover{
+            background:rgba(0,0,0,.6);
+        }
+    </style>
 </head>
 <body>
+<button onClick="topFunction()" id="btnTop" class="btn btn-sm btn-primary">Top</button>
+
 <div id="app">
     <header>
         <div class="collapse bg-dark" id="navbarHeader">
@@ -154,5 +171,24 @@
         @yield('content')
     </div>
 </main>
+
+<script>
+    var mybutton = document.getElementById("btnTop");
+    window.onscroll = function() { scrollFunction()};
+
+    function scrollFunction(){
+        if(document.body.scrollTop>20 ||
+            document.documentElement.scrollTop > 20){
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+    }
+
+    function topFunction(){
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0
+    }
+</script>
 </body>
 </html>
