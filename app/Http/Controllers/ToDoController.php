@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\ToDo;
+use Carbon\Carbon;
 
 class ToDoController extends Controller
 {
+    public function postpone($id){
+        $todo = ToDo::where('id', $id)->first();
+        $todo -> date = Carbon::parse($todo -> date) -> addDays(2);
+        $todo -> save();
+        return redirect()->back()->with('message', 'Odgođen posao za dva dana');
+    }
+
     public function index()
     {
         //

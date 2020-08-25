@@ -23,14 +23,13 @@ class SearchController extends Controller
             redirect() -> back() -> with('danger', 'Unesite traženi pojam.');
         }
 
-        // ToDo:
-        //$term = '%'.implode("%", str_split(str_replace(" ", "", $search))).'%';
+        $searchvalue = '%'.implode("%", str_split(str_replace(" ", "", $request->searchvalue))).'%';
 
         if($request -> get('searchwhere') == 'position'){
-            $searchresults = Position::where('position', 'LIKE', '%'.$request->searchvalue.'%')
-            ->orWhere('name', 'LIKE', '%'.$request->searchvalue.'%')
-            ->orWhere('type', 'LIKE', '%'.$request->searchvalue.'%')
-            ->orWhere('manufacturer', 'LIKE', '%'.$request->searchvalue.'%')
+            $searchresults = Position::where('position', 'LIKE', $searchvalue)
+            ->orWhere('name', 'LIKE', $searchvalue)
+            ->orWhere('type', 'LIKE', $searchvalue)
+            ->orWhere('manufacturer', 'LIKE', $searchvalue)
             ->with('unit')
             ->get()
             ->sortBy('position');
@@ -39,11 +38,11 @@ class SearchController extends Controller
         }
 
         if($request -> get('searchwhere') == 'spareparts'){
-            $searchresults = SparePart::where('description', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('catalogue_number', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('storage_number', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('spare_part_group', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('info', 'LIKE', '%'.$request->searchvalue.'%')
+            $searchresults = SparePart::where('description', 'LIKE', $searchvalue)
+                    ->orWhere('catalogue_number', 'LIKE', $searchvalue)
+                    ->orWhere('storage_number', 'LIKE', $searchvalue)
+                    ->orWhere('spare_part_group', 'LIKE', $searchvalue)
+                    ->orWhere('info', 'LIKE', $searchvalue)
                         ->with('spareparttype')
                         ->where('user_id', $user -> id)
                         ->get();
@@ -52,7 +51,7 @@ class SearchController extends Controller
         }
 
         if($request -> get('searchwhere') == 'spareparttypes'){
-            $searchresults = SparePartType::where('description', 'LIKE', '%'.$request->searchvalue.'%')
+            $searchresults = SparePartType::where('description', 'LIKE', $searchvalue)
             ->with('spareparts')
                 ->get();
 
@@ -60,14 +59,14 @@ class SearchController extends Controller
         }
 
         if($request -> get('searchwhere') == 'documents'){
-            $searchresults = FileUpload::where('filename', 'LIKE', '%'.$request->searchvalue.'%')
+            $searchresults = FileUpload::where('filename', 'LIKE', $searchvalue)
             ->where('user_id', $user -> id)
             ->get();
             return view('search.search_documents', compact('searchresults'));
         }
 
         if($request -> get('searchwhere') == 'revisions'){
-            $searchresults = Revision::where('description', 'LIKE', '%'.$request->searchvalue.'%')
+            $searchresults = Revision::where('description', 'LIKE', $searchvalue)
             ->where('user_id', $user -> id)
             ->with('position')
             ->get();
@@ -77,14 +76,14 @@ class SearchController extends Controller
 
         if($request -> get('searchwhere') == 'navision'){
             $searchresults = DB::table('navision')
-            ->where('br', 'LIKE', '%'.$request->searchvalue.'%')
-            ->orWhere('opis', 'LIKE', '%'.$request->searchvalue.'%')
-            ->orWhere('opis_2', 'LIKE', '%'.$request->searchvalue.'%')
-            ->orWhere('opis_pretrazivanja', 'LIKE', '%'.$request->searchvalue.'%')
-            ->orWhere('opis_pretrazivanja_1', 'LIKE', '%'.$request->searchvalue.'%')
-            ->orWhere('opis_pretrazivanja_2', 'LIKE', '%'.$request->searchvalue.'%')
+            ->where('br', 'LIKE', $searchvalue)
+            ->orWhere('opis', 'LIKE', $searchvalue)
+            ->orWhere('opis_2', 'LIKE', $searchvalue)
+            ->orWhere('opis_pretrazivanja', 'LIKE', $searchvalue)
+            ->orWhere('opis_pretrazivanja_1', 'LIKE', $searchvalue)
+            ->orWhere('opis_pretrazivanja_2', 'LIKE', $searchvalue)
             ->get();
-            
+
             return view('search.search_navision', compact('searchresults'));
         }
     }
@@ -111,39 +110,40 @@ class SearchController extends Controller
         $navisions = collect();
 
         $item_raw = collect($request->all());
+        $searchvalue = '%'.implode("%", str_split(str_replace(" ", "", $request->searchvalue))).'%';
 
         foreach($item_raw as $key => $value){
             if ($key == 'search-positions'){
-                $positions = Position::where('position', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('name', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('type', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('manufacturer', 'LIKE', '%'.$request->searchvalue.'%')
+                $positions = Position::where('position', 'LIKE', $searchvalue)
+                    ->orWhere('name', 'LIKE', $searchvalue)
+                    ->orWhere('type', 'LIKE', $searchvalue)
+                    ->orWhere('manufacturer', 'LIKE', $searchvalue)
                     ->with('unit')
                         ->get();
             }
             else if($key == 'search-spareparts'){
-                $spareparts = SparePart::where('description', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('catalogue_number', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('storage_number', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('spare_part_group', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('info', 'LIKE', '%'.$request->searchvalue.'%')
+                $spareparts = SparePart::where('description', 'LIKE', $searchvalue)
+                    ->orWhere('catalogue_number', 'LIKE', $searchvalue)
+                    ->orWhere('storage_number', 'LIKE', $searchvalue)
+                    ->orWhere('spare_part_group', 'LIKE', $searchvalue)
+                    ->orWhere('info', 'LIKE', $searchvalue)
                         ->with('spareparttype')
                         ->where('user_id', $user -> id)
                         ->get();
             }
             else if($key == 'search-spareparttypes'){
-                $spareparttypes = SparePartType::where('description', 'LIKE', '%'.$request->searchvalue.'%')
+                $spareparttypes = SparePartType::where('description', 'LIKE', $searchvalue)
                     ->with('spareparts')
                         ->get();
             }
             else if($key == 'search-files'){
-                $files = FileUpload::where('filename', 'LIKE', '%'.$request->searchvalue.'%')
+                $files = FileUpload::where('filename', 'LIKE', $searchvalue)
                     ->where('user_id', $user -> id)
                     ->get();
             }
 
             else if($key == 'search-revisions'){
-                $revisions = Revision::where('description', 'LIKE', '%'.$request->searchvalue.'%')
+                $revisions = Revision::where('description', 'LIKE', $searchvalue)
                     ->where('user_id', $user -> id)
                     ->with('position')
                     ->get();
@@ -151,12 +151,12 @@ class SearchController extends Controller
 
             else if($key == 'search-navision'){
                 $navisions = DB::table('navision')
-                    ->where('br', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('opis', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('opis_2', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('opis_pretrazivanja', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('opis_pretrazivanja_1', 'LIKE', '%'.$request->searchvalue.'%')
-                    ->orWhere('opis_pretrazivanja_2', 'LIKE', '%'.$request->searchvalue.'%')
+                    ->where('br', 'LIKE', $searchvalue)
+                    ->orWhere('opis', 'LIKE', $searchvalue)
+                    ->orWhere('opis_2', 'LIKE', $searchvalue)
+                    ->orWhere('opis_pretrazivanja', 'LIKE', $searchvalue)
+                    ->orWhere('opis_pretrazivanja_1', 'LIKE', $searchvalue)
+                    ->orWhere('opis_pretrazivanja_2', 'LIKE', $searchvalue)
                     ->get();
             }
         }

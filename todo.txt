@@ -1,6 +1,4 @@
-Odgađanje todos
 Lista svih mojih naloga po datumima (lakše se snać)
-Izmjena pretrage prema donjem navodu
 
 
 
