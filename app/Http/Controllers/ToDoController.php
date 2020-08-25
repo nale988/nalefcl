@@ -13,7 +13,7 @@ class ToDoController extends Controller
         $todo = ToDo::where('id', $id)->first();
         $todo -> date = Carbon::parse($todo -> date) -> addDays(2);
         $todo -> save();
-        return redirect()->back()->with('message', 'Odgođen posao za dva dana');
+        return redirect()->back()->with('warning', 'Odgođen posao za dva dana');
     }
 
     public function index()
