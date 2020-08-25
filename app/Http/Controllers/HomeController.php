@@ -52,6 +52,7 @@ class HomeController extends Controller
             $q->where('intervention', 1)
               ->orWhere('fix', 1);
         })
+        ->where('planned', 0);
         ->orderBy('totalworkorders', 'desc')
         ->groupBy('work_orders.position')
         ->get()
