@@ -204,7 +204,7 @@
 <br />
 <div class="card">
     <div class="card-header">
-      Rezultati pretrage za Navision (baza: {{ date('d. m. Y.', strtotime(Config::get('sitesettings.navision_date'))}})
+      Rezultati pretrage za Navision (podaci iz baze: {{ Config::get('sitesettings.navision_date') }})
     </div>
     <div class="card-body">
         <div class="card-text">

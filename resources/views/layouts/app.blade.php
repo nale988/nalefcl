@@ -15,7 +15,7 @@
     <style>
         #btnTop {
             position: fixed;
-            bottom:80px;
+            bottom:20px;
             right:20px;
             display: none;
             z-index: 999;
@@ -28,7 +28,11 @@
     </style>
 </head>
 <body>
-<button onClick="topFunction()" id="btnTop" class="btn btn-sm btn-primary">Top</button>
+<button onClick="topFunction()" id="btnTop" class="btn btn-danger">
+    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-shift-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M7.27 2.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3H1.654C.78 10.5.326 9.455.924 8.816L7.27 2.047z"/>
+    </svg>
+</button>
 
 <div id="app">
     <header>
@@ -170,24 +174,26 @@
     <div class="container">
         @yield('content')
     </div>
+    <br />
+    <br />
 </main>
 
 <script>
-    var mybutton = document.getElementById("btnTop");
+    var scrollbutton = document.getElementById("btnTop");
     window.onscroll = function() { scrollFunction()};
 
     function scrollFunction(){
-        if(document.body.scrollTop>20 ||
+        if(document.body.scrollTop > 20 ||
             document.documentElement.scrollTop > 20){
-                mybutton.style.display = "block";
+                scrollbutton.style.display = "block";
             } else {
-                mybutton.style.display = "none";
+                scrollbutton.style.display = "none";
             }
     }
 
     function topFunction(){
         document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0
+        document.documentElement.scrollTop = 0;
     }
 </script>
 </body>
