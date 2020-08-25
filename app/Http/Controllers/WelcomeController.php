@@ -44,7 +44,7 @@ class WelcomeController extends Controller
             ->orderBy('totalworkorders', 'desc')
             ->groupBy('work_orders.position')
             ->get()
-            ->take(15);
+            ->take(30);
 
         // print_r(json_encode($pareto));
         // die;
