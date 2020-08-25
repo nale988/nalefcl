@@ -9,6 +9,9 @@
         </div>
         <div class="card-body">
             @foreach($pareto as $position)
+            @if($position ->totalworkorders = 2)
+                @break;
+            @endif
             <div class="row">
                 <div class="col-3 text-right text-truncate">
                     <a href="{{ route('workorders', $position -> position)}}" style="color:#000000">
