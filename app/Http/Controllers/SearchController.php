@@ -84,10 +84,8 @@ class SearchController extends Controller
             ->orWhere('opis_pretrazivanja_1', 'LIKE', '%'.$request->searchvalue.'%')
             ->orWhere('opis_pretrazivanja_2', 'LIKE', '%'.$request->searchvalue.'%')
             ->get();
-
-            $info = Info::first(); // navision date
-
-            return view('search.search_navision', compact('searchresults', 'info'));
+            
+            return view('search.search_navision', compact('searchresults'));
         }
     }
 
@@ -111,8 +109,6 @@ class SearchController extends Controller
         $files = collect();
         $revisions = collect();
         $navisions = collect();
-
-        $info = Info::first(); // navision date
 
         $item_raw = collect($request->all());
 
@@ -166,10 +162,10 @@ class SearchController extends Controller
         }
 
         if ($agent -> isMobile()){
-            return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info', 'spareparttypes'));
+            return view('search.advancedsearchresultsmobile', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'spareparttypes'));
         }
         else{
-            return view('search.advancedsearchresults', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'info', 'spareparttypes'));
+            return view('search.advancedsearchresults', compact('positions', 'spareparts', 'files', 'revisions', 'navisions', 'spareparttypes'));
         }
     }
 }
