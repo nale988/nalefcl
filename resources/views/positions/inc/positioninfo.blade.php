@@ -13,6 +13,10 @@
                         <td><small>{{ $position -> position }}</small></td>
                     </tr>
                     <tr>
+                        <td><small>Ime:</small></td>
+                        <td><small>{{ $position -> name }}</small></td>
+                    </tr>
+                    <tr>
                         <td><small>Tip:</small></td>
                         <td><small>{{ $position -> type }}</small></td>
                     </tr>
