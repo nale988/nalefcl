@@ -41,6 +41,20 @@ class HomeController extends Controller
             return redirect('/login')->with('alert', 'Niste ulogovani');
         }
 
+        // dump($_SERVER['PHP_SELF']);
+        // dump($_SERVER['SERVER_NAME']);
+        // dump($_SERVER['SERVER_SOFTWARE']);
+        // dump($_SERVER['REQUEST_METHOD']);
+        // dump($_SERVER['HTTP_HOST']);
+        // dump($_SERVER['REMOTE_ADDR']);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
+        dump($details);
+        //dump($_SERVER['REMOTE_HOST']);
+        // dump($_SERVER['REMOTE_PORT']);
+        // dump($_SERVER['SERVER_SIGNATURE']);
+        die;
+
         $workorders = WorkOrder::all()->sortByDesc('date')->take(10);
         $username_raw = explode(" ", $user -> name);
         $username = $username_raw[1]." ".substr($username_raw[0], 0, 1);
@@ -58,7 +72,7 @@ class HomeController extends Controller
         ->groupBy('work_orders.position')
         ->get()
         ->take(Config::get('sitesettings.pareto'));
-        
+
         // print_r(json_encode($pareto));
         // die;
 
@@ -73,3 +87,4 @@ class HomeController extends Controller
 
     }
 }
+

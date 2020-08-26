@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Route;
     // return view('welcome');
 // });
 
-Route::get('/', 'WelcomeController@index');
+//Route::get('/', 'WelcomeController@index');
 
 Auth::routes();
 
+Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('search', 'SearchController@search')->name('search');
 Route::get('advancedsearch', 'SearchController@advancedsearch')->name('advancedsearch');
 Route::get('advancedsearchresults', 'SearchController@advancedsearchresults')->name('advancedsearchresults');
