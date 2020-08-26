@@ -433,6 +433,8 @@ class PositionController extends Controller
     }
 
     public function show($id){
+        // dd($_SERVER);
+        // die;
         $agent = new Agent();
 
         if(Auth::check()){
