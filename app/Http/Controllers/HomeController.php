@@ -47,12 +47,12 @@ class HomeController extends Controller
         // dump($_SERVER['REQUEST_METHOD']);
         // dump($_SERVER['HTTP_HOST']);
         // dump($_SERVER['REMOTE_ADDR']);
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $details = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));
-        dump($details);
         //dump($_SERVER['REMOTE_HOST']);
         // dump($_SERVER['REMOTE_PORT']);
         // dump($_SERVER['SERVER_SIGNATURE']);
+        dd($_SERVER);
+        dd('-----------------------------');
+        dd($_SESSION);
         die;
 
         $workorders = WorkOrder::all()->sortByDesc('date')->take(10);
