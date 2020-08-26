@@ -41,19 +41,13 @@ class HomeController extends Controller
             return redirect('/login')->with('alert', 'Niste ulogovani');
         }
 
-        // dump($_SERVER['PHP_SELF']);
-        // dump($_SERVER['SERVER_NAME']);
-        // dump($_SERVER['SERVER_SOFTWARE']);
-        // dump($_SERVER['REQUEST_METHOD']);
-        // dump($_SERVER['HTTP_HOST']);
-        // dump($_SERVER['REMOTE_ADDR']);
-        //dump($_SERVER['REMOTE_HOST']);
-        // dump($_SERVER['REMOTE_PORT']);
-        // dump($_SERVER['SERVER_SIGNATURE']);
-        dd($_SERVER);
-        dd('-----------------------------');
-        dd($_SESSION);
+
+        $user_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $details = json_decode(file_get_contents("http://ipinfo.io/{$user_ip}/json"));
+        dump($details);
         die;
+
 
         $workorders = WorkOrder::all()->sortByDesc('date')->take(10);
         $username_raw = explode(" ", $user -> name);
