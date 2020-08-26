@@ -41,11 +41,16 @@ class HomeController extends Controller
             return redirect('/login')->with('alert', 'Niste ulogovani');
         }
 
-
-        $user_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
-        $details = json_decode(file_get_contents("http://ipinfo.io/{$user_ip}/json"));
-        dump($details);
+        if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])){
+            $user_ip = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
+            dump($user_ip);
+        } else {
+            dump('nothing dfound');
+        };
+        // $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        // $user
+        // $details = json_decode(file_get_contents("http://ipinfo.io/{$user_ip}/json"));
+        // dump($details);
         die;
 
 
