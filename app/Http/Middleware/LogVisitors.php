@@ -35,6 +35,7 @@ class LogVisitors
                         'page' => $_SERVER['REQUEST_URI'],
                         'city' => $details -> city,
                         'region' => $details -> region,
+                        'country' => $details -> country,
                         'loc' => $details -> loc,
                         'org' => $details -> org,
                         'user_id' => $user -> id
@@ -60,6 +61,7 @@ class LogVisitors
                     'page' => $_SERVER['REQUEST_URI'],
                     'city' => $details -> city,
                     'region' => $details -> region,
+                    'country' => $details -> country,
                     'loc' => $details -> loc,
                     'org' => $details -> org,
                     'user_id' => 0
