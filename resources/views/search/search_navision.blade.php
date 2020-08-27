@@ -61,7 +61,7 @@
             @endif
             <div class="row">
                 <div class="col">
-                    <small class="text-muted">Cijena: {{ $navision -> jedinicna_cijena }}</small>
+                    <small class="text-muted">Cijena: {{ $navision -> jedinicni_trosak }}</small>
                 </div>
             </div>
             <div class="row">
