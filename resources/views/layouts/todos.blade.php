@@ -51,11 +51,4 @@
             @endif
         @endforeach
     @endforeach
-    <li>
-        <div class="row">
-            <div class="col-auto">
-                <small><a href="{{ route('todos.create') }}" class="btn btn-sm btn-outline-danger">Dodaj novo</a></small>
-            </div>
-        </div>
-    </li>
 </ul>
