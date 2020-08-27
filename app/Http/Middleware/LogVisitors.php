@@ -25,13 +25,17 @@ class LogVisitors
             $ip_proxy = null;
             $details = null;
         }
-         if(Auth::check()){
+
+        $ismobile = preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+
+        if(Auth::check()){
             $user = Auth::user();
                 if(!is_null($details)){
                     $websitestatistic = new WebsiteStatistic([
                         'ip' => $_SERVER['REMOTE_ADDR'],
                         'ip_proxy' => $ip_proxy,
                         'useragent' => $_SERVER['HTTP_USER_AGENT'],
+                        'mobile' => $ismobile,
                         'page' => $_SERVER['REQUEST_URI'],
                         'city' => $details -> city,
                         'region' => $details -> region,
@@ -46,6 +50,7 @@ class LogVisitors
                         'ip' => $_SERVER['REMOTE_ADDR'],
                         'ip_proxy' => $ip_proxy,
                         'useragent' => $_SERVER['HTTP_USER_AGENT'],
+                        'mobile' => $ismobile,
                         'page' => $_SERVER['REQUEST_URI'],
                         'user_id' => $user -> id
                     ]);
@@ -58,6 +63,7 @@ class LogVisitors
                     'ip' => $_SERVER['REMOTE_ADDR'],
                     'ip_proxy' => $ip_proxy,
                     'useragent' => $_SERVER['HTTP_USER_AGENT'],
+                    'mobile' => $ismobile,
                     'page' => $_SERVER['REQUEST_URI'],
                     'city' => $details -> city,
                     'region' => $details -> region,
@@ -72,6 +78,7 @@ class LogVisitors
                     'ip' => $_SERVER['REMOTE_ADDR'],
                     'ip_proxy' => $ip_proxy,
                     'useragent' => $_SERVER['HTTP_USER_AGENT'],
+                    'mobile' => $ismobile,
                     'page' => $_SERVER['REQUEST_URI'],
                     'user_id' => 0
                 ]);

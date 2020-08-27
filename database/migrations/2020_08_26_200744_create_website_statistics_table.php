@@ -15,16 +15,17 @@ class CreateWebsiteStatisticsTable extends Migration
     {
         Schema::create('website_statistics', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->ipAddress('ip');         // REMOTE_ADDR
-            $table->ipAddress('ip_proxy');   // HTTP_X_FORWRDED_FOR
-            $table->longText('useragent');  // USER_AGENT
-            $table->longText('page');       // QUERY_STRING
-            $table->string('city');         // JSON
-            $table->string('region');
-            $table->string('country');
-            $table->string('loc');
-            $table->string('org');
-            $table->bigInteger('user_id');
+            $table->ipAddress('ip')->nullable();            // REMOTE_ADDR
+            $table->ipAddress('ip_proxy')->nullable();      // HTTP_X_FORWRDED_FOR
+            $table->longText('useragent')->nullable();      // USER_AGENT
+            $table->boolean('mobile')->default(0);
+            $table->longText('page')->nullable();           // QUERY_STRING
+            $table->string('city')->nullable();             // JSON
+            $table->string('region')->nullable();
+            $table->string('country')->nullable();
+            $table->string('loc')->nullable();
+            $table->string('org')->nullable();
+            $table->bigInteger('user_id')->nullable();
             $table->timestamps();
         });
     }

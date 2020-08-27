@@ -15,8 +15,6 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('search', 'SearchController@search')->name('search');
-Route::get('advancedsearch', 'SearchController@advancedsearch')->name('advancedsearch');
-Route::get('advancedsearchresults', 'SearchController@advancedsearchresults')->name('advancedsearchresults');
 Route::get('dangerlevelspareparts', 'SparePartController@dangerlevelspareparts')->name('dangerlevelspareparts');
 
 Route::get('favorite/{id}', 'PositionController@favorite')->name('favorite');
@@ -54,3 +52,4 @@ Route::resource('revisions', 'RevisionController');
 Route::resource('sparepartorders', 'SparePartOrderController');
 Route::resource('worktimes', 'WorkTimeController');
 Route::resource('todos', 'ToDoController');
+Route::resource('admin', 'AdminController');
