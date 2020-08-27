@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="card container-fluid">
+<div class="card">
     <div class="card-header bg-dark text-white">
         Posljednji podaci o posjetama
     </div>
@@ -39,7 +39,7 @@
 <br />
 <br />
 
-<div class="card container-fluid">
+<div class="card">
     <div class="card-header bg-dark text-white">
         Posljednji podaci o browserima
     </div>
