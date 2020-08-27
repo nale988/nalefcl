@@ -20,7 +20,7 @@
                 <tbody>
                 @foreach($last_visits as $visit)
                     @if($visit->mobile == 1)
-                        <tr class="table-primary">
+                        <tr class="table-success">
                     @else
                         <tr>
                     @endif
