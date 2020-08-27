@@ -10,6 +10,7 @@ use App\Position;
 use App\Revision;
 use App\RevisionFile;
 use App\FileUpload;
+use App\UserRole;
 
 class RevisionController extends Controller
 {
@@ -105,8 +106,16 @@ class RevisionController extends Controller
 
     public function edit($id)
     {
+        if(Auth::check()){
+            $user = Auth::user();
+            $userrole = UserRole::where('user_id', $user->id)->first();
+        }
+        else{
+            return redirect()->guest('login')->with('alert', 'Niste ulogovani!');;
+        }
+
         $revision = Revision::where('id', $id)->with('files')->first();
-        return view('revisions.edit', compact('revision'));
+        return view('revisions.edit', compact('revision', 'userrole'));
     }
 
     public function update(Request $request, $id) {
@@ -115,6 +124,14 @@ class RevisionController extends Controller
 
         $revision = Revision::where('id', $id)->first();
         $revision -> description = nl2br(e($request->get('description')));
+
+        if($request->get('revision_private') == '1'){
+            $revision -> private_item = 1;
+        }
+        else {
+            $revision -> private_item = 0;
+        }
+
         $revision -> save();
 
         if ($request->hasFile('file')) {

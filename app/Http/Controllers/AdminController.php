@@ -22,8 +22,8 @@ class AdminController extends Controller
             $user_role = UserRole::where('id', $user -> id)->first();
 
             if($user_role -> admin){
-                $last_visits_all = WebsiteStatistic::orderByDesc('created_at')->get()->take(20);
-                $last_visits = WebsiteStatistic::where('user_id', '<>', 1)->orderByDesc('created_at')->get()->take(20);
+                //$last_visits_all = WebsiteStatistic::orderByDesc('created_at')->get()->take(1000)->paginate(15);
+                $last_visits = WebsiteStatistic::where('user_id', '<>', 1)->orderByDesc('created_at')->get()->take(1000)->paginate(15);
                 $browsers = DB::table('website_statistics')
                     ->select('useragent', DB::raw('count(*) as total'))
                     ->where('user_id', '<>', 1)

@@ -23,8 +23,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col text-right">
-                            <button type="submit" class="btn btn-dark btn-sm">Dodaj dokument</button>
+                        <div class="col-6">
+                            @if($userrole -> private_items)
+                            <div class="form-check form-check-inline">
+                                <input type="hidden" value="0" name="position_file_private" id="position_file_private">
+                                <input class="form-check-input" type="checkbox" value="1" name="position_file_private" id="position_file_private">
+                                <label class="form-check-label" for="position_file_private">
+                                    <span class="mx-2">Privatno?</span>
+                                </label>
+                            </div>
+                            @else
+                                <input type="hidden" name="position_file_private" id="position_file_private" value="0">
+                            @endif
+                        </div>
+                        <div class="col-6 text-right">
+                            <button type="submit" class="btn btn-primary float-right" value="submit" >Sačuvaj</button>
                         </div>
                     </div>
                 </form>

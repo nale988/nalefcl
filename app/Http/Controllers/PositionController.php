@@ -30,6 +30,14 @@ use App\Favorite;
 
 class PositionController extends Controller
 {
+    public function showunits($id){
+        $positions = Position::where('unit_id', $id)->get()->sortBy('position');
+        $unit = Unit::where('id', $id)->first();
+        // print_r(json_encode($unit));
+        // die;
+        return view('positions.perunits', compact('positions', 'unit'));
+    }
+
     public function favorite($id){
         $user = Auth::user();
         $favorite = Favorite::where('position_id', $id)->first();
@@ -415,11 +423,20 @@ class PositionController extends Controller
 
                 $document -> save();
                 $document_id = $document->id;
-
-                $connectfile = new PositionFile([
-                    'position_id' => $request -> get('position_id'),
-                    'file_upload_id' => $document_id
-                ]);
+                if($request->get('position_file_private') == '1'){
+                    $connectfile = new PositionFile([
+                        'position_id' => $request -> get('position_id'),
+                        'file_upload_id' => $document_id,
+                        'private_item' => 1
+                    ]);
+                }
+                else {
+                    $connectfile = new PositionFile([
+                        'position_id' => $request -> get('position_id'),
+                        'file_upload_id' => $document_id,
+                        'private_item' => 0
+                    ]);
+                }
 
                 $connectfile -> save();
             }
@@ -539,6 +556,9 @@ class PositionController extends Controller
             ->get()
             ->sortByDesc('created_at');
         }
+
+        // print_r(json_encode($revisions));
+        // die;
 
         return view('positions.show', compact('position', 'spareparts', 'favorite', 'revisions', 'position_files', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
     }

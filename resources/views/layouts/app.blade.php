@@ -103,6 +103,21 @@
                     </a>
                 </li>
                 @endif
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle text-white" type="button" id="unitsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-nut" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M11.42 2H4.58L1.152 8l3.428 6h6.84l3.428-6-3.428-6zM4.58 1a1 1 0 0 0-.868.504l-3.429 6a1 1 0 0 0 0 .992l3.429 6A1 1 0 0 0 4.58 15h6.84a1 1 0 0 0 .868-.504l3.428-6a1 1 0 0 0 0-.992l-3.428-6A1 1 0 0 0 11.42 1H4.58z"/>
+                                <path fill-rule="evenodd" d="M6.848 5.933a2.5 2.5 0 1 0 2.5 4.33 2.5 2.5 0 0 0-2.5-4.33zM5.067 9.848a3.5 3.5 0 1 1 6.062-3.5 3.5 3.5 0 0 1-6.062 3.5z"/>
+                              </svg>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="unitsMenu" style="height: auto; max-height: 600px; overflow-x: hidden;">
+                            @foreach($units as $unit)
+                            <a class="dropdown-item" href="{{ route('showunits', $unit -> id)}}">{{ $unit -> unit_number }}: {{ $unit -> description }}</a>
+                            @endforeach
+                        </div>
+                    </div>
+                </li>
                 <!--
                 <li class="nav-item text-white">
                     <a class="nav-link" href="{{ route('dangerlevelspareparts') }}" title="Signalne zalihe">

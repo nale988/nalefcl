@@ -26,7 +26,7 @@ Route::get('removeblowerservicefile/{id}', 'PositionController@removeblowerservi
 Route::get('removerevisionfile/{id}', 'RevisionController@removerevisionfile')->name('removerevisionfile');
 Route::get('editworkinghours/{id}', 'PositionController@editworkinghours')->name('editworkinghours');
 Route::get('editblowerservice/{id}', 'PositionController@editblowerservice')->name('editblowerservice');
-
+Route::get('showunits/{id}', 'PositionController@showunits')->name('showunits');
 
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
 Route::post('storeworkinghours', 'PositionController@storeworkinghours')->name('storeworkinghours');
