@@ -36,7 +36,7 @@ class LogVisitors
                         'ip' => $_SERVER['REMOTE_ADDR'],
                         'ip_proxy' => $ip_proxy,
                         'useragent' => $_SERVER['HTTP_USER_AGENT'],
-                        'mobile' => $ismobile,
+                        'mobile' => preg_match('!(tablet|pad|mobile|phone|symbian|android|ipod|ios|blackberry|webos)!i', $_SERVER['HTTP_USER_AGENT']) ? 1 : 0,
                         'page' => $_SERVER['REQUEST_URI'],
                         'city' => $details -> city,
                         'region' => $details -> region,
@@ -51,7 +51,7 @@ class LogVisitors
                         'ip' => $_SERVER['REMOTE_ADDR'],
                         'ip_proxy' => $ip_proxy,
                         'useragent' => $_SERVER['HTTP_USER_AGENT'],
-                        'mobile' => $ismobile,
+                        'mobile' => preg_match('!(tablet|pad|mobile|phone|symbian|android|ipod|ios|blackberry|webos)!i', $_SERVER['HTTP_USER_AGENT']) ? 1 : 0,
                         'page' => $_SERVER['REQUEST_URI'],
                         'user_id' => $user -> id
                     ]);
@@ -64,7 +64,7 @@ class LogVisitors
                     'ip' => $_SERVER['REMOTE_ADDR'],
                     'ip_proxy' => $ip_proxy,
                     'useragent' => $_SERVER['HTTP_USER_AGENT'],
-                    'mobile' => $ismobile,
+                    'mobile' => preg_match('!(tablet|pad|mobile|phone|symbian|android|ipod|ios|blackberry|webos)!i', $_SERVER['HTTP_USER_AGENT']) ? 1 : 0,
                     'page' => $_SERVER['REQUEST_URI'],
                     'city' => $details -> city,
                     'region' => $details -> region,
@@ -79,7 +79,7 @@ class LogVisitors
                     'ip' => $_SERVER['REMOTE_ADDR'],
                     'ip_proxy' => $ip_proxy,
                     'useragent' => $_SERVER['HTTP_USER_AGENT'],
-                    'mobile' => $ismobile,
+                    'mobile' => preg_match('!(tablet|pad|mobile|phone|symbian|android|ipod|ios|blackberry|webos)!i', $_SERVER['HTTP_USER_AGENT']) ? 1 : 0,
                     'page' => $_SERVER['REQUEST_URI'],
                     'user_id' => 0
                 ]);
