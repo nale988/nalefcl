@@ -26,11 +26,19 @@ class AdminController extends Controller
                 $last_visits = WebsiteStatistic::where('user_id', '<>', 1)->orderByDesc('created_at')->get()->take(20);
                 $browsers = DB::table('website_statistics')
                     ->select('useragent', DB::raw('count(*) as total'))
+                    ->where('user_id', '<>', 1)
                     ->groupBy('useragent')
                     ->get();
-                $totalcountmobile = WebsiteStatistic::where('mobile', 1)->get()->count();
-                $totalcount = WebsiteStatistic::all()->count();
+                $totalcountmobile = WebsiteStatistic::where('mobile', 1)->where('user_id', '<>', 1)->get()->count();
+                $totalcount = WebsiteStatistic::where('user_id', '<>', 1)->get()->count();
 
+                if($totalcount==0){
+                    $totalcount=1;
+                }
+
+                if($totalcountmobile==0){
+                    $totalcountmobile=1;
+                }
                 // print_r(json_encode($browsers));
                 // die;
 
