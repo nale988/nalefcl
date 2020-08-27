@@ -16,6 +16,7 @@ class WebsiteStatistic extends Model
         'country',
         'loc',
         'org',
-        'user_id'
+        'user_id',
+        'mobile'
     ];
 }
