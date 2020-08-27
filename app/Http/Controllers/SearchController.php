@@ -83,6 +83,9 @@ class SearchController extends Controller
             ->orWhere('opis_pretrazivanja_1', 'LIKE', $searchvalue)
             ->orWhere('opis_pretrazivanja_2', 'LIKE', $searchvalue)
             ->get();
+            
+            print_r(json_encode($searchresults));
+                    die;
 
             return view('search.search_navision', compact('searchresults'));
         }
