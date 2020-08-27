@@ -19,7 +19,8 @@ class SparePart extends Model
         'danger_level',
         'critical_part',
         'spare_part_type_id',
-        'user_id'
+        'user_id',
+        'private_item'
     ];
 
     public function spareparttype(){

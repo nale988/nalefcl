@@ -299,12 +299,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 text-right">
-                            <button type="submit" class="btn btn-primary" value="submit" name="revision_submit">Sačuvaj</button>
+                        <div class="col-6">
+                            @if($userrole -> private_items)
+                            <div class="form-check form-check-inline">
+                                <input type="hidden" value="0" name="revision_private" id="revision_private">
+                                <input class="form-check-input" type="checkbox" value="1" name="revision_private" id="revision_private">
+                                <label class="form-check-label" for="revision_private">
+                                    <span class="mx-2">Privatno?</span>
+                                </label>
+                            </div>
+                            @else
+                                <input type="hidden" name="revision_private" id="revision_private" value="0">
+                            @endif
+                        </div>
+                        <div class="col-6 text-right">
+                            <button type="submit" class="btn btn-primary float-right" value="submit" name="revision_submit">Sačuvaj</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+
     </div>
 </div>

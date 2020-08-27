@@ -17,6 +17,7 @@ class CreatePositionFiles extends Migration
             $table->bigIncrements('id');
             $table->foreignId('file_upload_id')->constrained()->onDelete('cascade');
             $table->foreignId('position_id')->constrained()->onDelete('cascade');
+            $table->boolean('private')->default(0)->nullable();
             $table->timestamps();
         });
     }

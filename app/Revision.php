@@ -10,19 +10,19 @@ class Revision extends Model
     protected $fillable=[
         'description',
         'user_id',
-        'position_id'
+        'position_id',
+        'private_item'
     ];
 
     public function files(){
-        if (Auth::check()) {
-            return $this->belongsToMany('App\FileUpload', 'revision_files')->where('file_uploads.user_id', Auth::user()->id);
-        }
-        else{
-            return $this->belongsToMany('App\FileUpload', 'revision_files');
-        }
+        return $this->belongsToMany('App\FileUpload', 'revision_files');
     }
 
     public function position(){
         return $this->belongsTo('App\Position');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User', 'user_id', 'id');
     }
 }

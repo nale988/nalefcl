@@ -17,7 +17,11 @@
                 </thead>
                 <tbody>
                     @foreach($revisions as $revision)
-                    <tr>
+                    @if($revision -> private_item == 1 && $revision -> user_id = $user -> id)
+                            <tr class="bg-warning">
+                        @else
+                            <tr>
+                        @endif
                         <td style="white-space: nowrap;">{{ strip_tags($revision -> description) }}</td>
                         <td style="white-space: nowrap;">{{ date('d. m. Y.', strtotime($revision -> created_at)) }}</td>
                         <td style="white-space: nowrap;">

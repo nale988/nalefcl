@@ -433,8 +433,6 @@ class PositionController extends Controller
     }
 
     public function show($id){
-        // dd($_SERVER);
-        // die;
         $agent = new Agent();
 
         if(Auth::check()){
@@ -451,8 +449,10 @@ class PositionController extends Controller
             ->with('spareparts')
             ->get()->first();
 
+        // print_r(json_encode($position));
+        // die;
+
         $favorite = Favorite::where('position_id', $id)->where('user_id', $user -> id)->first();
-        $workorders = WorkOrder::where('position', 'LIKE', $position -> position)->get()->sortByDesc('date');
 
         if($userrole -> workhours){
             $workinghours = CompressorWorkingHour::where('position_id', $id)->where('user_id', $user->id)->get()->sortByDesc('date');
@@ -496,13 +496,50 @@ class PositionController extends Controller
             ->sortBy('spare_part_group_description')
             ->groupBy('spare_part_group_description');
 
-        $revisions = Revision::where('position_id', $id)->where('user_id', $user->id)->with('files')->get();
 
-        if ($agent -> isMobile()){
-            return view('positions.show', compact('position', 'favorite', 'spareparts', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
+        if($userrole -> private_items){
+            $position_files = PositionFile::where('position_id', $id)
+            ->leftJoin('file_uploads', 'file_uploads.id', '=', 'position_files.file_upload_id')
+            ->leftJoin('users', 'users.id', '=', 'file_uploads.user_id')
+            ->get([
+                'file_uploads.*',
+                'position_files.id as position_file_id',
+                'users.id as user_id',
+                'users.name as user_name',
+                'position_files.private_item as private_item'
+            ])
+            ->sortByDesc('created_at');
+        } else {
+            $position_files = PositionFile::where('position_id', $id)
+            ->where('private_item', 0)
+            ->leftJoin('file_uploads', 'file_uploads.id', '=', 'position_files.file_upload_id')
+            ->leftJoin('users', 'users.id', '=', 'file_uploads.user_id')
+            ->get([
+                'file_uploads.*',
+                'position_files.id as position_file_id',
+                'users.id as user_id',
+                'users.name as user_name',
+                'position_files.private_item as private_item'
+            ])
+            ->sortByDesc('created_at');
         }
-        else{
-            return view('positions.show', compact('position', 'spareparts', 'favorite', 'revisions', 'workorders', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
+
+        if($userrole -> private_items){
+            $revisions = Revision::where('position_id', $id)
+                ->with('files')
+                ->with('user')
+                ->get()
+                ->sortByDesc('created_at');
         }
+        else {
+            $revisions = Revision::where('position_id', $id)
+            ->where('private_item', 0)
+            ->with('files')
+            ->with('user')
+            ->get()
+            ->sortByDesc('created_at');
+        }
+
+        return view('positions.show', compact('position', 'spareparts', 'favorite', 'revisions', 'position_files', 'workinghours', 'lastworkinghours', 'compressorservices', 'blowerservices', 'user', 'userrole'));
     }
 }

@@ -27,8 +27,7 @@ class RevisionController extends Controller
         return redirect() -> back() -> with('message', 'Uklonjen dokument!');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
             'revision_description' => 'required'
         ]);
@@ -40,11 +39,22 @@ class RevisionController extends Controller
             return view('/')->with('danger', 'Niste ulogovani!');
         }
 
-        $revision = new Revision([
-            'description' => nl2br(e($request->get('revision_description'))),
-            'position_id' => $request->get('revision_position_id'),
-            'user_id' => $user -> id
-        ]);
+        if($request->get('revision_private') == '1'){
+            $revision = new Revision([
+                'description' => nl2br(e($request->get('revision_description'))),
+                'position_id' => $request->get('revision_position_id'),
+                'user_id' => $user -> id,
+                'private_item' => 1
+            ]);
+        }
+        else {
+            $revision = new Revision([
+                'description' => nl2br(e($request->get('revision_description'))),
+                'position_id' => $request->get('revision_position_id'),
+                'user_id' => $user -> id,
+                'private_item' => 0
+            ]);
+        }
 
         $revision -> save();
         $revision_id = $revision -> id;
@@ -99,8 +109,7 @@ class RevisionController extends Controller
         return view('revisions.edit', compact('revision'));
     }
 
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         $request -> validate(['description' => 'required']);
         $user = Auth::user();
 

@@ -28,6 +28,7 @@ class CreateSparePartsTable extends Migration
             $table->boolean('critical_part')->nullable();
             $table->foreignId('spare_part_type_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->boolean('private')->default(0)->nullable();
             $table->timestamps();
         });
     }

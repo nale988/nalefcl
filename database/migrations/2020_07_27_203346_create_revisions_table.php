@@ -18,6 +18,7 @@ class CreateRevisionsTable extends Migration
             $table->longText('description')->nullable();
             $table->foreignId('position_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->boolean('private')->default(0)->nullable();
             $table->timestamps();
         });
     }

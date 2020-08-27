@@ -30,7 +30,7 @@
             <a class="nav-link" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">Rezervni dijelovi</a>
         </li>
         @endif
-        @if(count($position -> files)>0)
+        @if(count($position_files)>0)
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#cDocuments" role="button" aria-expanded="false" aria-controls="cDocuments">Dokumenti</a>
         </li>
@@ -77,7 +77,7 @@
 </div>
 @endif
 
-@if(count($position -> files)>0)
+@if(count($position_files)>0)
 <div class="collapse" id="cDocuments">
     <br />
     @include('positions.inc.documents')
