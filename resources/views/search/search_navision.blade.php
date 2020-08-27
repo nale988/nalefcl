@@ -55,10 +55,15 @@
             @if($navision -> br_police <> "")
             <div class="row">
                 <div class="col">
-                    <small class="text-muted">Broj police: {{ $navision -> br_police }}</small>
+                    <strong><small class="text-muted">Broj police: {{ $navision -> br_police }}</small></strong>
                 </div>
             </div>
             @endif
+            <div class="row">
+                <div class="col">
+                    <small class="text-muted">Cijena: {{ $navision -> jedinicna_cijena }}</small>
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <small class="text-muted">Količina na narudžbenici: {{ $navision -> kol_na_narudzbenici }}</small>
