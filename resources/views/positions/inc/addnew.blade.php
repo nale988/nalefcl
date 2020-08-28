@@ -108,7 +108,7 @@
                             <input type="hidden" value="0" name="element_replace" id="element_replace">
                             <input class="form-check-input" type="checkbox" name="element_replace" id="element_replace">
                             <label class="form-check-label" for="element_replace">
-                                <span class="mx-2">Remont elementa</span>
+                                <span class="mx-2">Zamjena elementa elementa</span>
                             </label>
                         </div>
                         <div class="form-check form-check-inline">
