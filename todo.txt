@@ -1,6 +1,5 @@
 Lista svih mojih naloga po datumima (lakše se snać)
 
-Dodavanje privatnih dokumenata
 Dodavanje privatnih rezervnih dijelova
 
 $table->foreignId('from_id')->nullable()
@@ -9,15 +8,4 @@ $table->foreignId('from_id')->nullable()
 
 $table->boolean('seen')->default(false);
 
-
-// change search
-$term = '%'.implode("%", str_split(str_replace(" ", "", $search))).'%';
-
-// search v2
-$searchValue = preg_split('/\s+/', $string, -1, PREG_SPLIT_NO_EMPTY);
-$users = User::where(function($q) use ($searchValues){
-    foreach $searchValues as $value) {
-        $q->orWhere('name', 'like', '%{$value}%');
-    }
-})->get();
 

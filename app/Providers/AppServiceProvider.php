@@ -60,11 +60,23 @@ class AppServiceProvider extends ServiceProvider
                 if(Auth::check()){
                     $user = Auth::user();
 
-                    $urgents = ToDo::where('user_id', $user -> id)
-                            ->where('done', 0)
-                            ->get()
-                            ->sortByDesc('urgent')
-                            ->groupBy('urgent');
+                    $urgenttodos = ToDo::where('user_id', $user->id)
+                        ->where('done', 0)
+                        ->where('urgent', 1)
+                        ->get()
+                        ->sortBy('date');
+
+                    $othertodos = ToDo::where('user_id', $user->id)
+                        ->where('done', 0)
+                        ->where('urgent', 0)
+                        ->get()
+                        ->sortBy('date');
+
+                    // $urgents = ToDo::where('user_id', $user -> id)
+                    //         ->where('done', 0)
+                    //         ->get()
+                    //         ->sortByDesc('urgent')
+                    //         ->groupBy('urgent');
 
                     $favorites = Favorite::leftJoin('positions', 'favorites.position_id', '=', 'positions.id')
                         ->where('user_id', $user -> id)
@@ -86,13 +98,15 @@ class AppServiceProvider extends ServiceProvider
                     $todoscount = 0;
                     $favorites = collect();
                     $urgents = collect();
+                    $urgenttodos = collect();
+                    $othertodos = collect();
                 }
 
                 $units = Unit::all()->sortBy('unit_number');
                 // print_r(json_encode($units));
                 // die;
 
-                $view->with(['orders' => $orders, 'todoscount' => $todoscount, 'favorites' => $favorites, 'urgents' => $urgents, 'units' => $units]);
+                $view->with(['orders' => $orders, 'todoscount' => $todoscount, 'favorites' => $favorites, 'urgenttodos' => $urgenttodos, 'othertodos' => $othertodos, 'units' => $units]);
             });
     }
 }

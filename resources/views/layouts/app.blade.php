@@ -39,15 +39,15 @@
         <div class="collapse bg-dark" id="navbarHeader">
           <div class="container">
             <div class="row">
-                @if(count($favorites)>0)
+                {{-- @if(count($favorites)>0)
                 <div class="col-sm-3 py-4">
                     @auth
                         @include('layouts.favorites');
                     @endauth
                 </div>
-                @endif
-                @if(count($urgents)>0)
-                <div class="col-sm-5 py-4 gx-2">
+                @endif --}}
+                @if(count($urgenttodos)>0 && count($othertodos)>0)
+                <div class="col-sm-8 py-4 gx-2">
                     @auth
                         @include('layouts.todos');
                     @endauth
@@ -58,7 +58,7 @@
                         @include('layouts.options');
                     @endauth
 
-                    @include('layouts.user');
+                    {{-- @include('layouts.user'); --}}
                 </div>
             </div>
           </div>
