@@ -1,5 +1,8 @@
 Dodavanje privatnih rezervnih dijelova
 
+Dodavanje korisnika i permisija korisnika
+
+
 $table->foreignId('from_id')->nullable()
     ->references('id')->on('users')
     ->onDelete('cascade');
