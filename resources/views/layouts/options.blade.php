@@ -128,8 +128,13 @@
                             @csrf
                         </form>
                     </li>
+
             </ul>
         </div>
         @endguest
+    </li>
+    <li>
+        <small class="text-muted">Navision: {{ Config::get('sitesettings.navision_date')}}</small><br/>
+        <small class="text-muted">Radni nalozi: {{ Config::get('sitesettings.workorders_date')}}</small>
     </li>
 </ul>

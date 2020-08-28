@@ -299,7 +299,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="revision-content">Nova napomena</label>
-                        <textarea class="form-control" name="revision_description" rows="6"></textarea>
+                        <textarea class="form-control" name="revision_description" rows="3"></textarea>
                     </div>
 
                     <input type="hidden" name="revision_position_id" value="{{ $position -> id }}">

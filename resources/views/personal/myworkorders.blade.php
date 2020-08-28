@@ -11,6 +11,7 @@
                         <th scope="col" class="text-nowrap text-center">Pozicija</th>
                         <th scope="col" class="text-nowrap">Datum</th>
                         <th scope="col" class="text-nowrap">Sadržaj</th>
+                        <th scope="col" class="text-nowrap">Vrsta</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -28,7 +29,7 @@
                                 </strong></small>
                             </td>
                             <td class="text-nowrap text-center">
-                                <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
+                                <a href="{{ route('searchposition', $workorder -> position) }}" style="text-decoration: none; color: #000000;">
                                 <small>{{ $workorder -> position }}</small>
                                 </a>
                             </td>
@@ -37,10 +38,27 @@
                                 <small>{{ date('d. m. y.', strtotime($workorder -> date)) }} - {{ date('d. m. y.', strtotime($workorder -> date1)) }}</small>
                                 </a>
                             </td>
-                            <td >
+                            <td>
                                 <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
                                     <small>{{ $workorder -> content }}</small>
                                 </a>
+                            </td>
+                            <td>
+                                @if($workorder -> preventive_maintenance)
+                                    <span class="badge badge-pill badge-primary" title="Preventivno održavanje">PP</span>
+                                @endif
+
+                                @if($workorder -> intervention)
+                                    <span class="badge badge-pill badge-primary" title="Intervencija">IN</span>
+                                @endif
+
+                                @if($workorder -> fix)
+                                    <span class="badge badge-pill badge-primary" title="Popravak/izrada">PI</span>
+                                @endif
+
+                                @if($workorder -> general_repair)
+                                    <span class="badge badge-pill badge-primary" title="Remont">RE</span>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

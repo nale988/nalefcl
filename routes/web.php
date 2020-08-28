@@ -15,6 +15,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('search', 'SearchController@search')->name('search');
+Route::Get('searchposition/{searchquery}', 'SearchController@searchposition')->name('searchposition');
 Route::get('dangerlevelspareparts', 'SparePartController@dangerlevelspareparts')->name('dangerlevelspareparts');
 
 Route::get('favorite/{id}', 'PositionController@favorite')->name('favorite');

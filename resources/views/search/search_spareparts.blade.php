@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header border-dark bg-dark text-white">
-        Pretraga rezervnih dijelova
+        Traženi pojam u rezervnim dijelovima: "{{ $searchquery }}"
     </div>
     <div class="card-body">
         <!-- TODO: Make mobile friendly -->

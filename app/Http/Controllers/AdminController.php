@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use Carbon\Carbon;
 use App\UserRole;
 use App\WebsiteStatistic;
 
@@ -23,7 +24,7 @@ class AdminController extends Controller
 
             if($user_role -> admin){
                 //$last_visits_all = WebsiteStatistic::orderByDesc('created_at')->get()->take(1000)->paginate(15);
-                $last_visits = WebsiteStatistic::where('user_id', '<>', 1)->orderByDesc('created_at')->get()->take(1000)->paginate(15);
+                $last_visits = WebsiteStatistic::where('user_id', '<>', 1)->orderByDesc('created_at')->get()->paginate(15);
                 $browsers = DB::table('website_statistics')
                     ->select('useragent', DB::raw('count(*) as total'))
                     ->where('user_id', '<>', 1)
@@ -39,8 +40,6 @@ class AdminController extends Controller
                 if($totalcountmobile==0){
                     $totalcountmobile=1;
                 }
-                // print_r(json_encode($browsers));
-                // die;
 
                 return view('admin.index', compact('last_visits', 'browsers', 'totalcountmobile', 'totalcount'));
             }

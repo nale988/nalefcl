@@ -34,10 +34,10 @@
                         <td class="text-nowrap"><small>{{ $visit -> ip_proxy }}</small></td>
                         <td class="text-nowrap"><small>{{ substr($visit -> useragent, 0, 40) }}</small></td>
                         <td class="text-nowrap"><small>{{ substr($visit -> page, strlen($visit->page)-50, 50) }}</small></td>
-                        <td class="text-nowrap"><small>{{ $visit -> mobile }}</small></td>
+                        <td class="text-nowrap"><small>{{ $visit -> city }}</small></td>
                         <td class="text-nowrap text-center"><small>{{ $visit -> user_id }}</small></td>
-                        <td class="text-nowrap"><small>{{ date('d. m. y.', strtotime($visit -> created_at)) }}</small></td>
-                        <td class="text-nowrap"><small>{{ date('H:i:s', strtotime($visit -> created_at)) }}</small></td>
+                        <td class="text-nowrap"><small>{{ date('d. m. y.', strtotime($visit -> created_at -> add(Config::get('sitesettings.timezoneoffset')))) }}</small></td>
+                        <td class="text-nowrap"><small>{{ date('H:i:s', strtotime($visit -> created_at -> add(Config::get('sitesettings.timezoneoffset')))) }}</small></td>
                     </tr>
                 @endforeach
                 </tbody>

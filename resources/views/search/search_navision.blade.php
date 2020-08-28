@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header border-dark bg-dark text-white">
-        <strong>Pretraga u Navisionu (podaci iz baze: {{ Config::get('sitesettings.navision_date') }})</strong>
+        <strong>Traženi pojam u Navisionu: "{{ $searchquery }}" <small>(podaci iz baze: {{ Config::get('sitesettings.navision_date') }})</small></strong>
     </div>
     <div class="card-body">
         <!-- TODO: Make mobile friendly -->

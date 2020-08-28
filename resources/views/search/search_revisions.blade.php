@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header border-dark bg-dark text-white">
-        <strong>Pretraga napomena</strong>
+        <strong>Traženi pojam u napomenama: "{{ $searchquery }}"</strong>
     </div>
     <div class="card-body">
     <!-- TODO: Make mobile friendly -->

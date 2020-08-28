@@ -1,10 +1,4 @@
-Lista svih mojih naloga po datumima (lakše se snać)
-
 Dodavanje privatnih rezervnih dijelova
-
-U admin, pod grad stoji 0
-
-Dodavanje privatnih fajlova (fileshare servis)
 
 $table->foreignId('from_id')->nullable()
     ->references('id')->on('users')

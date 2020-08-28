@@ -16,8 +16,34 @@ use App\Info;
 
 class SearchController extends Controller
 {
+    public function searchposition($searchquery){
+        $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+
+        if(($searchquery) == NULL || isset($searchquery) || trim($searchquery)===""){
+            redirect() -> back() -> with('danger', 'Unesite traženi pojam.');
+        }
+
+        $searchvalue = '%'.implode("%", str_split(str_replace(" ", "", $searchquery))).'%';
+
+        $searchresults = Position::where('position', 'LIKE', $searchvalue)
+            ->orWhere('name', 'LIKE', $searchvalue)
+            ->orWhere('type', 'LIKE', $searchvalue)
+            ->orWhere('manufacturer', 'LIKE', $searchvalue)
+            ->with('unit')
+            ->get()
+            ->sortBy('position');
+
+        if(count($searchresults)==1){
+            return redirect() -> route('positions.show', $searchresults->first()->id);
+        }
+        else{
+            return view('search.search_positions', compact('searchresults', 'searchquery'));
+        }
+    }
     public function search(Request $request){
         $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+
+        $searchquery = $request->searchvalue;
 
         if(($request->searchvalue) == NULL || isset($request->searchvalue) || trim($request->searchvalue)===""){
             redirect() -> back() -> with('danger', 'Unesite traženi pojam.');
@@ -34,7 +60,12 @@ class SearchController extends Controller
             ->get()
             ->sortBy('position');
 
-            return view('search.search_positions', compact('searchresults'));
+            if(count($searchresults)==1){
+                return redirect() -> route('positions.show', $searchresults->first()->id);
+            }
+            else{
+                return view('search.search_positions', compact('searchresults', 'searchquery'));
+            }
         }
 
         if($request -> get('searchwhere') == 'spareparts'){
@@ -47,7 +78,7 @@ class SearchController extends Controller
                         ->where('user_id', $user -> id)
                         ->get();
 
-            return view('search.search_spareparts', compact('searchresults'));
+            return view('search.search_spareparts', compact('searchresults', 'searchquery'));
         }
 
         if($request -> get('searchwhere') == 'spareparttypes'){
@@ -55,14 +86,14 @@ class SearchController extends Controller
             ->with('spareparts')
                 ->get();
 
-            return view('search.search_spareparttypes', compact('searchresults'));
+            return view('search.search_spareparttypes', compact('searchresults', 'searchquery'));
         }
 
         if($request -> get('searchwhere') == 'documents'){
             $searchresults = FileUpload::where('filename', 'LIKE', $searchvalue)
             ->where('user_id', $user -> id)
             ->get();
-            return view('search.search_documents', compact('searchresults'));
+            return view('search.search_documents', compact('searchresults', 'searchquery'));
         }
 
         if($request -> get('searchwhere') == 'revisions'){
@@ -71,7 +102,7 @@ class SearchController extends Controller
             ->with('position')
             ->get();
 
-            return view('search.search_revisions', compact('searchresults'));
+            return view('search.search_revisions', compact('searchresults', 'searchquery'));
         }
 
         if($request -> get('searchwhere') == 'navision'){
@@ -84,7 +115,7 @@ class SearchController extends Controller
             ->orWhere('opis_pretrazivanja_2', 'LIKE', $searchvalue)
             ->get();
 
-            return view('search.search_navision', compact('searchresults'));
+            return view('search.search_navision', compact('searchresults', 'searchquery'));
         }
     }
 }

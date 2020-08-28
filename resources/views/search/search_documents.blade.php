@@ -3,7 +3,7 @@
 
 <div class="card">
     <div class="card-header border-dark bg-dark text-white">
-        <strong>Pretraga dokumenata</strong>
+        <strong>Traženi pojam u dokumentima: "{{ $searchquery }}"</strong>
     </div>
     <div class="card-body">
     <!-- TODO: Make mobile friendly -->

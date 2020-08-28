@@ -6,7 +6,7 @@
         <li>
             <div class="row text-white text-truncate">
                 <div class="col">
-                    <a href="{{ route('todos.finish', $todo -> id) }}" class="text-white">
+                    <a href="{{ route('todos.finish', $todo -> id) }}" style="color: #fff;" onMouseOver="this.style.color='#666666'" onMouseOut="this.style.color='#FFF'">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                             <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
@@ -14,8 +14,8 @@
                     </a>
                     <small>{{ date('d. m. Y', strtotime($todo -> date)) }}: {{ $todo -> description }}</small>
                     @if(now() -> gt($todo -> date))
-                    <a href="{{ route('todos.postpone', $todo -> id) }}" class="white-text" title="Odgodi za 2 dana">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="white" xmlns="http://www.w3.org/2000/svg">
+                    <a href="{{ route('todos.postpone', $todo -> id) }}" style="color: #fff;" onMouseOver="this.style.color='#666666'" onMouseOut="this.style.color='#FFF'" title="Odgodi za 2 dana">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"/>
                             <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.053.224l-1.5 3a.5.5 0 1 1-.894-.448L7.5 8.882V5a.5.5 0 0 1 .5-.5z"/>
                             <path d="M.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"/>
@@ -46,7 +46,7 @@
             <li>
                 <div class="row text-muted text-truncate">
                     <div class="col">
-                        <a href="{{ route('todos.finish', $todo -> id) }}" class="text-white">
+                        <a href="{{ route('todos.finish', $todo -> id) }}" style="color: #fff;" onMouseOver="this.style.color='#666666'" onMouseOut="this.style.color='#FFF'">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                                 <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
@@ -54,8 +54,8 @@
                         </a>
                         <small>{{ date('d. m. Y', strtotime($todo -> date)) }}: {{ $todo -> description }}</small>
                         @if(now() -> gt($todo -> date))
-                        <a href="{{ route('todos.postpone', $todo -> id) }}" class="white-text" title="Odgodi za 2 dana">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <a href="{{ route('todos.postpone', $todo -> id) }}" style="color: #fff;" onMouseOver="this.style.color='#666666'" onMouseOut="this.style.color='#FFF'" title="Odgodi za 2 dana">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"/>
                                 <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.053.224l-1.5 3a.5.5 0 1 1-.894-.448L7.5 8.882V5a.5.5 0 0 1 .5-.5z"/>
                                 <path d="M.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"/>
