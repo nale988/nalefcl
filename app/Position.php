@@ -34,6 +34,10 @@ class Position extends Model
         return $this->belongsTo('App\DeviceType', 'device_type_id', 'id');
     }
 
+    public function workorders(){
+        return $this->hasMany('App\WorkOrder', 'position', 'positions.position');
+    }
+
     public function spareparts(){
         if (Auth::check()) {
             return $this->belongsToMany('App\SparePart', 'spare_part_connections', 'position_id', 'spare_part_id')->withPivot('amount')->where('spare_parts.user_id', Auth::user()->id);

@@ -32,8 +32,9 @@ class PositionController extends Controller
 {
     public function showunits($id){
         $positions = Position::where('unit_id', $id)->get()->sortBy('position');
+        //$positions = Position::where('unit_id', $id)->withCount('workorders')->get();
         $unit = Unit::where('id', $id)->first();
-        // print_r(json_encode($unit));
+        // print_r(json_encode($positions));
         // die;
         return view('positions.perunits', compact('positions', 'unit'));
     }

@@ -42,6 +42,7 @@ class HomeController extends Controller
         }
 
         $workorders = WorkOrder::all()->sortByDesc('date')->take(10);
+
         $username_raw = explode(" ", $user -> name);
         $username = $username_raw[1]." ".substr($username_raw[0], 0, 1);
         $myworkorders = WorkOrder::where('owner', $username)->get()->sortByDesc('date')->take(10);

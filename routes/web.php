@@ -46,6 +46,8 @@ Route::get('todo/postpone/{id}', 'ToDoController@postpone')->name('todos.postpon
 Route::get('worktimes/review', 'WorkTimeController@review')->name('worktimes.review');
 Route::get('worktimes/delete/{id}', 'WorkTimeController@delete')->name('worktimes.delete');
 
+Route::get('personal/myworkorders', 'PersonalController@myworkorders')->name('personal.myworkorders');
+
 Route::resource('positions', 'PositionController');
 Route::resource('spareparts', 'SparePartController');
 Route::resource('revisions', 'RevisionController');
@@ -53,3 +55,4 @@ Route::resource('sparepartorders', 'SparePartOrderController');
 Route::resource('worktimes', 'WorkTimeController');
 Route::resource('todos', 'ToDoController');
 Route::resource('admin', 'AdminController');
+Route::resource('personal', 'PersonalController');

@@ -46,7 +46,7 @@
                     @endauth
                 </div>
                 @endif --}}
-                @if(count($urgenttodos)>0 && count($othertodos)>0)
+                @if(count($urgenttodos)>0 || count($othertodos)>0)
                 <div class="col-sm-8 py-4 gx-2">
                     @auth
                         @include('layouts.todos');
@@ -57,8 +57,6 @@
                     @auth
                         @include('layouts.options');
                     @endauth
-
-                    {{-- @include('layouts.user'); --}}
                 </div>
             </div>
           </div>
@@ -114,38 +112,14 @@
                         </svg>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
-                    <div class="dropdown dropleft">
-                        <button class="btn dropdown-toggle text-white" type="button" id="unitsMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-nut" fill="white" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M11.42 2H4.58L1.152 8l3.428 6h6.84l3.428-6-3.428-6zM4.58 1a1 1 0 0 0-.868.504l-3.429 6a1 1 0 0 0 0 .992l3.429 6A1 1 0 0 0 4.58 15h6.84a1 1 0 0 0 .868-.504l3.428-6a1 1 0 0 0 0-.992l-3.428-6A1 1 0 0 0 11.42 1H4.58z"/>
-                                <path fill-rule="evenodd" d="M6.848 5.933a2.5 2.5 0 1 0 2.5 4.33 2.5 2.5 0 0 0-2.5-4.33zM5.067 9.848a3.5 3.5 0 1 1 6.062-3.5 3.5 3.5 0 0 1-6.062 3.5z"/>
-                              </svg>
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="unitsMenu" style="height: auto; max-height: 600px; overflow-x: hidden;">
-                            @foreach($units as $unit)
-                            <a class="dropdown-item" href="{{ route('showunits', $unit -> id)}}">{{ $unit -> unit_number }}: {{ $unit -> description }}</a>
-                            @endforeach
-                        </div>
-                    </div>
-                </li> --}}
-                <!--
-                <li class="nav-item text-white">
-                    <a class="nav-link" href="{{ route('dangerlevelspareparts') }}" title="Signalne zalihe">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-exclamation-octagon" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
-                    </svg>
-                    </a>
-                </li>
-                -->
             </ul>
 
             <form class="form-inline mt-2 mt-md-0" action="{{ route('search') }}" method="GET">
                 @csrf
                 <input class="form-control mr-sm-2" type="text" name="searchvalue" placeholder="..." aria-label="Search">
                 <div class="btn-group">
-                    <button class="btn btn-danger" type="submit" name="searchwhere" value="position">Traži</button>
+                    <button class="btn btn-danger" type="submit" name="searchwhere" value="position">Pozicije</button>
+                    <button class="btn btn-danger" type="submit" name="searchwhere" value="navision">Nav</button>
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
@@ -156,7 +130,6 @@
                         <button class="dropdown-item" type="submit" name="searchwhere" value="spareparttypes">u vrsti rezervnih dijelova</button>
                         <button class="dropdown-item" type="submit" name="searchwhere" value="documents">u imenima dokumenata</button>
                         <button class="dropdown-item" type="submit" name="searchwhere" value="revisions">u napomenama</button>
-                        <button class="dropdown-item" type="submit" name="searchwhere" value="navision">u Navisionu</button>
                     </div>
                 </div>
             </form>
