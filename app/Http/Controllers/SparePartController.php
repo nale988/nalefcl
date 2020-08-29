@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\User;
+
 use Jenssegers\Agent\Agent;
 use DB;
 
@@ -229,7 +231,37 @@ class SparePartController extends Controller
     }
 
     public function show($id){
-        return redirect('/');
+        if(Auth::check()){ $user = Auth::user(); }
+
+        $sparepart = SparePart::where('id', $id)->first();
+        if(is_null($sparepart)){
+            return redirect()->back()->with('alert', 'Ne postoji traženo!');
+        }
+
+        $createdby = User::where('id', $sparepart -> user_id)->first();
+        $sparepartfile = SparePartFile::where('spare_part_id', $id)
+            ->leftJoin('file_uploads', 'file_uploads.id', '=', 'spare_part_files.file_upload_id')
+            ->get([
+                'spare_part_files.id as id',
+                'spare_part_files.file_upload_id as file_upload_id',
+                'spare_part_files.spare_part_id as spare_part_id',
+                'file_uploads.filename as filename',
+                'file_uploads.filesize as filesize',
+                'file_uploads.url as url']);
+
+        $sparepartgroup = SparePartGroupConnection::where('spare_part_id', $id)
+            ->leftJoin('spare_part_groups', 'spare_part_groups.id', '=', 'spare_part_group_connections.spare_part_group_id')
+            ->get([
+                'spare_part_groups.description'
+            ]);
+        $positions = SparePartConnection::where('spare_part_id', $id)
+            ->leftJoin('positions', 'positions.id', '=', 'spare_part_connections.position_id')
+            ->get([
+                'positions.*'
+            ]);
+
+        return view('spareparts.show', compact('sparepart', 'sparepartfile', 'sparepartgroup', 'positions', 'user', 'createdby'));
+        //return redirect('/');
     }
 
     public function edit($id){
