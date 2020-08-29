@@ -1,5 +1,9 @@
 Dodavanje privatnih rezervnih dijelova
 
+Pregled dokumenata na osnovu permisije
+
+Pregled rezervnih dijelova na osnovu permisije
+Pregled ostatka na osnovu permisije
 
 
 $table->foreignId('from_id')->nullable()
