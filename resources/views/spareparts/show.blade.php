@@ -47,21 +47,24 @@
                             </tr>
                         @endforeach
                     @endif
-
                     @if(count($positions)>0)
-                    @foreach($positions as $position)
-                        <tr>
-                            <td scope="row" style="width: 140px;">Grupa:</td>
-                            <td>
-                                <strong>
-                                    <a href="{{ route('positions.show', $position -> id)}}">
-                                        {{ $position -> position }} - {{ $position -> name }}
-                                    </a>
-                                </strong>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endif
+                        @foreach($positions as $position)
+                            <tr>
+                                <td scope="row" style="width: 140px;">Pozicija uređaja:</td>
+                                <td>
+                                    <strong>
+                                        <a href="{{ route('positions.show', $position -> id)}}">
+                                            {{ $position -> position }} - {{ $position -> name }}
+                                        </a>
+                                    </strong>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
                     <tr>
                         <td scope="row" style="width: 140px;">Pozicija:</td>
                         <td><strong>{{ $sparepart -> position }}</strong></td>

@@ -1,5 +1,13 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<!-- ---------------------------------- -->
+<!-- Naser Kešetović                    -->
+<!-- naser.kesetovic@outlook.com        -->
+<!-- Based on Laravel.com (7.x)         -->
+<!-- MIT licence                        -->
+<!-- ---------------------------------- -->
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
@@ -39,13 +47,6 @@
         <div class="collapse bg-dark" id="navbarHeader">
           <div class="container">
             <div class="row">
-                {{-- @if(count($favorites)>0)
-                <div class="col-sm-3 py-4">
-                    @auth
-                        @include('layouts.favorites');
-                    @endauth
-                </div>
-                @endif --}}
                 @if(count($urgenttodos)>0 || count($othertodos)>0)
                 <div class="col-sm-8 py-4 gx-2">
                     @auth
@@ -193,7 +194,6 @@
     <br />
     <br />
 </main>
-
 <script>
     var scrollbutton = document.getElementById("btnTop");
     window.onscroll = function() { scrollFunction()};

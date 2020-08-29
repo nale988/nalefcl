@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\User;
+
+
 use DB;
 use Carbon\Carbon;
 use App\UserRole;
@@ -11,20 +14,79 @@ use App\WebsiteStatistic;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+    public function users(){
+        if(Auth::check()){
+            $user = Auth::user();
+            $user_role = UserRole::where('id', $user -> id)->first();
+            if($user_role -> admin){
+                $users = User::
+                    leftJoin('user_roles', 'user_roles.user_id', '=', 'users.id')
+                    ->get([
+                        'users.*',
+                        'user_roles.admin as admin',
+                        'user_roles.services as services',
+                        'user_roles.workhours as workhours',
+                        'user_roles.workorders as workorders',
+                        'user_roles.lubrications as lubrications',
+                        'user_roles.files as files',
+                        'user_roles.private_items as private_items',
+                        'user_roles.worktimes as worktimes',
+                    ]);
+
+                    // print_r(json_encode($users));
+                    // die;
+                return view('admin.users', compact('users'));
+            }
+        }
+        return redirect()->back()->with('alert', 'Nemate pravo pristupa!');
+    }
+
+    public function permissions($id){
+        if(Auth::check()){
+            $user = Auth::user();
+            $user_role = UserRole::where('id', $user -> id)->first();
+            if($user_role -> admin){
+                $selecteduser = User::where('id', $id)->first();
+                $selectedrole = UserRole::where('user_id', $id)->first();
+                return view('admin.permissions', compact('selecteduser', 'selectedrole'));
+            }
+        }
+        return redirect()->back()->with('alert', 'Nemate pravo pristupa!');
+    }
+
+    public function update(Request $request, $id){
+        $role = UserRole::where('id', $id)->first();
+
+        $admin = ($request -> get('permission_admin') == 'on' ? 1 : 0);
+        $services = ($request -> get('permission_services') == 'on' ? 1 : 0);
+        $workhours = ($request -> get('permission_workhours') == 'on' ? 1 : 0);
+        $workorders = ($request -> get('permission_workorders') == 'on' ? 1 : 0);
+        $lubrications = ($request -> get('permission_lubrications') == 'on' ? 1 : 0);
+        $files = ($request -> get('permission_files') == 'on' ? 1 : 0);
+        $private = ($request -> get('permission_private') == 'on' ? 1 : 0);
+        $worktimes = ($request -> get('permission_worktimes') == 'on' ? 1 : 0);
+
+        $role -> admin = $admin;
+        $role -> services = $services;
+        $role -> workhours = $workhours;
+        $role -> workorders = $workorders;
+        $role -> lubrications = $lubrications;
+        $role -> files = $files;
+        $role -> private_items = $private;
+        $role -> worktimes = $worktimes;
+
+        $role -> save();
+        return redirect()->back()->with('message', 'Izvršena izmjena!');
+    }
+
+    public function index(){
         if(Auth::check()){
             $user = Auth::user();
             $user_role = UserRole::where('id', $user -> id)->first();
 
             if($user_role -> admin){
                 //$last_visits_all = WebsiteStatistic::orderByDesc('created_at')->get()->take(1000)->paginate(15);
-                $last_visits = WebsiteStatistic::where('user_id', '<>', 1)->orderByDesc('created_at')->get()->paginate(15);
+                $last_visits = WebsiteStatistic::where('user_id', '<>', 1)->latest()->get()->paginate(15);
                 $browsers = DB::table('website_statistics')
                     ->select('useragent', DB::raw('count(*) as total'))
                     ->where('user_id', '<>', 1)
@@ -49,69 +111,4 @@ class AdminController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

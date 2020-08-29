@@ -48,6 +48,8 @@ Route::get('worktimes/review', 'WorkTimeController@review')->name('worktimes.rev
 Route::get('worktimes/delete/{id}', 'WorkTimeController@delete')->name('worktimes.delete');
 
 Route::get('personal/myworkorders', 'PersonalController@myworkorders')->name('personal.myworkorders');
+Route::get('admin/users', 'AdminController@users')->name('admin.users');
+Route::get('admin/permissions/{id}', 'AdminController@permissions')->name('admin.permissions');
 
 Route::resource('positions', 'PositionController');
 Route::resource('spareparts', 'SparePartController');

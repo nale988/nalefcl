@@ -98,12 +98,21 @@
                 @endif
                 @if(App\UserRole::where('user_id', Auth::user() -> id)->first()->admin==1)
                     <li>
-                        <a class="text-white" href="{{ url('admin') }}" title="Admin">
+                        <a class="text-white" href="{{ route('admin.index') }}" title="Admin">
                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="gray" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z"/>
                                 <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z"/>
                             </svg>
                             <small><span class="text-white">Admin panel</span></small>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="text-white" href="{{ route('admin.users') }}" title="Korisnici">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="gray" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.793 8 8.146 5.354a.5.5 0 0 1 0-.708z"/>
+                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5H11a.5.5 0 0 1 0 1H4.5A.5.5 0 0 1 4 8z"/>
+                            </svg>
+                            <small><span class="text-white">Korisnici (admin)</span></small>
                         </a>
                     </li>
                 @endif
@@ -135,6 +144,7 @@
     </li>
     <li>
         <small class="text-muted">Navision: {{ Config::get('sitesettings.navision_date')}}</small><br/>
-        <small class="text-muted">Radni nalozi: {{ Config::get('sitesettings.workorders_date')}}</small>
+        <small class="text-muted">Radni nalozi: {{ Config::get('sitesettings.workorders_date')}}</small><br />
+        <small class="text-muted"><i>Reply: {{ round(microtime(true) - LARAVEL_START, 2) }}s</i></small>
     </li>
 </ul>

@@ -254,11 +254,15 @@ class SparePartController extends Controller
             ->get([
                 'spare_part_groups.description'
             ]);
+
         $positions = SparePartConnection::where('spare_part_id', $id)
             ->leftJoin('positions', 'positions.id', '=', 'spare_part_connections.position_id')
             ->get([
                 'positions.*'
             ]);
+
+            // print_r(json_encode($positions));
+            // die;
 
         return view('spareparts.show', compact('sparepart', 'sparepartfile', 'sparepartgroup', 'positions', 'user', 'createdby'));
         //return redirect('/');
