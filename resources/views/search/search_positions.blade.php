@@ -7,7 +7,6 @@
     </div>
     <div class="card-body">
         @foreach($searchresults as $position)
-
                 <div class="row">
                     <a href="{{ route('positions.show', $position->id) }}" style="color: #000000; text-decoration:none;">
                     <div class="col-sm text-truncate">
@@ -24,9 +23,14 @@
                 <div class="row text-muted">
                     <div class="col-sm text-truncate">
                         <div class="float-left">{{ $position -> type }}</div>
+                        @if($userrole -> workorders_view)
                         <div class="float-right">
-                            @include('layouts.buttons.btnworkorder')
+                            <a href="{{ route('workorders', $position -> position)}}" class="btn btn-primary btn-sm">
+                                @include('layouts.buttons.btnworkorder', ['color' => 'white'])
+                                {{-- <span class="badge badge-pill badge-danger">{{ $position -> workorders_count }}</span> --}}
+                            </a>
                         </div>
+                        @endif
                     </div>
                 </div>
         @if(!$loop->last)

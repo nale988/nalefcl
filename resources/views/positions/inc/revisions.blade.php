@@ -12,81 +12,77 @@
                         <th>Opis</th>
                         <th class="text-center">Datum</th>
                         <th class="text-center">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
-                                <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
-                            </svg>
+                            @include('layouts.buttons.btnuser', ['color' => 'currentColor'])
                         </th>
                         <th class="text-right" >Opcije</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($revisions as $revision)
-                    @if($revision -> private_item == 1 && $revision -> user_id = $user -> id)
-                            <tr class="bg-warning">
-                        @else
-                            <tr>
+                @foreach($revisions as $revision)
+                @if($revision -> private_item && $userrole -> private_items && $revision ->user_id == $user -> id)
+                    <tr class="bg-warning">
+                @elseif($revision -> private_item && !$userrole -> private_items)
+                    <tr style="display: none;">
+                @else
+                    <tr>
+                @endif
+                    <th class="text-nowrap">
+                        {{ strip_tags($revision -> description) }}
+                    </th>
+
+                    <td class="text-nowrap text-center">
+                        {{ date('d. m. Y.', strtotime($revision -> created_at)) }}
+                    </td>
+
+                    <td class="text-nowrap text-center">
+                        {{ explode(' ', $revision -> user -> name)[1] }}
+                    </td>
+
+                    <td class="text-nowrap text-right">
+                        @if(count($revision -> files) > 0)
+                            @foreach($revision -> files as $file)
+                                <a href="{{ URL::asset($file -> url ) }}" style="text-decoration:none; color:#000000;">
+                                    @include('layouts.buttons.btnfile', ['color' => 'currentColor'])
+                                </a>
+                            @endforeach
                         @endif
-                        <th class="text-nowrap">{{ strip_tags($revision -> description) }}</td>
-                        <td class="text-nowrap text-center">{{ date('d. m. Y.', strtotime($revision -> created_at)) }}</td>
-                        <td class="text-nowrap text-center">{{ explode(' ', $revision -> user -> name)[1] }}</td>
-                        <td class="text-nowrap text-right">
-                            @if(count($revision -> files) > 0)
-                                @foreach($revision -> files as $file)
-                                    <a href="{{ URL::asset($file -> url ) }}" style="text-decoration:none; color:#000000;">
-                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
-                                            <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
-                                            <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                                        </svg>
-                                    </a>
-                                @endforeach
-                            @endif
 
-                            @if($revision -> user -> id == $user -> id)
+                        @if($revision -> user -> id == $user -> id)
                             <a href="{{ route('revisions.edit', $revision -> id)}}">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                                </svg>
+                                @include('layouts.buttons.btnedit', ['color' => 'currentColor'])
                             </a>
-                            @endif
+                        @endif
 
-                            <a href="#" data-toggle="modal" data-target="#modalrev-{{ $revision -> id }}" >
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-medical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M4 1h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H4z"/>
-                                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L9 6l.549.317a.5.5 0 1 1-.5.866L8.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L7 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 8 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                                </svg>
-                            </a>
+                        <a href="#" data-toggle="modal" data-target="#modalrev-{{ $revision -> id }}" >
+                            @include('layouts.buttons.btnreadmore', ['color' => 'currentColor'])
+                        </a>
 
-                            <div class="modal fade col" id="modalrev-{{ $revision -> id }}" tabindex="-1" role="dialog" aria-labelledby="descrev-{{ $revision -> id }}" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="modalrev-{{ $revision -> id }}">Detalji napomene</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body d-flex text-justify">
-                                        {!! $revision -> description !!}
-                                    </div>
-                                    <div class="modal-footer">
-                                        @if(count($revision -> files) > 0)
-                                            @foreach($revision -> files as $file)
-                                                <a class="btn btn-dark" href="{{ URL::asset($file -> url ) }}">{{ $file -> filename }}</a>
-                                            @endforeach
-                                        @endif
-                                      &nbsp;&nbsp;
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                                    </div>
-                                  </div>
+                        <div class="modal fade col" id="modalrev-{{ $revision -> id }}" tabindex="-1" role="dialog" aria-labelledby="descrev-{{ $revision -> id }}" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="modalrev-{{ $revision -> id }}">Detalji napomene</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body d-flex text-justify">
+                                    {!! $revision -> description !!}
+                                </div>
+                                <div class="modal-footer">
+                                    @if(count($revision -> files) > 0)
+                                        @foreach($revision -> files as $file)
+                                            <a class="btn btn-dark" href="{{ URL::asset($file -> url ) }}">{{ $file -> filename }}</a>
+                                        @endforeach
+                                    @endif
+                                  &nbsp;&nbsp;
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
                                 </div>
                               </div>
-                        </td>
-                    </tr>
-                    @endforeach
+                            </div>
+                        </div>
+                    </td>
+                @endforeach
                 </tbody>
             </table>
         </div>

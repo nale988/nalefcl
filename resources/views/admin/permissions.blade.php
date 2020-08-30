@@ -35,42 +35,129 @@
                     </div>
 
                     <div class="form-check">
-                        <input type="hidden" value="0" name="permission_services" id="permission_services">
-                        <input class="form-check-input" type="checkbox" name="permission_services" id="permission_services" {{ $selectedrole -> services ? 'checked':'' }}>
-                        <label class="form-check-label" for="permission_services">
-                            <span class="mx-2">Servisi duvaljki i kompresora</span>
+                        <input type="hidden" value="0" name="permission_todos" id="permission_todos">
+                        <input class="form-check-input" type="checkbox" name="permission_todos" id="permission_todos" {{ $selectedrole -> todos ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_todos">
+                            <span class="mx-2">ToDos</span>
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input type="hidden" value="0" name="permission_workhours" id="permission_workhours">
-                        <input class="form-check-input" type="checkbox" name="permission_workhours" id="permission_workhours" {{ $selectedrole -> workhours ? 'checked':'' }}>
-                        <label class="form-check-label" for="permission_workhours">
-                            <span class="mx-2">Radni sati kompresora</span>
+                        <input type="hidden" value="0" name="permission_spare_parts_view" id="permission_spare_parts_view">
+                        <input class="form-check-input" type="checkbox" name="permission_spare_parts_view" id="permission_spare_parts_view" {{ $selectedrole -> spare_parts_view ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_spare_parts_view">
+                            <span class="mx-2">Rezervni dijelovi (pregled)</span>
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input type="hidden" value="0" name="permission_workorders" id="permission_workorders">
-                        <input class="form-check-input" type="checkbox" name="permission_workorders" id="permission_workorders" {{ $selectedrole -> workorders ? 'checked':'' }}>
-                        <label class="form-check-label" for="permission_workorders">
-                            <span class="mx-2">Otvaranje radnih naloga</span>
+                        <input type="hidden" value="0" name="permission_spare_parts_add" id="permission_spare_parts_add">
+                        <input class="form-check-input" type="checkbox" name="permission_spare_parts_add" id="permission_spare_parts_add" {{ $selectedrole -> spare_parts_add ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_spare_parts_add">
+                            <span class="mx-2">Rezervni dijelovi (dodavanje)</span>
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input type="hidden" value="0" name="permission_lubrications" id="permission_lubrications">
-                        <input class="form-check-input" type="checkbox" name="permission_lubrications" id="permission_lubrications" {{ $selectedrole -> lubrications ? 'checked':'' }}>
-                        <label class="form-check-label" for="permission_lubrications">
-                            <span class="mx-2">Podmazivanje</span>
+                        <input type="hidden" value="0" name="permission_spare_parts_order" id="permission_spare_parts_order">
+                        <input class="form-check-input" type="checkbox" name="permission_spare_parts_order" id="permission_spare_parts_order" {{ $selectedrole -> spare_parts_order ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_spare_parts_order">
+                            <span class="mx-2">Rezervni dijelovi (narudžbe)</span>
                         </label>
                     </div>
 
                     <div class="form-check">
-                        <input type="hidden" value="0" name="permission_files" id="permission_files">
-                        <input class="form-check-input" type="checkbox" name="permission_files" id="permission_files" {{ $selectedrole -> files ? 'checked':'' }}>
-                        <label class="form-check-label" for="permission_files">
-                            <span class="mx-2">Dokumenti</span>
+                        <input type="hidden" value="0" name="permission_revisions_view" id="permission_revisions_view">
+                        <input class="form-check-input" type="checkbox" name="permission_revisions_view" id="permission_revisions_view" {{ $selectedrole -> revisions_view ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_revisions_view">
+                            <span class="mx-2">Napomene (pregled)</span>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_revisions_add" id="permission_revisions_add">
+                        <input class="form-check-input" type="checkbox" name="permission_revisions_add" id="permission_revisions_add" {{ $selectedrole -> revisions_add ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_revisions_add">
+                            <span class="mx-2">Napomene (dodavanje)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_services_view" id="permission_services_view">
+                        <input class="form-check-input" type="checkbox" name="permission_services_view" id="permission_services_view" {{ $selectedrole -> services_view ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_services_view">
+                            <span class="mx-2">Servisi duvaljki i kompresora (pregled)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_services_add" id="permission_services_add">
+                        <input class="form-check-input" type="checkbox" name="permission_services_add" id="permission_services_add" {{ $selectedrole -> services_add ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_services_add">
+                            <span class="mx-2">Servisi duvaljki i kompresora (dodavanje)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_workhours_view" id="permission_workhours_view">
+                        <input class="form-check-input" type="checkbox" name="permission_workhours_view" id="permission_workhours_view" {{ $selectedrole -> workhours_view ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_workhours_view">
+                            <span class="mx-2">Radni sati kompresora (pregled)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_workhours_add" id="permission_workhours_add">
+                        <input class="form-check-input" type="checkbox" name="permission_workhours_add" id="permission_workhours_add" {{ $selectedrole -> workhours_add ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_workhours_add">
+                            <span class="mx-2">Radni sati kompresora (dodavanje)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_workorders_view" id="permission_workorders_view">
+                        <input class="form-check-input" type="checkbox" name="permission_workorders_view" id="permission_workorders_view" {{ $selectedrole -> workorders_view ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_workorders_view">
+                            <span class="mx-2">Radni nalozi (pregled)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_workorders_add" id="permission_workorders_add">
+                        <input class="form-check-input" type="checkbox" name="permission_workorders_add" id="permission_workorders_add" {{ $selectedrole -> workorders_add ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_workorders_add">
+                            <span class="mx-2">Radni nalozi (dodavanje)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_lubrications_view" id="permission_lubrications_view">
+                        <input class="form-check-input" type="checkbox" name="permission_lubrications_view" id="permission_lubrications_view" {{ $selectedrole -> lubrications_view ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_lubrications_view">
+                            <span class="mx-2">Podmazivanje (pregled)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_lubrications_add" id="permission_lubrications_add">
+                        <input class="form-check-input" type="checkbox" name="permission_lubrications_add" id="permission_lubrications_add" {{ $selectedrole -> lubrications_add ? 'checked':'' }}>
+                        <label class="form-check-label" for="permissionpermission_lubrications_add_lubrications">
+                            <span class="mx-2">Podmazivanje (dodavanje)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_files_view" id="permission_files_view">
+                        <input class="form-check-input" type="checkbox" name="permission_files_view" id="permission_files_view" {{ $selectedrole -> files_view ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_files_view">
+                            <span class="mx-2">Dokumenti (pregled)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_files_add" id="permission_files_add">
+                        <input class="form-check-input" type="checkbox" name="permission_files_add" id="permission_files_add" {{ $selectedrole -> files_add ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_files_add">
+                            <span class="mx-2">Dokumenti (dodavanje)</span>
                         </label>
                     </div>
 
@@ -87,6 +174,14 @@
                         <input class="form-check-input" type="checkbox" name="permission_worktimes" id="permission_worktimes" {{ $selectedrole -> worktimes ? 'checked':'' }}>
                         <label class="form-check-label" for="permission_worktimes">
                             <span class="mx-2">Lični radni sati</span>
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="hidden" value="0" name="permission_favorites" id="permission_favorites">
+                        <input class="form-check-input" type="checkbox" name="permission_favorites" id="permission_favorites" {{ $selectedrole -> favorites ? 'checked':'' }}>
+                        <label class="form-check-label" for="permission_favorites">
+                            <span class="mx-2">Omiljene pozicije</span>
                         </label>
                     </div>
                 </div>

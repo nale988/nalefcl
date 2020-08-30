@@ -20,9 +20,13 @@
                     @foreach($workinghours as $workinghour)
                     <tr>
                         <td style="white-space: nowrap;">
+                            @if($userrole -> workhours_add)
                             <a href="{{ route('editworkinghours', $workinghour -> id)}}">
                             {{ date('d. m. Y.', strtotime($workinghour -> date)) }}
                             </a>
+                            @else
+                            {{ date('d. m. Y.', strtotime($workinghour -> date)) }}
+                            @endif
                         </td>
                         <td class="text-right" style="white-space: nowrap;">{{ $workinghour -> total }}h</td>
                         <td class="text-right" style="white-space: nowrap;">{{ $workinghour -> loaded }}h</td>

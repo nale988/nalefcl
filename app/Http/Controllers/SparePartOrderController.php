@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
 
 use App\SparePart;
+use App\UserRole;
 use App\Position;
 use App\SparePartOrder;
 
@@ -20,31 +21,39 @@ class SparePartOrderController extends Controller
     }
 
     public function neworder($position_id, $spare_part_id, $amount){
-        $sparepart = SparePart::where('id', $spare_part_id)->first();
-        $position = Position::where('id', $position_id)->first();
+        if(Auth::check()){
+            $user = Auth::user();
+            $userrole = UserRole::where('user_id', $user->id)->first();
 
-        return view('sparepartorders.neworder', compact('position', 'sparepart', 'amount'));
+            $sparepart = SparePart::where('id', $spare_part_id)->first();
+            $position = Position::where('id', $position_id)->first();
+
+            return view('sparepartorders.neworder', compact('position', 'sparepart', 'amount'));
+        };
+        return view('/')->with('danger', 'Nemate dozvole za ovo. Kontaktirajte administratora.');
     }
 
     public function index()
     {
         $agent = new Agent();
-
         if (Auth::check()){
             $user = Auth::user();
-        }
-        else{
-            return view('/')->with('danger', 'Niste ulogovani!');
+            $userrole = UserRole::where('user_id', $user->id)->first();
+            if($userrole -> spare_parts_order){
+                $sparepartorders = SparePartOrder::where('user_id', $user -> id) -> where('done', 0)->with('sparepart')->with('position')->orderBy('date')->get();
+                $today = now();
+                if ($agent -> isMobile()){
+                    return view('sparepartorders.mobileindex', compact('sparepartorders', 'today'));
+                }
+                else{
+                    return view('sparepartorders.index', compact('sparepartorders', 'today'));
+                }
+            }
+            return view('/')->with('danger', 'Nemate dozvole za ovo. Kontaktirajte administratora.');
         }
 
-        $sparepartorders = SparePartOrder::where('user_id', $user -> id) -> where('done', 0)->with('sparepart')->with('position')->orderBy('date')->get();
-        $today = now();
-        if ($agent -> isMobile()){
-            return view('sparepartorders.mobileindex', compact('sparepartorders', 'today'));
-        }
-        else{
-             return view('sparepartorders.index', compact('sparepartorders', 'today'));
-        }
+        return view('/')->with('danger', 'Niste ulogovani!');
+
     }
 
     public function create()

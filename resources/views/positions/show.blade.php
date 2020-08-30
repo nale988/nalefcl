@@ -5,81 +5,113 @@
     <a class="navbar-brand" href="#">{{ $position -> position }}</a>
 
     @if(!empty($favorite))
-    <a href="{{ route('favorite', $position->id) }}" class="navbar-brand" title="Ukloni!">
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="white" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-        </svg>
-    </a>
-    @else
         <a href="{{ route('favorite', $position->id) }}" class="navbar-brand" title="Dodaj kao omiljeni!">
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star" fill="white" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288l1.847-3.658 1.846 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.564.564 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
-            </svg>
+            @include('layouts.buttons.btnfavoritefull', ['color' => 'white'])
+        </a>
+    @else
+        <a href="{{ route('favorite', $position->id) }}" class="navbar-brand" title="Ukloni!">
+            @include('layouts.buttons.btnfavoriteempty', ['color' => 'white'])
         </a>
     @endif
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse flex-wrap" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="collapse" href="#cInfo" role="button" aria-expanded="false" aria-controls="cInfo">Karakteristike</a>
-        </li>
-        @if(count($spareparts)>0)
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">Rezervni dijelovi</a>
-        </li>
-        @endif
-        @if($userrole -> files)
-            @if(count($position_files)>0)
+        <ul class="navbar-nav">
+            <!-- karakteristike -->
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#cDocuments" role="button" aria-expanded="false" aria-controls="cDocuments">Dokumenti</a>
+                <a class="nav-link" data-toggle="collapse" href="#cInfo" role="button" aria-expanded="false" aria-controls="cInfo">Karakteristike</a>
+            </li>
+
+            <!-- rezervni dijelovi -->
+            @if($userrole -> spare_parts_view)
+                @if(count($spareparts) > 0)
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">Rezervni dijelovi</a>
+                </li>
+                @endif
+            @endif
+
+            <!-- dokumentacija -->
+            @if($userrole -> files_view)
+                @if(count($position_files) > 0)
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#cDocuments" role="button" aria-expanded="false" aria-controls="cDocuments">Dokumenti</a>
+                </li>
+                @endif
+            @endif
+
+            <!-- radni sati kompresora -->
+            @if($userrole -> workhours_view)
+                @if(count($workinghours) > 0)
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#cCompressorWorkHours" role="button" aria-expanded="false" aria-controls="cCompressorWorkHours">Radni sati</a>
+                </li>
+                @endif
+            @endif
+
+            <!-- servisi kompresora -->
+            @if($userrole -> services_view)
+                @if(count($compressorservices) > 0)
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#cCompressorServices" role="button" aria-expanded="false" aria-controls="cCompressorServices">Servisi</a>
+                </li>
+                @endif
+            @endif
+
+            <!-- servisi duvaljki -->
+            @if($userrole -> services_view)
+                @if(count($blowerservices) > 0)
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#cBlowerServices" role="button" aria-expanded="false" aria-controls="cBlowerServices">Servisi</a>
+                </li>
+                @endif
+            @endif
+
+            <!-- napomene -->
+            @if($userrole -> revisions_view)
+                @if(count($revisions) > 0)
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#cRevisions" role="button" aria-expanded="false" aria-controls="cRevisions">Napomene</a>
+                </li>
+                @endif
+            @endif
+
+            @if($userrole -> services_add || $userrole -> workhours_add  || $userrole -> workorders_add || $userrole -> lubrications_add || $userrole -> files_add)
+                <a class="nav-link" data-toggle="collapse" href="#cAddNew" role="button" aria-expanded="false" aria-controls="cAddNew">Dodaj</a>
+            @endif
+
+            @if($userrole -> workorders_view)
+            <li><a class="nav-link">//</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('workorders', $position -> position)}}">Radni nalozi</a>
             </li>
             @endif
-        @endif
-        @if(count($workinghours)>0)
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#cCompressorWorkHours" role="button" aria-expanded="false" aria-controls="cCompressorWorkHours">Radni sati</a>
-        </li>
-        @endif
-        @if(count($compressorservices)>0)
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#cCompressorServices" role="button" aria-expanded="false" aria-controls="cCompressorServices">Servisi</a>
-        </li>
-        @endif
-        @if(count($blowerservices)>0)
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#cBlowerServices" role="button" aria-expanded="false" aria-controls="cBlowerServices">Servisi</a>
-        </li>
-        @endif
-        @if(count($revisions)>0)
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#cRevisions" role="button" aria-expanded="false" aria-controls="cRevisions">Napomene</a>
-        </li>
-        @endif
-        <a class="nav-link" data-toggle="collapse" href="#cAddNew" role="button" aria-expanded="false" aria-controls="cAddNew">Dodaj novo</a>
-        <li><a class="nav-link">//</a></li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('workorders', $position -> position)}}">Radni nalozi</a>
-        </li>
-      </ul>
+        </ul>
     </div>
-  </nav>
+</nav>
 
 <br />
+<!-- karakteristike -->
 <div class="collapse" id="cInfo">
     @include('positions.inc.positioninfo')
 </div>
 
-@if(count($spareparts)>0)
-<div class="collapse show" id="cSpareParts">
-    <br />
-    @include('positions.inc.sparepartsaccordion')
-</div>
+<!-- rezervni dijelovi -->
+@if($userrole -> spare_parts_view)
+    @if(count($spareparts) > 0)
+    <div class="collapse show" id="cSpareParts">
+        <br />
+        @include('positions.inc.spareparts')
+    </div>
+    @endif
 @endif
 
-@if($userrole -> files)
-    @if(count($position_files)>0)
+<!-- dokumentacija -->
+@if($userrole -> files_view)
+    @if(count($position_files) > 0)
     <div class="collapse" id="cDocuments">
         <br />
         @include('positions.inc.documents')
@@ -87,37 +119,55 @@
     @endif
 @endif
 
-@if(count($workinghours)>0)
-<div class="collapse" id="cCompressorWorkHours">
-    <br />
-    @include('positions.inc.compressorworkhours')
-</div>
+<!-- radni sati kompresora -->
+@if($userrole -> workhours_view)
+    @if(count($workinghours) > 0)
+    <div class="collapse" id="cCompressorWorkHours">
+        <br />
+        @include('positions.inc.compressorworkhours')
+    </div>
+    @endif
 @endif
 
-@if(count($compressorservices)>0)
-<div class="collapse" id="cCompressorServices">
-    <br />
-    @include('positions.inc.compressorservices')
-</div>
+<!-- servisi kompresora -->
+@if($userrole -> services_view)
+    @if(count($compressorservices) > 0)
+    <div class="collapse" id="cCompressorServices">
+        <br />
+        @include('positions.inc.compressorservices')
+    </div>
+    @endif
 @endif
 
-@if(count($blowerservices)>0)
-<div class="collapse" id="cBlowerServices">
-    <br />
-    @include('positions.inc.blowerservices')
-</div>
+<!-- servisi duvaljki -->
+@if($userrole -> services_view)
+    @if(count($blowerservices) > 0)
+    <div class="collapse" id="cBlowerServices">
+        <br />
+        @include('positions.inc.blowerservices')
+    </div>
+    @endif
 @endif
 
-@if(count($revisions)>0)
-<div class="collapse" id="cRevisions">
-    <br />
-    @include('positions.inc.revisions')
-</div>
+<!-- napomene -->
+@if($userrole -> revisions_view)
+    @if(count($revisions) > 0)
+    <div class="collapse" id="cRevisions">
+        <br />
+        @include('positions.inc.revisions')
+    </div>
+    @endif
 @endif
 
+@if($userrole -> services_add || $userrole -> workhours_add  || $userrole -> workorders_add || $userrole -> lubrications_add || $userrole -> files_add)
 <div class="collapse" id="cAddNew">
     <br />
     @include('positions.inc.addnew')
 </div>
+@endif
+
+
+
+
 
 @endsection

@@ -47,12 +47,14 @@
         <div class="collapse bg-dark" id="navbarHeader">
           <div class="container">
             <div class="row">
-                @if(count($urgenttodos)>0 || count($othertodos)>0)
-                <div class="col-sm-8 py-4 gx-2">
-                    @auth
-                        @include('layouts.todos');
-                    @endauth
-                </div>
+                @if($userrole -> todos)
+                    @if(count($urgenttodos)>0 || count($othertodos)>0)
+                    <div class="col-sm-8 py-4 gx-2">
+                        @auth
+                            @include('layouts.todos');
+                        @endauth
+                    </div>
+                    @endif
                 @endif
                 <div class="col-sm-4 py-4">
                     @auth
@@ -84,27 +86,30 @@
                     </svg>
                     </a>
                 </li>
-
-                @if($orders > 0)
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('sparepartorders.index') }}" title="Narudžbe">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart3" fill="white" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                        </svg>
-                        <span class="badge badge-pill badge-danger">{{ $orders }}</span>
-                    </a>
-                </li>
+                @if($userrole -> spare_parts_order)
+                    @if($orders > 0)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('sparepartorders.index') }}" title="Narudžbe">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart3" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                            </svg>
+                            <span class="badge badge-pill badge-danger">{{ $orders }}</span>
+                        </a>
+                    </li>
+                    @endif
                 @endif
-                @if($todoscount > 0)
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="collapse" data-target="#navbarHeader" title="Poslovi kojima je isteklo vrijeme">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-lightning" fill="white" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
-                        </svg>
-                        <span class="badge badge-pill badge-danger">{{ $todoscount }}</span>
-                    </a>
-                </li>
-                @endif
+<!-- todos -->
+                @if($userrole -> todos)
+                    @if($todoscount > 0)
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#navbarHeader" title="Poslovi kojima je isteklo vrijeme">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-lightning" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
+                            </svg>
+                            <span class="badge badge-pill badge-danger">{{ $todoscount }}</span>
+                        </a>
+                    </li>
+                    @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('todos.create') }}" title="Novi zadatak">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check-square" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -113,6 +118,7 @@
                         </svg>
                     </a>
                 </li>
+                @endif
             </ul>
 
             <form class="form-inline mt-2 mt-md-0" action="{{ route('search') }}" method="GET">

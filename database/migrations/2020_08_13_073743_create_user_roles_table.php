@@ -17,12 +17,18 @@ class CreateUserRolesTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->boolean('admin');
-            $table->boolean('services');
-            $table->boolean('workhours');
-            $table->boolean('workorders');
-            $table->boolean('lubrications');
+            $table->boolean('services_view');
+            $table->boolean('services_add');
+            $table->boolean('workhours_view');
+            $table->boolean('workhours_add');
+            $table->boolean('workorders_view');
+            $table->boolean('workorders_add');
+            $table->boolean('lubrications_view');
+            $table->boolean('lubrications_add');
             $table->boolean('worktimes');
-            $table->boolean('files');
+            $table->boolean('files_view');
+            $table->boolean('files_add');
+            $table->boolean('todos');
             $table->timestamps();
         });
     }

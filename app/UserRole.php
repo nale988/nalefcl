@@ -9,11 +9,21 @@ class UserRole extends Model
     protected $fillable=[
         'user_id',
         'admin',
-        'services',
-        'workhours',
-        'workorders',
-        'lubrications',
+        'spare_parts_view',
+        'spare_parts_add',
+        'spare_parts_order',
+        'services_view',
+        'services_add',
+        'workhours_view',
+        'workhours_add',
+        'workorders_view',
+        'workorders_add',
+        'lubrications_view',
+        'lubrications_add',
         'worktimes',
-        'files',
+        'files_view',
+        'files_add',
+        'todos',
+        'favorites'
     ];
 }

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
 
 use App\ToDo;
+use App\UserRole;
 use App\Favorite;
 use App\SparePartOrder;
 use App\Unit;
@@ -59,6 +60,7 @@ class AppServiceProvider extends ServiceProvider
             view()->composer('*', function ($view){
                 if(Auth::check()){
                     $user = Auth::user();
+                    $userrole = UserRole::where('user_id', $user -> id)->first();
 
                     $urgenttodos = ToDo::where('user_id', $user->id)
                         ->where('done', 0)
@@ -71,12 +73,6 @@ class AppServiceProvider extends ServiceProvider
                         ->where('urgent', 0)
                         ->get()
                         ->sortBy('date');
-
-                    // $urgents = ToDo::where('user_id', $user -> id)
-                    //         ->where('done', 0)
-                    //         ->get()
-                    //         ->sortByDesc('urgent')
-                    //         ->groupBy('urgent');
 
                     $favorites = Favorite::leftJoin('positions', 'favorites.position_id', '=', 'positions.id')
                         ->where('user_id', $user -> id)
@@ -103,10 +99,16 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 $units = Unit::all()->sortBy('unit_number');
-                // print_r(json_encode($units));
-                // die;
 
-                $view->with(['orders' => $orders, 'todoscount' => $todoscount, 'favorites' => $favorites, 'urgenttodos' => $urgenttodos, 'othertodos' => $othertodos, 'units' => $units]);
+                $view->with([
+                    'user' => $user,
+                    'userrole' => $userrole,
+                    'orders' => $orders,
+                    'todoscount' => $todoscount,
+                    'favorites' => $favorites,
+                    'urgenttodos' => $urgenttodos,
+                    'othertodos' => $othertodos,
+                    'units' => $units]);
             });
     }
 }
