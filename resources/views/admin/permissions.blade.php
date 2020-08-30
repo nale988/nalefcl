@@ -4,6 +4,7 @@
 <div class="card">
     <div class="card-header bg-dark text-white">
         Dozvole korisnika
+        <a class="float-right btn btn-dark btn-sm" href="{{ route('admin.users')}} ">Nazad<a>
     </div>
     <div class="card-body">
         <form action="{{ route('admin.update', $selecteduser -> id) }}" method="POST">
@@ -91,6 +92,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary float-right" value="submit" name="revision_submit">Sačuvaj</button>
+            <br />
         </form>
     </div>
 </div>

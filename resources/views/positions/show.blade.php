@@ -30,10 +30,12 @@
             <a class="nav-link" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">Rezervni dijelovi</a>
         </li>
         @endif
-        @if(count($position_files)>0)
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#cDocuments" role="button" aria-expanded="false" aria-controls="cDocuments">Dokumenti</a>
-        </li>
+        @if($userrole -> files)
+            @if(count($position_files)>0)
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#cDocuments" role="button" aria-expanded="false" aria-controls="cDocuments">Dokumenti</a>
+            </li>
+            @endif
         @endif
         @if(count($workinghours)>0)
         <li class="nav-item">
@@ -56,7 +58,6 @@
         </li>
         @endif
         <a class="nav-link" data-toggle="collapse" href="#cAddNew" role="button" aria-expanded="false" aria-controls="cAddNew">Dodaj novo</a>
-
         <li><a class="nav-link">//</a></li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('workorders', $position -> position)}}">Radni nalozi</a>
@@ -77,11 +78,13 @@
 </div>
 @endif
 
-@if(count($position_files)>0)
-<div class="collapse" id="cDocuments">
-    <br />
-    @include('positions.inc.documents')
-</div>
+@if($userrole -> files)
+    @if(count($position_files)>0)
+    <div class="collapse" id="cDocuments">
+        <br />
+        @include('positions.inc.documents')
+    </div>
+    @endif
 @endif
 
 @if(count($workinghours)>0)
