@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card">
-    <div class="card-header">
-        Novi rezervni dio
-    </div>
-    <div class="card-body">
+<div class= "col-12">
+    <div class="card">
+        <div class="card-header">
+            Novi rezervni dio
+        </div>
+        <div class="card-body">
+
         <form action="{{ route('spareparts.store') }}" method="POST" enctype="multipart/form-data" >
         @csrf
             <div class="form-group mb-2">
@@ -71,13 +73,7 @@
                 </label>
             </div>
 
-            <div class="form-check mb-2">
-                <input type="hidden" value="0" name="private_part" id="private_part">
-                <input class="form-check-input" type="checkbox" name="private_part" id="private_part">
-                <label class="form-check-label" for="private_part">
-                    Privateno?
-                </label>
-            </div>
+            <br />
 
             <div class="card">
                 <div class="card-header">Grupa rezervnih dijelova?</div>
@@ -94,6 +90,7 @@
             </div>
 
             <br />
+            <br />
 
             <div class="card">
                 <div class="card-header">Prikači dokument</div>
@@ -102,55 +99,89 @@
                 </div>
             </div>
 
-            <br />
+            <br /><br />
 
-            <div class="accordion" id="accordionPositions">
-            @foreach($positions as $positiongrouptitle => $positiongroup)
-                <div class="card">
-                    <div class="card-header" id="heading{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}heading">
-                        @if($loop->first)
-                        <a class="btn btn-link" type="button" data-toggle="collapse" data-target="#c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}" aria-expanded="true" aria-controls="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}">
-                        @else
-                        <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}" aria-expanded="true" aria-controls="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}">
-                        @endif
-                            <strong>{{ $positiongrouptitle }}</strong>
-                        </a>
-                        <button class="btn btn-primary float-right" type="submit">Sačuvaj</button>
-                    </div>
-
-                    @if($loop->first)
-                    <div id="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}" class="collapse show" aria-labelledby="heading{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}heading" data-parent="#accordionPositions">
-                    @else
-                    <div id="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}" class="collapse" aria-labelledby="heading{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}heading" data-parent="#accordionPositions">
-                    @endif
-                        <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-sm">
-                                <tbody>
-                                    @foreach($positiongroup->sortBy('position') as $position)
-                                    <tr>
-                                        <td scope="row" class="text-nowrap" style="width: 60px;">
-                                            <div class="form-check mb-2">
-                                                <input class="form-check-input" type="checkbox" value="" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}">
-                                                <label class="form-check-label" for="checkbox-{{ $position->id }}">
-                                                    <strong>{{ $position -> position }}</strong>
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="text-nowrap">{{ $position -> name}}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+            <div class="row">
+                <div class= "col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col">
+                                    Pripada pozicijama:
+                                </div>
+                                <div class="col-2">
+                                    <button class="btn btn-primary btn-block" type="submit">Sačuvaj</button>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="card-body">
+                        <div class="row">
+                            <div class="col-1">
+                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                @foreach($positions as $title => $position)
+                                    @if ($loop -> first)
+                                        <a class="nav-link active text-center" id="v-pills-{{ $title }}-tab" data-toggle="pill" href="#v-pills-{{ $title }}" role="tab" aria-controls="v-pills-{{ $title }}" aria-selected="true">{{ $title }}</a>
+                                    @else
+                                        <a class="nav-link text-center" id="v-pills-{{ $title }}-tab" data-toggle="pill" href="#v-pills-{{ $title }}" role="tab" aria-controls="v-pills-{{ $title }}" aria-selected="false">{{ $title }}</a>
+                                    @endif
+                                @endforeach
+                                </div>
+                            </div>
+
+                            <div class="col-1">&nbsp;</div>
+
+                            <div class="col-10">
+                                <div class="tab-content" id="v-pills-tabContent">
+                                <br /><br />
+                                @foreach($positions as $title => $positiongroup)
+                                    @if($loop -> first)
+                                        <div class="tab-pane fade show active" id="v-pills-{{ $title }}" role="tabpanel" aria-labelledby="v-pills-{{ $title }}-tab">
+                                    @else
+                                        <div class="tab-pane fade" id="v-pills-{{ $title }}" role="tabpanel" aria-labelledby="v-pills-{{ $title }}-tab">
+                                    @endif
+                                    @foreach($positiongroup->sortBy('position') as $position)
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input" type="checkbox" value="" name="checkbox-{{ $position->id }}" id="checkbox-{{ $position->id }}">
+                                                    <label class="form-check-label" for="checkbox-{{ $position->id }}">
+                                                        &nbsp;
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-2">
+                                                <span>{{ $position -> position }}</span>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <span class="text-muted text-truncate">{{ $position -> name }}</span>
+                                            </div>
+
+                                            <div class="col-5">
+                                                <span class="text-muted text-truncate">{{ $position -> manufacturer }}</span>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    </div>
+                                @endforeach
+                                </div>
+                            </div>
+                        </div> <!-- ROW -->
+
                         </div>
                     </div>
                 </div>
-            @endforeach
             </div>
-            <br />
-            <button class="btn btn-primary" type="submit">Sačuvaj</button>
+
+            <div class="card-footer text-muted">
+            </div>
         </form>
     </div>
 </div>
+</div>
+
+<br />
+<br />
 @endsection

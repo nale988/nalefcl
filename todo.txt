@@ -1,9 +1,10 @@
 Dodavanje privatnih rezervnih dijelova
 
-Pregled dokumenata na osnovu permisije
 
-Pregled rezervnih dijelova na osnovu permisije
-Pregled ostatka na osnovu permisije
+dodati da se čuvaju privatni rezervni dijelovi
+editovanje rez dijelova u obliku accordiona
+
+na početnoj stranici, ako nema pravo da pogleda rn, obrisati listu
 
 
 $table->foreignId('from_id')->nullable()

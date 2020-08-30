@@ -390,9 +390,10 @@ class PositionController extends Controller
     public function uploadpositionfile(Request $request){
         if (Auth::check()){
             $user = Auth::user();
+            $userrole = UserRole::where('user_id', $user -> id)->first();
         }
         else{
-            return view('positions/'.$request -> get('position_id'))->with('danger', 'Niste ulogovani!');
+            return view('/')->with('danger', 'Niste ulogovani!');
         }
 
         $userfolder_raw = explode('@', $user -> email);
@@ -401,17 +402,14 @@ class PositionController extends Controller
         if ($request->hasFile('file')) {
             if ($request->file('file')->isValid()) {
                 $validated = $request->validate([
-                    'image' => 'mimes:jpeg,png|max:2048',
-                    'document.*' => 'required|file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx|max:10245',
+                    'image' => 'mimes:jpeg,png|max:6144',
+                    'document.*' => 'required|file|mimes:ppt,pptx,doc,docx,pdf,xls,xlsx,xlsm,dxf,dwg|max:16348',
                 ]);
 
-                $extension = $request->file->extension();
+                //$extension = $request->file->extension();
                 $request->file->storeAs('public/po/'.$userfolder, $request->file->hashName());
-
                 $url = Storage::disk('positionfiles')->url($userfolder.'/'.$request->file->hashName());
-
                 $filesize = $request->file('file')->getSize();
-
                 $document = new FileUpload([
                     'user_id' => $user->id,
                     'filename' => $request -> file -> getClientOriginalName(),
@@ -435,12 +433,11 @@ class PositionController extends Controller
                         'private_item' => 0
                     ]);
                 }
-
                 $connectfile -> save();
+                return redirect('positions/'.$request -> get('position_id'))->with('message', 'Dodan novi dokument na poziciju!');
             }
         }
-
-        return redirect('positions/'.$request -> get('position_id'))->with('message', 'Dodan novi dokument na poziciju!');
+        return redirect('positions/'.$request -> get('position_id'))->withErrors($validated);
     }
 
     public function index(){
@@ -474,11 +471,11 @@ class PositionController extends Controller
             ->get()
             ->sortByDesc('date');
 
-        $compressorservices = CompressorService::
-            where('position_id', $id)
-            ->with('files')
-            ->get()
-            ->sortByDesc('date');
+            $compressorservices = CompressorService::
+                where('position_id', $id)
+                ->with('files')
+                ->get()
+                ->sortByDesc('date');
         } else {
             $workinghours = collect();
             $compressorservices = collect();

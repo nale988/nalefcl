@@ -6,15 +6,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\WorkTime;
+use App\UserRole;
 
 class WorkTimeController extends Controller
 {
     public function index(Request $request)
     {
-        $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+        //$user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+        if(Auth::check()){
+            $user = Auth::user();
+            $userrole = UserRole::where('user_id', $user -> id)->first();
 
-        $items = WorkTime::where('date', Carbon::today())->where('user_id', $user -> id) -> get();
-        return view('worktimes.index', compact('items'));
+            if($userrole -> worktimes){
+                $items = WorkTime::where('date', Carbon::today())->where('user_id', $user -> id) -> get();
+                return view('worktimes.index', compact('items'));
+            }
+        }
+        return redirect() -> back() -> with('alert', 'Nemate pravo pristupa. Kontaktirajte administratora.');
     }
 
     public function create()

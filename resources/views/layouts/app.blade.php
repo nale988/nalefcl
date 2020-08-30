@@ -47,6 +47,7 @@
         <div class="collapse bg-dark" id="navbarHeader">
           <div class="container">
             <div class="row">
+                <!-- todos list -->
                 @if($userrole -> todos)
                     @if(count($urgenttodos)>0 || count($othertodos)>0)
                     <div class="col-sm-8 py-4 gx-2">
@@ -86,6 +87,7 @@
                     </svg>
                     </a>
                 </li>
+                <!-- spare part order -->
                 @if($userrole -> spare_parts_order)
                     @if($orders > 0)
                     <li class="nav-item">
@@ -98,24 +100,20 @@
                     </li>
                     @endif
                 @endif
-<!-- todos -->
+
+                <!-- todos -->
                 @if($userrole -> todos)
                     @if($todoscount > 0)
                     <li class="nav-item">
                         <a class="nav-link" href="#" data-toggle="collapse" data-target="#navbarHeader" title="Poslovi kojima je isteklo vrijeme">
-                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-lightning" fill="white" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41 4.157 8.5z"/>
-                            </svg>
+                            @include('layouts.buttons.btnlightning', ['color' => 'white'])
                             <span class="badge badge-pill badge-danger">{{ $todoscount }}</span>
                         </a>
                     </li>
                     @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('todos.create') }}" title="Novi zadatak">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check-square" fill="white" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                            <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"/>
-                        </svg>
+                        @include('layouts.buttons.btnnewtodo', ['color' => 'white'])
                     </a>
                 </li>
                 @endif
@@ -128,7 +126,7 @@
                     <button class="btn btn-danger" type="submit" name="searchwhere" value="position">Pozicije</button>
                     <button class="btn btn-danger" type="submit" name="searchwhere" value="navision">Nav</button>
                     <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="sr-only">Toggle Dropdown</span>
+                        <span class="sr-only">Mogućnosti</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <h6 class="dropdown-header">Pretraga</h6>
@@ -145,6 +143,7 @@
       </header>
 </div>
 
+<!-- Tooltips -->
 <main class="py-4">
     @if ($errors->any())
     <div class="container">

@@ -103,8 +103,6 @@ class SparePartController extends Controller
     }
 
     public function create(){
-        $agent = new Agent();
-
         if (Auth::check()){
             $user = Auth::user();
         }
@@ -116,13 +114,7 @@ class SparePartController extends Controller
         $sparepartgroups = SparePartGroup::where('user_id', $user -> id)->get()->sortBy('description');
         $spareparttypes = SparePartType::all()->sortBy('description');
 
-        if ($agent -> isMobile()){
-            return view('spareparts.createmobile', compact('positions', 'spareparttypes', 'sparepartgroups'));
-        }
-        else{
-            return view('spareparts.create', compact('positions', 'spareparttypes', 'sparepartgroups'));
-        }
-
+        return view('spareparts.create', compact('positions', 'spareparttypes', 'sparepartgroups'));
     }
 
     public function store(Request $request){
@@ -264,7 +256,7 @@ class SparePartController extends Controller
             // print_r(json_encode($positions));
             // die;
 
-        return view('spareparts.show', compact('sparepart', 'sparepartfile', 'sparepartgroup', 'positions', 'user', 'createdby'));
+        return view('spareparts.show', compact('sparepart', 'sparepartfile', 'sparepartgroup', 'positions', 'createdby'));
         //return redirect('/');
     }
 
