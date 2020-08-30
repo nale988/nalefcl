@@ -6,6 +6,8 @@ editovanje rez dijelova u obliku accordiona
 
 na početnoj stranici, ako nema pravo da pogleda rn, obrisati listu
 
+sakrij otvaranje radnih naloga ako korisnik nema pravo (u pretrazi i sl.)
+
 
 $table->foreignId('from_id')->nullable()
     ->references('id')->on('users')
