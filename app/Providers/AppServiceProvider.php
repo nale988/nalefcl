@@ -92,6 +92,7 @@ class AppServiceProvider extends ServiceProvider
                 else {
                     $orders = 0;
                     $user = null;
+                    $userrole = null;
                     $todoscount = 0;
                     $favorites = collect();
                     $urgents = collect();
