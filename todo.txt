@@ -10,6 +10,14 @@ sakrij otvaranje radnih naloga ako korisnik nema pravo (u pretrazi i sl.)
 
 arhiva todo, zbog vracanja u rad
 
+prebaci zaglavlje rezervnih dijelova na vrh, umjesto na dno.. promijeniti boju
+
+u imenu grupe ispored staviti "Grupa dijelova: "
+
+Promijeniti boju privatnih stvari. žuta previše ofirna
+
+Promijeni boju zaglavlja rezervnih dijelova, plava ubitačna...
+
 $table->foreignId('from_id')->nullable()
     ->references('id')->on('users')
     ->onDelete('cascade');
