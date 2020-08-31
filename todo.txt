@@ -8,6 +8,7 @@ na početnoj stranici, ako nema pravo da pogleda rn, obrisati listu
 
 sakrij otvaranje radnih naloga ako korisnik nema pravo (u pretrazi i sl.)
 
+arhiva todo, zbog vracanja u rad
 
 $table->foreignId('from_id')->nullable()
     ->references('id')->on('users')
