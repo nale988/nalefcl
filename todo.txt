@@ -6,6 +6,8 @@ editovanje rez dijelova u obliku accordiona
 
 skriti dugme "sačuvaj" na oaccordionu.. staviti ga u collapse... ili display:none dok se ne aktivira
 
+čitav header accordiona da bude klikabilan
+
 na početnoj stranici, ako nema pravo da pogleda rn, obrisati listu
 
 sakrij otvaranje radnih naloga ako korisnik nema pravo (u pretrazi i sl.)
