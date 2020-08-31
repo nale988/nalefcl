@@ -17,6 +17,32 @@ class ToDoController extends Controller
         return redirect()->back()->with('warning', 'Odgođen posao za dva dana');
     }
 
+    public function reactivate($id, $days){
+        $todo = ToDo::where('id', $id)->first();
+        $todo -> date = Carbon::now() -> addDays($days);
+        $todo -> done = 0;
+        $todo -> save();
+
+        $message = 'Ponovno aktivirano za '.$days.' dana';
+
+        return redirect()->back()->with('message', $message);
+    }
+
+    public function changetype($id){
+        $todo = ToDo::where('id', $id)->first();
+        if($todo->urgent){
+            $todo -> urgent = 0;
+            $message = "Uklonjeno iz bitnih: ".$todo -> description;
+
+        } else {
+            $todo -> urgent = 1;
+            $message = "Dodano u bitne: ".$todo -> description;
+        }
+
+        $todo -> save();
+        return redirect()->back()->with('message', $message);
+    }
+
     public function index()
     {
         $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
@@ -27,9 +53,7 @@ class ToDoController extends Controller
         }
 
         //$todos = ToDo::where('user_id', $user-> id)->get()->sortBy('done')->sortByDesc('urgent');
-        $todos = ToDo::where('user_id', $user-> id)->get()->sortBy('date')->sortBy('done')->sortByDesc('urgent');
-        // print_r(json_encode($todos));
-        // die;
+        $todos = ToDo::where('user_id', $user-> id)->get()->sortBy('date')->sortBy('done')->paginate(20);
         return view('todos.index', compact('todos'));
     }
 
@@ -39,7 +63,9 @@ class ToDoController extends Controller
         $todo -> done = 1;
         $todo -> save();
 
-        return redirect()->back()->with('message', 'Uklonjena napomena.');
+        $message = 'Potvrđeno: '.$todo -> description;
+
+        return redirect()->back()->with('message', $message);
     }
 
     public function create()
@@ -49,7 +75,8 @@ class ToDoController extends Controller
         $userroles = UserRole::where('user_id', $user -> id)->first();
 
         if($userroles -> todos){
-            return view('todos.create');
+            $todos = ToDo::where('user_id', $user-> id)->get()->sortBy('date')->sortBy('done')->paginate(20);
+            return view('todos.create', compact('todos'));
         }
 
         return redirect() -> back() -> with('alert', 'Nemate dozvolu za pristup. Kontaktirajte administartora');

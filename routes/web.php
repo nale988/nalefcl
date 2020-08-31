@@ -42,7 +42,9 @@ Route::get('neworder/{position_id?}/{spare_part_id?}/{amount?}', 'SparePartOrder
 Route::get('confirmorder/{sparepartorder_id}', 'SparePartOrderController@confirmorder')->name('confirmorder');
 
 Route::get('todos/finish/{id}', 'ToDoController@finish')->name('todos.finish');
-Route::get('todo/postpone/{id}', 'ToDoController@postpone')->name('todos.postpone');
+Route::get('todos/postpone/{id}', 'ToDoController@postpone')->name('todos.postpone');
+Route::get('todos/reactivate/{id}/{days}','ToDoController@reactivate')->name('todos.reactivate');
+Route::get('todos/changetype/{id}', 'ToDoController@changetype')->name('todos.changetype');
 
 Route::get('worktimes/review', 'WorkTimeController@review')->name('worktimes.review');
 Route::get('worktimes/delete/{id}', 'WorkTimeController@delete')->name('worktimes.delete');
