@@ -48,6 +48,7 @@
           <div class="container">
             <div class="row">
                 <!-- todos list -->
+                @auth
                 @if($userrole -> todos)
                     @if(count($urgenttodos)>0 || count($othertodos)>0)
                     <div class="col-sm-8 py-4 gx-2">
@@ -57,6 +58,7 @@
                     </div>
                     @endif
                 @endif
+                @endauth
                 <div class="col-sm-4 py-4">
                     @auth
                         @include('layouts.options');
@@ -88,6 +90,7 @@
                     </a>
                 </li>
                 <!-- spare part order -->
+                @auth
                 @if($userrole -> spare_parts_order)
                     @if($orders > 0)
                     <li class="nav-item">
@@ -117,6 +120,7 @@
                     </a>
                 </li>
                 @endif
+                @endauth
             </ul>
 
             <form class="form-inline mt-2 mt-md-0" action="{{ route('search') }}" method="GET">
