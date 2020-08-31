@@ -198,7 +198,7 @@
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> worktimes)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
