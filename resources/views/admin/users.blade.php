@@ -67,63 +67,63 @@
 
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> admin)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> todos)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> spare_parts_view)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> spare_parts_add)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> spare_parts_order)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> revisions_view)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> revisions_add)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> services_view)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> services_add)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
@@ -131,14 +131,14 @@
 
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> workhours_view)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> workhours_add)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
@@ -146,14 +146,14 @@
 
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> workorders_view)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> workorders_add)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
@@ -161,14 +161,14 @@
 
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> lubrications_view)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> lubrications_add)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
@@ -176,14 +176,14 @@
 
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> files_view)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> files_add)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
@@ -191,7 +191,7 @@
 
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> private_items)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
@@ -205,7 +205,7 @@
                             </td>
                             <td class="text-center" style="white-space: nowrap;">
                                 @if($user_data -> favorites)
-                                    &#9746;
+                                    &#8718;
                                 @else
                                     &#9744;
                                 @endif
