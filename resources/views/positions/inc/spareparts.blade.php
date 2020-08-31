@@ -1,7 +1,23 @@
+<div class="card-header bg-dark text-white">
+    <tr>
+        <td>
+            <small>Kritični dijelovi:</small>
+        </td>
+        <td>
+            <span class="table-danger text-wrap"><small style="color: #000">&nbsp;&nbsp;Nedostaje&nbsp;&nbsp;</small></span>
+        </td>
+        <td>
+            <span class="table-success text-wrap"><small style="color: #000">&nbsp;&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;&nbsp;</small></span>
+        </td>
+    </tr>
+    <a class="btn btn-dark btn-sm float-right" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">
+        <small>Rezervni dijelovi</small>
+    </a>
+</div>
+
 <div class="accordion" id="aSpareParts">
 @foreach($spareparts as $title=>$sparepart)
     <div class="card">
-
         @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
             <a type="button" class="collapsed" data-toggle="collapse" data-target="#cEmpty" aria-expanded="true" aria-controls="cEmpty">
                 <div class="card-header bg-dark text-white " id="aEmpty">
@@ -16,7 +32,7 @@
         @else
             <a data-toggle="collapse" class="collapsed" href="#c{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}" role="button" aria-expanded="false" aria-controls="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}">
                 <div class="card-header bg-dark text-white" id="a{{ preg_replace('/[^a-z0-9.]+/i', '-', $title)}}">
-                        {{ $title }}
+                        Grupa: {{ $title }}
                 </div>
             </a>
                 @if($loop->first)
@@ -116,20 +132,5 @@
           </div> <!-- collapse -->
     </div> <!-- card -->
 @endforeach
-<div class="card-footer bg-primary text-white">
-        <tr>
-            <td>
-                <small>Kritični dijelovi:</small>
-            </td>
-            <td>
-                <span class="table-danger text-wrap"><small style="color: #000">&nbsp;&nbsp;Nedostaje&nbsp;&nbsp;</small></span>
-            </td>
-            <td>
-                <span class="table-success text-wrap"><small style="color: #000">&nbsp;&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;&nbsp;</small></span>
-            </td>
-        </tr>
-        <a class="btn btn-primary btn-sm float-right" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">
-            <small>Rezervni dijelovi</small>
-        </a>
-</div>
+
 </div>

@@ -2,9 +2,10 @@
 
 @section('content')
 
+@auth
+@if($userrole -> workorders_view)
 <div class="row">
-    <div class="col-12">
-    <div class="card">
+    <div class="card col-12">
         <div class="card-header border-dark bg-dark text-white">
             Pareto dijagram za tekuću godinu
         </div>
@@ -34,28 +35,25 @@
             @endforeach
         </div>
     </div>
-    </div>
 </div>
 
 <br />
 
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header border-dark bg-dark text-white">
-                Posljednji nalozi Mašinskog održavanja
-            </div>
-            <div class="card-body">
-                @foreach($workorders as $workorder)
-                <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
-                    <div class="row">
-                        <div class="col-2 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
-                        <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
-                        <div class="col-2 text-right text-muted text-truncate">{{ $workorder -> owner }}</div>
-                    </div>
-                </a>
-                @endforeach
-            </div>
+    <div class="card">
+        <div class="card-header border-dark bg-dark text-white">
+            Posljednji nalozi Mašinskog održavanja
+        </div>
+        <div class="card-body">
+            @foreach($workorders as $workorder)
+            <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
+                <div class="row">
+                    <div class="col-2 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
+                    <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
+                    <div class="col-2 text-right text-muted text-truncate">{{ $workorder -> owner }}</div>
+                </div>
+            </a>
+            @endforeach
         </div>
     </div>
 </div>
@@ -63,7 +61,6 @@
 <br />
 @if(count($myworkorders)>0)
 <div class="row">
-    <div class="col-12">
     <div class="card">
         <div class="card-header border-dark bg-dark text-white">
             Moji posljednji nalozi
@@ -80,7 +77,8 @@
             @endforeach
         </div>
     </div>
-    </div>
 </div>
 @endif
+@endif
+@endauth
 @endsection

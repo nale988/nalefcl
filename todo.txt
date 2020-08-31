@@ -1,26 +1,11 @@
 Dodavanje privatnih rezervnih dijelova
 
-
 dodati da se čuvaju privatni rezervni dijelovi
 editovanje rez dijelova u obliku accordiona
 
-skriti dugme "sačuvaj" na oaccordionu.. staviti ga u collapse... ili display:none dok se ne aktivira
-
-čitav header accordiona da bude klikabilan
-
-na početnoj stranici, ako nema pravo da pogleda rn, obrisati listu
-
-sakrij otvaranje radnih naloga ako korisnik nema pravo (u pretrazi i sl.)
-
 arhiva todo, zbog vracanja u rad
 
-prebaci zaglavlje rezervnih dijelova na vrh, umjesto na dno.. promijeniti boju
-
-u imenu grupe ispored staviti "Grupa dijelova: "
-
-Promijeniti boju privatnih stvari. žuta previše ofirna
-
-Promijeni boju zaglavlja rezervnih dijelova, plava ubitačna...
+smanjit korištenje "card"?
 
 $table->foreignId('from_id')->nullable()
     ->references('id')->on('users')

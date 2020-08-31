@@ -19,16 +19,18 @@
                 </thead>
                 <tbody>
                 @foreach($revisions as $revision)
-                @if($revision -> private_item && $userrole -> private_items && $revision ->user_id == $user -> id)
-                    <tr class="bg-warning">
-                @elseif($revision -> private_item && !$userrole -> private_items)
+                @if($revision -> private_item && (!$userrole -> private_items || $revision -> user_id <> $user -> id))
                     <tr style="display: none;">
                 @else
                     <tr>
                 @endif
-                    <th class="text-nowrap">
+                    <td class="text-nowrap">
+                        @if($revision -> private_item && $userrole -> private_items && $revision -> user_id == $user -> id)
+                        <strong>{{ strip_tags($revision -> description) }}</strong>
+                        @else
                         {{ strip_tags($revision -> description) }}
-                    </th>
+                        @endif
+                    </td>
 
                     <td class="text-nowrap text-center">
                         {{ date('d. m. Y.', strtotime($revision -> created_at)) }}

@@ -65,13 +65,7 @@ class HomeController extends Controller
 
         $today = now();
 
-        if ($agent -> isMobile()){
-             return view('welcomemobile', compact('workorders', 'myworkorders', 'today', 'pareto'));
-        }
-        else{
-            return view('welcome', compact('workorders', 'myworkorders', 'today', 'pareto'));
-        }
-
+        return view('welcome', compact('workorders', 'myworkorders', 'today', 'pareto'));
     }
 }
 

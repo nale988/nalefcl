@@ -19,7 +19,18 @@ class ToDoController extends Controller
 
     public function index()
     {
-        //
+        $user = Auth::check() ? Auth::user() : redirect() -> back() -> with('message', 'Ulogujte se.');
+        $userroles = UserRole::where('user_id', $user -> id)->first();
+
+        if(!$userroles -> todos){
+            return redirect() -> back() -> with('alert', 'Nemate dozvolu za pristup. Kontaktirajte administartora');
+        }
+
+        //$todos = ToDo::where('user_id', $user-> id)->get()->sortBy('done')->sortByDesc('urgent');
+        $todos = ToDo::where('user_id', $user-> id)->get()->sortBy('date')->sortBy('done')->sortByDesc('urgent');
+        // print_r(json_encode($todos));
+        // die;
+        return view('todos.index', compact('todos'));
     }
 
     public function finish($id)

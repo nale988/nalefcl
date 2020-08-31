@@ -20,20 +20,19 @@
                 </thead>
                 <tbody>
                     @foreach($position_files as $file)
-                    {{-- Privatni dokument i pripada korisniku --}}
-                    @if($file -> private_item && $userrole -> private_items && $file -> user_id == $user->id)
-                        <tr class="bg-warning">
-                    {{-- Privatni dokument i ne pripada korisniku --}}
-                    @elseif($file -> private_item && !$userrole -> private_items)
+                    @if($file -> private_item && (!$userrole -> private_items || $file -> user_id <> $user -> id))
                         <tr style="display: none;">
-                    {{-- Normalni dokument --}}
                     @else
                         <tr>
                     @endif
                             <td class="text-nowrap">
                                 <a href="{{URL::asset($file -> url)}}" style="text-decoration:none; color:#000000;">
                                     @include('layouts.buttons.btnfile', ['color' => 'currentColor'])
+                                    @if($file -> private_item && $userrole -> private_items && $file -> user_id == $user->id)
+                                    <strong>{{ $file -> filename }}</strong>
+                                    @else
                                     {{ $file -> filename }}
+                                    @endif
                                 </a>
                             </td>
 

@@ -103,19 +103,22 @@
             </div>
 
             <br />
+            <div class="card card-header"><button class="btn btn-primary float-right" type="submit">Sačuvaj</button></div>
+            <br />
 
             <div class="accordion" id="accordionPositions">
             @foreach($positions as $positiongrouptitle => $positiongroup)
                 <div class="card">
+
+
                     <div class="card-header" id="heading{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}heading">
                         @if($loop->first)
-                        <a class="btn btn-link" type="button" data-toggle="collapse" data-target="#c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}" aria-expanded="true" aria-controls="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}">
+                        <a class="btn btn-block" type="button" data-toggle="collapse" data-target="#c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}" aria-expanded="true" aria-controls="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}">
                         @else
-                        <a class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}" aria-expanded="true" aria-controls="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}">
+                        <a class="btn btn-block collapsed" type="button" data-toggle="collapse" data-target="#c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}" aria-expanded="true" aria-controls="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}">
                         @endif
                             <strong>{{ $positiongrouptitle }}</strong>
                         </a>
-                        <button class="btn btn-primary float-right" type="submit">Sačuvaj</button>
                     </div>
 
                     @if($loop->first)
@@ -124,6 +127,7 @@
                     <div id="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}" class="collapse" aria-labelledby="heading{{ preg_replace('/[^a-z0-9.]+/i', '-', $positiongrouptitle) }}heading" data-parent="#accordionPositions">
                     @endif
                         <div class="card-body">
+                        {{-- <button class="btn btn-primary float-right" type="submit">Sačuvaj</button> --}}
                         <div class="table-responsive">
                             <table class="table table-sm">
                                 <tbody>
@@ -143,13 +147,14 @@
                                 </tbody>
                             </table>
                         </div>
+
                         </div>
                     </div>
                 </div>
             @endforeach
             </div>
             <br />
-            <button class="btn btn-primary" type="submit">Sačuvaj</button>
+            {{-- <button class="btn btn-primary" type="submit">Sačuvaj</button> --}}
         </form>
     </div>
 </div>

@@ -18,8 +18,8 @@ class CreateToDosTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->string('description');
-            $table->boolean('urgent');
-            $table->boolean('done');
+            $table->boolean('urgent')->default(0);
+            $table->boolean('done')->default(0);
             $table->timestamps();
         });
     }
