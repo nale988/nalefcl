@@ -38,7 +38,7 @@
         <thead>
             <tr>
                 <th>Opis</th>
-                <th class="text-right" style="width: 220px">Mogućnosti</th>
+                <th class="text-center" style="width: 220px">Mogućnosti</th>
                 <th class="text-center">Datum</th>
             </tr>
         </thead>
