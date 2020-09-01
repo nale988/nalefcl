@@ -73,6 +73,12 @@
                                 <a href="{{ route('todos.changetype', $todo -> id)}}" title="Promijeni vrstu (bitno/ostalo)">
                                     @include('layouts.buttons.btnworkorder', ['color' => 'currentColor'])
                                 </a>
+                                &nbsp;&nbsp;Aktiviraj:
+                                <a href="{{ route('todos.reactivate', [$todo -> id, 7])}}" style="text-decoration:none;" title="Za 7 dana">7</a>&nbsp;/&nbsp;
+                                <a href="{{ route('todos.reactivate', [$todo -> id, 14])}}" style="text-decoration:none;" title="Za 14 dana">14</a>&nbsp;/&nbsp;
+                                <a href="{{ route('todos.reactivate', [$todo -> id, 21])}}" style="text-decoration:none;" title="Za 21 dana">21</a>&nbsp;/&nbsp;
+                                <a href="{{ route('todos.reactivate', [$todo -> id, 30])}}" style="text-decoration:none;" title="Za 30 dana">30</a>&nbsp;/&nbsp;
+                                <a href="{{ route('todos.reactivate', [$todo -> id, 60])}}" style="text-decoration:none;" title="Za 60 dana">60</a>
                             </small>
                         </span>
                     </td>
