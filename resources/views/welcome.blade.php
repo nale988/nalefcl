@@ -40,10 +40,12 @@
 </div>
 
 <br />
-<hr />
-<br />
+<div class="row">
+    <div class="col"><hr></div>
+    <div class="col-auto"><h4>Posljednji nalozi <small class="text-muted">mašinskog održavanja</small></h4></div>
+    <div class="col"><hr></div>
+</div>
 
-<h4>Posljednji nalozi <small class="text-muted">mašinskog održavanja</small></h4>
 <div class="table-responsive">
     <table class="table table-sm table-striped">
         <thead>
@@ -73,12 +75,14 @@
     </table>
 </div>
 
-<br />
-<hr />
-<br />
-
 @if(count($myworkorders)>0)
-<h4>Posljednji nalozi <small class="text-muted">(lični)</small></h4>
+<br />
+<div class="row">
+    <div class="col"><hr></div>
+    <div class="col-auto"><h4>Posljednji nalozi <small class="text-muted">(lični)</small></h4></div>
+    <div class="col"><hr></div>
+</div>
+
 <div class="table-responsive">
     <table class="table table-sm table-striped">
         <thead>
