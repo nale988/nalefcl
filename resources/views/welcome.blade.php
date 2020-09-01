@@ -81,7 +81,7 @@
             <tr>
                 <th>RN</th>
                 <th>Sadržaj</th>
-                <th>Datum</>th>
+                <th>Datum</th>
             </tr>
         </thead>
         <tbody>
