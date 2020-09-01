@@ -41,7 +41,7 @@
 
 <br />
 
-<h6>Posljednji nalozi mašinskog održavanja</h6>
+<h4>Posljednji nalozi <small class="text-muted">mašinskog održavanja</small></h4>
 <div class="table-responsive">
     <table class="table table-sm table-striped">
         <thead>
