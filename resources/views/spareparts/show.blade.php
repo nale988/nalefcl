@@ -104,7 +104,7 @@
                                 @if(is_null($createdby))
                                 <small>(nema korisnika)</small>
                                 @else
-                                {{ $user -> name}}
+                                {{ $createdby -> name }}
                                 @endif
                             </strong>
                         </td>

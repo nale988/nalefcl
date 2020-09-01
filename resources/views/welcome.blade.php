@@ -41,7 +41,7 @@
 
 <div class="table-responsive">
     <table class="table table-sm table-striped">
-        <thead>
+            <thead>
             <tr>
                 <th>RN</th>
                 <th>Sadržaj</th>

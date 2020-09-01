@@ -118,20 +118,20 @@ class SparePartController extends Controller
     }
 
     public function store(Request $request){
-        // print_r(json_encode($request->all()));
-        // die;
-
         $request->validate([
             'description' => 'required'
         ]);
 
-        $critpart = $request->get('critical_part');
-        if ($critpart=='on'){
-            $critical_part = 1;
-        }
-        else{
-            $critical_part = 0;
-        }
+        $private_item = ($request -> get('private_part') == 'on' ? 1 : 0);
+        $critical_part = ($request -> get('private_part') == 'on' ? 1 : 0);
+
+        // $critpart = $request->get('critical_part');
+        // if ($critpart=='on'){
+        //     $critical_part = 1;
+        // }
+        // else{
+        //     $critical_part = 0;
+        // }
 
         if (Auth::check()){
             $user = Auth::user();
@@ -152,7 +152,8 @@ class SparePartController extends Controller
             'danger_level' => $request->get('danger_level'),
             'critical_part' => $critical_part,
             'spare_part_type_id' => $request -> get('spareparttype'),
-            'user_id' => $user -> id
+            'user_id' => $user -> id,
+            'private_item' => $private_item
         ]);
 
         $sparepart -> save();

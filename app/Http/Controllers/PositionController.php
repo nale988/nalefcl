@@ -493,6 +493,7 @@ class PositionController extends Controller
 
         $spareparts = SparePartConnection::where('position_id', $id)
             ->leftJoin('spare_parts', 'spare_parts.id', '=', 'spare_part_connections.spare_part_id')
+            ->leftJoin('users', 'users.id', '=', 'spare_parts.user_id')
             ->leftJoin('navision', 'navision.br', '=', 'spare_parts.storage_number')
             ->leftJoin('spare_part_types', 'spare_part_types.id', '=', 'spare_parts.spare_part_type_id')
             ->leftJoin('spare_part_files', 'spare_part_files.spare_part_id', '=', 'spare_parts.id')
@@ -508,7 +509,9 @@ class PositionController extends Controller
                 'file_uploads.filename as file_filename',
                 'file_uploads.filesize as file_filesize',
                 'file_uploads.url as file_fileurl',
-                'spare_part_types.description as spare_part_type_description'
+                'spare_part_types.description as spare_part_type_description',
+                'users.name as username',
+                'users.id as userid'
                 ])
             ->sortBy('spare_parts.position')
             ->sortBy('spare_part_group_description')

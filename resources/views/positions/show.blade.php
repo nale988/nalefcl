@@ -104,6 +104,7 @@
     @if(count($spareparts) > 0)
     <div class="collapse show" id="cSpareParts">
         <br />
+        @include('layouts.snippets.headerleft', ['title' => 'Rezervni dijelovi', 'subtitle' => 'za odabranu poziciju'])
         @include('positions.inc.spareparts')
     </div>
     @endif
@@ -114,6 +115,7 @@
     @if(count($position_files) > 0)
     <div class="collapse" id="cDocuments">
         <br />
+        @include('layouts.snippets.headerright', ['title' => 'Dokumenti', 'subtitle' => ''])
         @include('positions.inc.documents')
     </div>
     @endif
@@ -124,6 +126,7 @@
     @if(count($workinghours) > 0)
     <div class="collapse" id="cCompressorWorkHours">
         <br />
+        @include('layouts.snippets.headerright', ['title' => 'Radni sati', 'subtitle' => 'kompresora'])
         @include('positions.inc.compressorworkhours')
     </div>
     @endif
@@ -134,6 +137,7 @@
     @if(count($compressorservices) > 0)
     <div class="collapse" id="cCompressorServices">
         <br />
+        @include('layouts.snippets.headerright', ['title' => 'Servisi', 'subtitle' => 'kompresora'])
         @include('positions.inc.compressorservices')
     </div>
     @endif
@@ -144,6 +148,7 @@
     @if(count($blowerservices) > 0)
     <div class="collapse" id="cBlowerServices">
         <br />
+        @include('layouts.snippets.headerright', ['title' => 'Servisi', 'subtitle' => 'duvaljki'])
         @include('positions.inc.blowerservices')
     </div>
     @endif
@@ -154,6 +159,7 @@
     @if(count($revisions) > 0)
     <div class="collapse" id="cRevisions">
         <br />
+        @include('layouts.snippets.headerright', ['title' => 'Napomene', 'subtitle' => 'za poziciju'])
         @include('positions.inc.revisions')
     </div>
     @endif
@@ -162,6 +168,7 @@
 @if($userrole -> services_add || $userrole -> workhours_add  || $userrole -> workorders_add || $userrole -> lubrications_add || $userrole -> files_add)
 <div class="collapse" id="cAddNew">
     <br />
+    @include('layouts.snippets.headerright', ['title' => 'Dodaj', 'subtitle' => 'novo...'])
     @include('positions.inc.addnew')
 </div>
 @endif

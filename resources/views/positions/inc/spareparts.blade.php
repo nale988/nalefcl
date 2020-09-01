@@ -1,44 +1,36 @@
-<div class="card-header bg-dark text-white">
-    <tr>
-        <td>
-            <small>Kritični dijelovi:</small>
-        </td>
-        <td>
-            <span class="table-danger text-wrap"><small style="color: #000">&nbsp;&nbsp;Nedostaje&nbsp;&nbsp;</small></span>
-        </td>
-        <td>
-            <span class="table-success text-wrap"><small style="color: #000">&nbsp;&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;&nbsp;</small></span>
-        </td>
-    </tr>
-    <a class="btn btn-dark btn-sm float-right" data-toggle="collapse" href="#cSpareParts" role="button" aria-expanded="false" aria-controls="cSpareParts">
-        <small>Rezervni dijelovi</small>
-    </a>
-</div>
-
 <div class="accordion" id="aSpareParts">
 @foreach($spareparts as $title=>$sparepart)
     <div class="card">
         @if(strlen($title) < 1 || !isset($title) || empty($title) || trim($title) === '')
-            <a type="button" class="collapsed" data-toggle="collapse" data-target="#cEmpty" aria-expanded="true" aria-controls="cEmpty">
-                <div class="card-header bg-dark text-white " id="aEmpty">
+            {{-- <a type="button" class="collapsed" data-toggle="collapse" data-target="#cEmpty" aria-expanded="true" aria-controls="cEmpty"> --}}
+                <a data-toggle="collapse" class="collapsed" href="#cEmpty" role="button" aria-expanded="true" aria-controls="cEmpty">
+                <div class="card-header bg-primary text-white " id="aEmpty">
                         Bez grupe
+                        <span class="float-right">
+                            <span class="table-danger text-wrap"><small style="color: #000">&nbsp;&nbsp;Nedostaje&nbsp;&nbsp;</small></span>
+                            <span class="table-success text-wrap"><small style="color: #000">&nbsp;&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;&nbsp;</small></span>
+                        </span>
                 </div>
             </a>
                 @if($loop->first)
-                    <div id="cEmpty" class="collapse show" aria-labelledby="headingOne" data-parent="#aEmpty">
+                    <div id="cEmpty" class="collapse show" aria-labelledby="headingEmpty" data-parent="#aEmpty" data-parent="#aSpareParts">
                 @else
-                    <div id="cEmpty" class="collapse" aria-labelledby="headingOne" data-parent="#aEmpty">
+                    <div id="cEmpty" class="collapse" aria-labelledby="headingEmpty" data-parent="#aEmpty" data-parent="#aSpareParts">
                 @endif
         @else
             <a data-toggle="collapse" class="collapsed" href="#c{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}" role="button" aria-expanded="false" aria-controls="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}">
-                <div class="card-header bg-dark text-white" id="a{{ preg_replace('/[^a-z0-9.]+/i', '-', $title)}}">
+                <div class="card-header bg-primary text-white" id="a{{ preg_replace('/[^a-z0-9.]+/i', '-', $title)}}">
                         Grupa: {{ $title }}
+                        <span class="float-right">
+                            <span class="table-danger text-wrap"><small style="color: #000">&nbsp;&nbsp;Nedostaje&nbsp;&nbsp;</small></span>
+                            <span class="table-success text-wrap"><small style="color: #000">&nbsp;&nbsp;&nbsp;&nbsp;OK&nbsp;&nbsp;&nbsp;&nbsp;</small></span>
+                        </span>
                 </div>
             </a>
                 @if($loop->first)
-                    <div id="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}" class="collapse show" aria-labelledby="headingOne" data-parent="#a{{ preg_replace('/[^a-z0-9.]+/i', '-', $title)}}">
+                    <div id="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}" class="collapse show" aria-labelledby="h{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}" data-parent="#aSpareParts">
                 @else
-                    <div id="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}" class="collapse" aria-labelledby="headingOne" data-parent="#a{{ preg_replace('/[^a-z0-9.]+/i', '-', $title)}}">
+                    <div id="c{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}" class="collapse" aria-labelledby="h{{ preg_replace('/[^a-z0-9.]+/i', '-', $title) }}" data-parent="#aSpareParts">
                 @endif
         @endif
             <div class="card-body">
@@ -50,22 +42,23 @@
                                 <th scope="col" class="text-nowrap">Opis</th>
                                 <th scope="col" class="text-nowrap">Kat. broj</th>
                                 <th scope="col" class="text-nowrap">Opcije</th>
+                                <th scope="col" class="text-nowrap">Poz.</th>
                                 <th scope="col" class="text-right">Količina</th>
                                 <th scope="col" class="text-right">Magacin</th>
                                 <th scope="col" class="text-right">Cijena</th>
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach($sparepart->sortBy('storage_number') as $part)
-                        @if($part -> critical_part)
-                            @if($part -> navision_zalihe < $part -> amount)
+                        @foreach($sparepart->sortBy('storage_number')->sortBy('position') as $part)
+                            @if($part -> private_item && (!$userrole -> private_items || $part -> user_id <> $user -> id))
+                                <tr style="display: none;">
+                            @elseif($part -> critical_part && ($part -> navision_zalihe < $part -> amount))
                                 <tr class="table-danger" title="Kritični dio">
-                            @else
+                            @elseif($part -> critical_part && ($part -> navision_zalihe >= $part -> amount))
                                 <tr class="table-success" title="Kritični dio">
+                            @else
+                                <tr>
                             @endif
-                        @else
-                            <tr>
-                        @endif
                                 <th scope="row"><small>{{ $part -> storage_number }}</small></th>
                                 <td class="text-nowrap"><small>{{ $part -> description }}</small></td>
                                 <td class="text-nowrap"><small>{{ $part -> catalogue_number }}</small></td>
@@ -78,14 +71,6 @@
                                             <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
                                         </svg>
                                     </a>
-                                    @else
-                                        <a href="#" title="Nema pridruženog dokumenta">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text" fill="gray" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
-                                                <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
-                                                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                                            </svg>
-                                        </a>
                                     @endif
 
                                     @if($userrole -> spare_parts_order)
@@ -98,6 +83,16 @@
                                     </a>
                                     @endif
 
+                                    @if(!empty($part -> info))
+                                    <a href="{{ route('spareparts.show', $part -> id) }}" target="_blank" title="Sadži dodatne informacije">
+                                        @include('layouts.buttons.btninfo', ['color' => 'currentColor'])
+                                    </a>
+                                    @endif
+
+                                    <a href="#" title="{{ $part -> username }}">
+                                        @include('layouts.buttons.btnuser', ['color' => 'currentColor'])
+                                    </a>
+
                                     <a href="{{ route('spareparts.show', $part -> id) }}" target="_blank" title="Pogledaj rezervni dio">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -106,6 +101,7 @@
                                           </svg>
                                     </a>
                                 </td>
+                                <td class="text-nowrap text-right"><small>{{ $part -> position }}</small></td>
                                 <td class="text-nowrap text-right">
                                     <small>{{ $part -> amount }} {{ $part -> unit}}</small>
                                 </td>

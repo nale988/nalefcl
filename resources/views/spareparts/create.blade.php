@@ -71,13 +71,15 @@
                 </label>
             </div>
 
+            @if($userrole -> private_items)
             <div class="form-check mb-2">
                 <input type="hidden" value="0" name="private_part" id="private_part">
                 <input class="form-check-input" type="checkbox" name="private_part" id="private_part">
                 <label class="form-check-label" for="private_part">
-                    Privateno?
+                    Privatno?
                 </label>
             </div>
+            @endif
 
             <div class="card">
                 <div class="card-header">Grupa rezervnih dijelova?</div>
