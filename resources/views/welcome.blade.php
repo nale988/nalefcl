@@ -59,7 +59,7 @@
 					<tbody>
 					@foreach($workorders as $workorder)
 						<tr>
-							<td>
+							<td class="text-nowrap">
 								<a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
 								<strong>{{ $workorder -> number }}</strong>
 								</>
@@ -67,7 +67,7 @@
 							<td>
 								{{ $workorder -> content }}
 							</td>
-							<td>
+							<td class="text-nowrap">
 								{{ $workorder -> owner }}
 							</td>
 						</tr>
@@ -99,7 +99,7 @@
 						<tbody>
 						@foreach($myworkorders as $workorder)
 							<tr>
-								<td>
+								<td class="text-nowrap">
 									<a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
 									<strong>{{ $workorder -> number }}</strong>
 									</>
@@ -109,7 +109,7 @@
 									{{ $workorder -> content }}
 								</td>
 								
-								<td class="text-right">
+								<td class="text-right text-nowrap">
 									{{ date('d. m. Y.', strtotime($workorder -> date)) }}
 								</td>
 							</tr>
