@@ -40,6 +40,8 @@
 </div>
 
 <br />
+<hr />
+<br />
 
 <h4>Posljednji nalozi <small class="text-muted">mašinskog održavanja</small></h4>
 <div class="table-responsive">
@@ -71,8 +73,10 @@
     </table>
 </div>
 
-
 <br />
+<hr />
+<br />
+
 @if(count($myworkorders)>0)
 <h4>Posljednji nalozi <small class="text-muted">(lični)</small></h4>
 <div class="table-responsive">
