@@ -38,6 +38,7 @@
         <thead>
             <tr>
                 <th>Opis</th>
+                <th>Mogućnosti</th>
                 <th class="text-center">Datum</th>
             </tr>
         </thead>
@@ -51,7 +52,9 @@
                 @if($todo -> done)
                     <td class="text-nowrap">
                         <del>{{ $todo -> description }}</del>
-                        <span class="text-muted float-right">
+                    </td>
+                    <td class="text-right">
+                        <span class="text-muted">
                             <small>Aktiviraj:
                                 <a href="{{ route('todos.reactivate', [$todo -> id, 7])}}" style="text-decoration:none;" title="Za 7 dana">7</a>&nbsp;/&nbsp;
                                 <a href="{{ route('todos.reactivate', [$todo -> id, 14])}}" style="text-decoration:none;" title="Za 14 dana">14</a>&nbsp;/&nbsp;
@@ -66,9 +69,10 @@
                         <a href="{{ route('todos.finish', $todo -> id)}}" title="Potvrdi napomenu.">
                             @include('layouts.buttons.btnnewtodo', ['color' => 'currentColor'])
                         </a>
-
                         {{ $todo -> description }}
-                        <span class="text-muted float-right">
+                    </td>
+                    <td class="text-right">
+                        <span class="text-muted">
                             <small>
                                 <a href="{{ route('todos.changetype', $todo -> id)}}" title="Promijeni vrstu (bitno/ostalo)">
                                     @include('layouts.buttons.btnworkorder', ['color' => 'currentColor'])
