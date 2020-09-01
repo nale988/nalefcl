@@ -74,7 +74,7 @@
 
 <br />
 @if(count($myworkorders)>0)
-<h5>Moji posljednji nalozi</h5>
+<h4>Posljednji nalozi <small class="text-muted">(lični)</small></h4>
 <div class="table-responsive">
     <table class="table table-sm table-striped">
         <thead>
