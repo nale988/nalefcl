@@ -41,14 +41,14 @@
 
 <br />
 
-<h1 class="display-4">Posljednji nalozi mašinskog održavanja</h1>
+<h6>Posljednji nalozi mašinskog održavanja</h6>
 <div class="table-responsive">
     <table class="table table-sm table-striped">
         <thead>
             <tr>
                 <th>RN</th>
                 <th>Sadržaj</th>
-                <th>Pokretač</>th>
+                <th>Pokretač</th>
             </tr>
         </thead>
         <tbody>
@@ -74,7 +74,7 @@
 
 <br />
 @if(count($myworkorders)>0)
-<h1 class="display-3">Moji posljednji nalozi</h1>
+<h5>Moji posljednji nalozi</h5>
 <div class="table-responsive">
     <table class="table table-sm table-striped">
         <thead>
