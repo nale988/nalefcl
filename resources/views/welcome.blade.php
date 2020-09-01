@@ -41,84 +41,69 @@
 
 <br />
 
-<div class="row">
-    <div class="card">
-        <div class="card-header border-dark bg-dark text-white">
-            Posljednji nalozi Mašinskog održavanja
-        </div>
-        <div class="card-body">
-			<div class="table-responsive">
-				<table class="table table-sm table-striped">
-					<thead>
-						<tr>
-							<th>RN</th>
-							<th>Sadržaj</th>
-							<th>Pokretač</>th>
-						</tr>
-					</thead>
-					<tbody>
-					@foreach($workorders as $workorder)
-						<tr>
-							<td class="text-nowrap">
-								<a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
-								<strong>{{ $workorder -> number }}</strong>
-								</>
-							</td>
-							<td>
-								{{ $workorder -> content }}
-							</td>
-							<td class="text-nowrap">
-								{{ $workorder -> owner }}
-							</td>
-						</tr>
-					@endforeach
-					</tbody>
-				</table>
-			</div>
-        </div>
-    </div>
+<h1 class="display-4">Posljednji nalozi mašinskog održavanja</h1>
+<div class="table-responsive">
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>RN</th>
+                <th>Sadržaj</th>
+                <th>Pokretač</>th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($workorders as $workorder)
+            <tr>
+                <td class="text-nowrap">
+                    <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
+                    <strong>{{ $workorder -> number }}</strong>
+                    </>
+                </td>
+                <td>
+                    {{ $workorder -> content }}
+                </td>
+                <td class="text-nowrap">
+                    {{ $workorder -> owner }}
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 </div>
+
 
 <br />
 @if(count($myworkorders)>0)
-<div class="row">
-    <div class="card">
-        <div class="card-header border-dark bg-dark text-white">
-            Moji posljednji nalozi
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-					<table class="table table-sm table-striped">
-						<thead>
-							<tr>
-								<th>RN</th>
-								<th>Sadržaj</th>
-								<th>Datum</>th>
-							</tr>
-						</thead>
-						<tbody>
-						@foreach($myworkorders as $workorder)
-							<tr>
-								<td class="text-nowrap">
-									<a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
-									<strong>{{ $workorder -> number }}</strong>
-									</>
-								</td>
-								
-								<td>
-									{{ $workorder -> content }}
-								</td>
-								
-								<td class="text-right text-nowrap">
-									{{ date('d. m. Y.', strtotime($workorder -> date)) }}
-								</td>
-							</tr>
-						@endforeach
-						</tbody>
-					</table>
-				</div>
-        </div>
-    </div>
+<h1 class="display-3">Moji posljednji nalozi</h1>
+<div class="table-responsive">
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>RN</th>
+                <th>Sadržaj</th>
+                <th>Datum</>th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach($myworkorders as $workorder)
+            <tr>
+                <td class="text-nowrap">
+                    <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
+                    <strong>{{ $workorder -> number }}</strong>
+                    </>
+                </td>
+
+                <td>
+                    {{ $workorder -> content }}
+                </td>
+
+                <td class="text-right text-nowrap">
+                    {{ date('d. m. Y.', strtotime($workorder -> date)) }}
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 </div>
 @endif
 @endif
