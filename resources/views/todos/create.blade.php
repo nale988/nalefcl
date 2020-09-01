@@ -38,7 +38,7 @@
         <thead>
             <tr>
                 <th>Opis</th>
-                <th>Mogućnosti</th>
+                <th style="width: 100px">Mogućnosti</th>
                 <th class="text-center">Datum</th>
             </tr>
         </thead>
@@ -53,7 +53,7 @@
                     <td class="text-nowrap">
                         <del>{{ $todo -> description }}</del>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right" style="width: 100px">
                         <span class="text-muted">
                             <small>Aktiviraj:
                                 <a href="{{ route('todos.reactivate', [$todo -> id, 7])}}" style="text-decoration:none;" title="Za 7 dana">7</a>&nbsp;/&nbsp;
@@ -71,7 +71,7 @@
                         </a>
                         {{ $todo -> description }}
                     </td>
-                    <td class="text-right">
+                    <td class="text-right" style="width: 100px">
                         <span class="text-muted">
                             <small>
                                 <a href="{{ route('todos.changetype', $todo -> id)}}" title="Promijeni vrstu (bitno/ostalo)">
