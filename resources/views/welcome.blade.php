@@ -47,15 +47,34 @@
             Posljednji nalozi Mašinskog održavanja
         </div>
         <div class="card-body">
-            @foreach($workorders as $workorder)
-            <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
-                <div class="row">
-                    <div class="col-2 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
-                    <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
-                    <div class="col-2 text-right text-muted text-truncate">{{ $workorder -> owner }}</div>
-                </div>
-            </a>
-            @endforeach
+			<div class="table-responsive">
+				<table class="table table-sm table-striped">
+					<thead>
+						<tr>
+							<th>RN</th>
+							<th>Sadržaj</th>
+							<th>Pokretač</>th>
+						</tr>
+					</thead>
+					<tbody>
+					@foreach($workorders as $workorder)
+						<tr>
+							<td>
+								<a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
+								<strong>{{ $workorder -> number }}</strong>
+								</>
+							</td>
+							<td>
+								{{ $workorder -> content }}
+							</td>
+							<td>
+								{{ $workorder -> owner }}
+							</td>
+						</tr>
+					@endforeach
+					</tbody>
+				</table>
+			</div>
         </div>
     </div>
 </div>
@@ -68,15 +87,36 @@
             Moji posljednji nalozi
         </div>
         <div class="card-body">
-            @foreach($myworkorders as $workorder)
-            <a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
-            <div class="row">
-                <div class="col-2 text-truncate" title="{{$workorder->number}}">{{ $workorder -> number }}</div>
-                <div class="col text-truncate" title="{{ $workorder -> content }}">{{ $workorder -> content }}</div>
-                <div class="col-2 text-muted text-right text-truncate">{{ date('d. m. Y.', strtotime($workorder -> date)) }}</div>
-            </div>
-            </a>
-            @endforeach
+            <div class="table-responsive">
+					<table class="table table-sm table-striped">
+						<thead>
+							<tr>
+								<th>RN</th>
+								<th>Sadržaj</th>
+								<th>Datum</>th>
+							</tr>
+						</thead>
+						<tbody>
+						@foreach($myworkorders as $workorder)
+							<tr>
+								<td>
+									<a href="{{ route('workorder', $workorder -> id) }}" style="text-decoration: none; color: #000000;">
+									<strong>{{ $workorder -> number }}</strong>
+									</>
+								</td>
+								
+								<td>
+									{{ $workorder -> content }}
+								</td>
+								
+								<td class="text-right">
+									{{ date('d. m. Y.', strtotime($workorder -> date)) }}
+								</td>
+							</tr>
+						@endforeach
+						</tbody>
+					</table>
+				</div>
         </div>
     </div>
 </div>
