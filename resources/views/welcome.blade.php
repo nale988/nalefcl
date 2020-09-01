@@ -5,7 +5,8 @@
 @auth
 @if($userrole -> workorders_view)
 <div class="row">
-    <div class="card col-12">
+<div class="col-12">
+    <div class="card">
         <div class="card-header border-dark bg-dark text-white">
             Pareto dijagram za tekuću godinu
         </div>
@@ -35,6 +36,7 @@
             @endforeach
         </div>
     </div>
+</div>
 </div>
 
 <br />
