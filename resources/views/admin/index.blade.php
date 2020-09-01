@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+
+@include('layouts.snippets.header', ['title' => 'Posljednje posjete', 'subtitle' => ''])
+
 <div class="table-responsive">
     <table class="table table-sm table-stripped">
         <caption>Posljednje posjete</caption>
@@ -43,10 +46,8 @@
 <div aria-label="Pagination" class="pagination pagination-sm justify-content-center">{!! $last_visits->render() !!}</div>
 
 <br />
-<hr />
-<br />
-
-<span>Udio mobilnih browsera: {{ round(($totalcountmobile / $totalcount)*100,0)}}%</span>
+@include('layouts.snippets.header', ['title' => 'Udio mobilnih browsera', 'subtitle' => ''])
+{{-- {{ round(($totalcountmobile / $totalcount)*100,0)}}% --}}
 <div class="progress" style="height: 20px;">
     <div class="progress-bar bg-danger" role="progressbar" style="width:{{ round(($totalcountmobile / $totalcount)*100,0)}}%;" aria-valuenow="{{ $totalcountmobile }}" aria-valuemin="0" aria-valuemax="{{ $totalcount }}">{{ round(($totalcountmobile / $totalcount)*100, 2)}}%</div>
 </div>

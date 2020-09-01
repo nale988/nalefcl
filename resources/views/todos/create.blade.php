@@ -32,9 +32,10 @@
 </form>
 
 <br />
+@include('layouts.snippets.header', ['title' => 'Prethodno...', 'subtitle' => ''])
+
 <div class="table-responsive">
     <table class="table table-sm">
-        <caption>Spisak svih stavki...</caption>
         <thead>
             <tr>
                 <th>Opis</th>
@@ -60,7 +61,7 @@
                                 <a href="{{ route('todos.reactivate', [$todo -> id, 14])}}" style="text-decoration:none;" title="Za 14 dana">14</a>&nbsp;/&nbsp;
                                 <a href="{{ route('todos.reactivate', [$todo -> id, 21])}}" style="text-decoration:none;" title="Za 21 dana">21</a>&nbsp;/&nbsp;
                                 <a href="{{ route('todos.reactivate', [$todo -> id, 30])}}" style="text-decoration:none;" title="Za 30 dana">30</a>&nbsp;/&nbsp;
-                                <a href="{{ route('todos.reactivate', [$todo -> id, 60])}}" style="text-decoration:none;" title="Za 60 dana">60</a>
+                                <a href="{{ route('todos.reactivate', [$todo -> id, 60])}}" style="text-decoration:none;" title="Za 60 dana">60</a>&nbsp;dana
                             </small>
                         </span>
                     </td>
@@ -82,12 +83,12 @@
                                 <a href="{{ route('todos.reactivate', [$todo -> id, 14])}}" style="text-decoration:none;" title="Za 14 dana">14</a>&nbsp;/&nbsp;
                                 <a href="{{ route('todos.reactivate', [$todo -> id, 21])}}" style="text-decoration:none;" title="Za 21 dana">21</a>&nbsp;/&nbsp;
                                 <a href="{{ route('todos.reactivate', [$todo -> id, 30])}}" style="text-decoration:none;" title="Za 30 dana">30</a>&nbsp;/&nbsp;
-                                <a href="{{ route('todos.reactivate', [$todo -> id, 60])}}" style="text-decoration:none;" title="Za 60 dana">60</a>
+                                <a href="{{ route('todos.reactivate', [$todo -> id, 60])}}" style="text-decoration:none;" title="Za 60 dana">60</a>&nbsp;dana
                             </small>
                         </span>
                     </td>
                 @endif
-                <td class="text-nowrap text-center">{{ date('d. m. y.', strtotime($todo -> date)) }}</td>
+                <td class="text-nowrap text-center">{{ date('d. m. Y.', strtotime($todo -> date)) }}</td>
             </tr>
             @endforeach
         </tbody>
