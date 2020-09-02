@@ -19,4 +19,6 @@ $table->foreignId('from_id')->nullable()
 
 $table->boolean('seen')->default(false);
 
+mysql --user nale -D fcl --password < storage-spending.sql
+
 
