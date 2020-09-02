@@ -443,6 +443,7 @@ class PositionController extends Controller
     }
 
     public function show($id){
+
         if(Auth::check()){
             $user = Auth::user();
             $userrole = UserRole::where('user_id', $user->id)->first();
@@ -489,6 +490,8 @@ class PositionController extends Controller
             $blowerservices = collect();
         }
 
+        // $time_pre = microtime(true);
+
         $spareparts = SparePartConnection::where('position_id', $id)
             ->leftJoin('spare_parts', 'spare_parts.id', '=', 'spare_part_connections.spare_part_id')
             ->leftJoin('users', 'users.id', '=', 'spare_parts.user_id')
@@ -515,6 +518,14 @@ class PositionController extends Controller
             ->sortBy('spare_part_group_description')
             ->groupBy('spare_part_group_description');
 
+            // $time_post = microtime(true);
+            // $duration = $time_post - $time_pre;
+            // $hours = (int) ($duration / 60 / 60);
+            // $minutes = (int) ($duration / 60) - $hours * 60;
+            // $seconds = (int) $duration - $hours * 60 * 60 - $minutes * 60;
+            // dd($seconds);
+            // die;
+
         $position_files = PositionFile::where('position_id', $id)
             ->leftJoin('file_uploads', 'file_uploads.id', '=', 'position_files.file_upload_id')
             ->leftJoin('users', 'users.id', '=', 'file_uploads.user_id')
@@ -532,6 +543,7 @@ class PositionController extends Controller
                 ->with('user')
                 ->get()
                 ->sortByDesc('created_at');
+
 
         return view('positions.show', compact('position', 'spareparts', 'favorite', 'revisions', 'position_files', 'workinghours', 'compressorservices', 'blowerservices'));
     }
