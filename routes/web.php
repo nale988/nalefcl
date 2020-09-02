@@ -29,6 +29,8 @@ Route::get('editworkinghours/{id}', 'PositionController@editworkinghours')->name
 Route::get('editblowerservice/{id}', 'PositionController@editblowerservice')->name('editblowerservice');
 Route::get('showunits/{id}', 'PositionController@showunits')->name('showunits');
 
+Route::get('workorders/create/{position_id}', 'WorkOrderController@create')->name('workorders.create');
+
 Route::post('uploadpositionfile', 'PositionController@uploadpositionfile')->name('uploadpositionfile');
 Route::post('storeworkinghours', 'PositionController@storeworkinghours')->name('storeworkinghours');
 Route::post('updateworkinghours', 'PositionController@updateworkinghours')->name('updateworkinghours');
@@ -36,8 +38,8 @@ Route::post('storecompressorservice', 'PositionController@storecompressorservice
 Route::post('storeblowerservice', 'PositionController@storeblowerservice')->name('storeblowerservice');
 Route::post('updateblowerservice', 'PositionController@updateblowerservice')->name('updateblowerservice');
 
-Route::get('workorder/{id}', 'PositionController@workorder')->name('workorder');
-Route::get('workorders/{position}', 'PositionController@workorders') -> name('workorders');
+Route::get('positions/workorder/{id}', 'PositionController@workorder')->name('workorder');
+Route::get('positions/workorders/{position}', 'PositionController@workorders') -> name('workorders');
 Route::get('neworder/{position_id?}/{spare_part_id?}/{amount?}', 'SparePartOrderController@neworder')->name('neworder');
 Route::get('confirmorder/{sparepartorder_id}', 'SparePartOrderController@confirmorder')->name('confirmorder');
 
@@ -61,3 +63,4 @@ Route::resource('worktimes', 'WorkTimeController');
 Route::resource('todos', 'ToDoController');
 Route::resource('admin', 'AdminController');
 Route::resource('personal', 'PersonalController');
+Route::resource('workorders', 'WorkOrderController');

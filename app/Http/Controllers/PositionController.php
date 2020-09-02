@@ -342,8 +342,6 @@ class PositionController extends Controller
             $storagespendings = collect();
         }
 
-        // TODO:
-        // Uraditi za mobilni i obični?
         return view('positions.workorder', compact('workorder', 'position', 'unit', 'storagespendings'));
     }
 
