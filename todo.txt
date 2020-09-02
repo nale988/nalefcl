@@ -1,8 +1,4 @@
-Dodavanje privatnih rezervnih dijelova
-
-dodati da se čuvaju privatni rezervni dijelovi
 editovanje rez dijelova u obliku accordiona
-smanjit korištenje "card"?
 
 can view other users
 workorder_approve

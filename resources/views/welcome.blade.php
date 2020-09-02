@@ -4,7 +4,7 @@
 
 @auth
 @if($userrole -> workorders_view)
-@include('layouts.snippets.header', ['title' => 'Pareto dijagram', 'subtitle' => 'za prethodnu godinu...'])
+@include('layouts.snippets.headerleft', ['title' => 'Pareto dijagram', 'subtitle' => 'za prethodnu godinu...'])
 @foreach($pareto as $position)
 <div class="row">
     <div class="col">
@@ -37,14 +37,16 @@
 @endforeach
 
 <br />
-@include('layouts.snippets.header', ['title' => 'Posljednji nalozi', 'subtitle' => 'mašinskog održavanja'])
+<br />
+@include('layouts.snippets.headerleft', ['title' => 'Posljednji nalozi', 'subtitle' => 'mašinskog održavanja'])
 
 <div class="table-responsive">
-    <table class="table table-sm table-striped">
+    <table class="table table-sm table-hover">
             <thead>
             <tr>
                 <th>RN</th>
                 <th>Sadržaj</th>
+                <th>Datum</th>
                 <th>Pokretač</th>
             </tr>
         </thead>
@@ -60,6 +62,9 @@
                     {{ $workorder -> content }}
                 </td>
                 <td class="text-nowrap">
+                   {{ date('d. m. Y.', strtotime($workorder -> date)) }}
+                </td>
+                <td class="text-nowrap">
                     {{ $workorder -> owner }}
                 </td>
             </tr>
@@ -70,10 +75,11 @@
 
 @if(count($myworkorders)>0)
 <br />
-@include('layouts.snippets.header', ['title' => 'Posljednji nalozi', 'subtitle' => '(lični)'])
+<br />
+@include('layouts.snippets.headerleft', ['title' => 'Posljednji nalozi', 'subtitle' => '(lični)'])
 
 <div class="table-responsive">
-    <table class="table table-sm table-striped">
+    <table class="table table-sm table-hover">
         <thead>
             <tr>
                 <th>RN</th>
