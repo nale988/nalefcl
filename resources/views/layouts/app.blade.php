@@ -44,31 +44,33 @@
 
 <div id="app">
     <header>
-        <div class="collapse bg-dark" id="navbarHeader">
+        <div class="collapse bg-{{ $themecolor }}" id="navbarHeader">
           <div class="container">
             <div class="row">
                 <!-- todos list -->
                 @auth
                 @if($userrole -> todos)
-                    @if(count($urgenttodos)>0 || count($othertodos)>0)
-                    <div class="col-sm-8 py-4 gx-2">
-                        @auth
-                            @include('layouts.todos');
-                        @endauth
-                    </div>
+                    @if($usersettings -> use_todos)
+                        @if(count($urgenttodos)>0 || count($othertodos)>0)
+                        <div class="col-sm-8 py-4 gx-2">
+                            @auth
+                                @include('layouts.todos')
+                            @endauth
+                        </div>
+                        @endif
                     @endif
                 @endif
                 @endauth
                 <div class="col-sm-4 py-4">
                     @auth
-                        @include('layouts.options');
+                        @include('layouts.options')
                     @endauth
                 </div>
             </div>
           </div>
         </div>
 
-        <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="navbar navbar-dark bg-{{ $themecolor }} box-shadow">
           <div class="container">
             <ul class="nav">
                 <li>
@@ -77,16 +79,8 @@
                     </button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="text-decoration: none; color: #ffffff" href="#" data-toggle="collapse" data-target="#navbarHeader">
-                        <strong>&nbsp;&nbsp;&nbsp;FCLukavac&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="navbar-brand" href="{{ route('home')}}">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z"/>
-                        <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                    </svg>
+                        <strong>&nbsp;&nbsp;&nbsp;FCLukavac&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</strong>
                     </a>
                 </li>
                 <!-- spare part order -->
@@ -106,19 +100,21 @@
 
                 <!-- todos -->
                 @if($userrole -> todos)
-                    @if($todoscount > 0)
+                    @if($usersettings -> use_todos)
+                        @if($todoscount > 0)
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" data-toggle="collapse" data-target="#navbarHeader" title="Poslovi kojima je isteklo vrijeme">
+                                @include('layouts.buttons.btnlightning', ['color' => 'white'])
+                                <span class="badge badge-pill badge-danger">{{ $todoscount }}</span>
+                            </a>
+                        </li>
+                        @endif
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="collapse" data-target="#navbarHeader" title="Poslovi kojima je isteklo vrijeme">
-                            @include('layouts.buttons.btnlightning', ['color' => 'white'])
-                            <span class="badge badge-pill badge-danger">{{ $todoscount }}</span>
+                        <a class="nav-link" href="{{ route('todos.create') }}" title="Novi zadatak">
+                            @include('layouts.buttons.btnnewtodo', ['color' => 'white'])
                         </a>
                     </li>
                     @endif
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('todos.create') }}" title="Novi zadatak">
-                        @include('layouts.buttons.btnnewtodo', ['color' => 'white'])
-                    </a>
-                </li>
                 @endif
                 @endauth
             </ul>

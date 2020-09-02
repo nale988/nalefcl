@@ -7,6 +7,8 @@ workorder_accept
 radni nalog -> Dodavanje
 radni nalog -> odobravanje
 
+završiti teme...
+
 lubrication
 
 user settings   - rezervni dijelovi u jednoj tabeli

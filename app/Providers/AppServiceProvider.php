@@ -18,6 +18,7 @@ use App\UserRole;
 use App\Favorite;
 use App\SparePartOrder;
 use App\Unit;
+use App\UserSetting;
 
 use Carbon\Carbon;
 use JsonException;
@@ -62,6 +63,8 @@ class AppServiceProvider extends ServiceProvider
                     $user = Auth::user();
                     $userrole = UserRole::where('user_id', $user -> id)->first();
 
+                    $usersettings = UserSetting::where('user_id', $user -> id)->first();
+
                     $urgenttodos = ToDo::where('user_id', $user->id)
                         ->where('done', 0)
                         ->where('urgent', 1)
@@ -88,6 +91,17 @@ class AppServiceProvider extends ServiceProvider
                         ->where('done', 0)
                         ->whereDate('date', '<=', Carbon::now())
                         ->count();
+
+                    if($usersettings -> theme == 1){
+                        $themecolor = 'primary';
+                    } elseif($usersettings -> theme == 2){
+                        $themecolor = 'secondary';
+                    } elseif($usersettings -> theme == 3){
+                        $themecolor = 'danger';
+                    } else {
+                        $themecolor = 'dark';
+                    }
+
                 }
                 else {
                     $orders = 0;
@@ -105,6 +119,8 @@ class AppServiceProvider extends ServiceProvider
                 $view->with([
                     'user' => $user,
                     'userrole' => $userrole,
+                    'usersettings' => $usersettings,
+                    'themecolor' => $themecolor,
                     'orders' => $orders,
                     'todoscount' => $todoscount,
                     'favorites' => $favorites,

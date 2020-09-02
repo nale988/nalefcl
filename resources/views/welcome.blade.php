@@ -4,6 +4,7 @@
 
 @auth
 @if($userrole -> workorders_view)
+@if($usersettings -> show_home_pareto)
 @include('layouts.snippets.headerleft', ['title' => 'Pareto dijagram', 'subtitle' => 'za prethodnu godinu...'])
 @foreach($pareto as $position)
 <div class="row">
@@ -35,9 +36,10 @@
     </div>
 </div>
 @endforeach
+<br />
+<br />
+@endif
 
-<br />
-<br />
 @include('layouts.snippets.headerleft', ['title' => 'Posljednji nalozi', 'subtitle' => 'mašinskog održavanja'])
 
 <div class="table-responsive">

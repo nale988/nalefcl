@@ -51,7 +51,7 @@ Route::get('todos/changetype/{id}', 'ToDoController@changetype')->name('todos.ch
 Route::get('worktimes/review', 'WorkTimeController@review')->name('worktimes.review');
 Route::get('worktimes/delete/{id}', 'WorkTimeController@delete')->name('worktimes.delete');
 
-Route::get('personal/myworkorders', 'PersonalController@myworkorders')->name('personal.myworkorders');
+Route::get('personal/workorders', 'PersonalController@workorders')->name('personal.workorders');
 Route::get('admin/users', 'AdminController@users')->name('admin.users');
 Route::get('admin/permissions/{id}', 'AdminController@permissions')->name('admin.permissions');
 

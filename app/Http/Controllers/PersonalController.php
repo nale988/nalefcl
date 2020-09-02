@@ -8,7 +8,7 @@ use App\WorkOrder;
 
 class PersonalController extends Controller
 {
-    public function myworkorders(){
+    public function workorders(){
         if(Auth::check()){
             $user = Auth::user();
         }
@@ -21,12 +21,13 @@ class PersonalController extends Controller
         $myworkorders = WorkOrder::where('owner', $username)->get()->sortByDesc('date')->paginate(30);
         $myworkorderscount = WorkOrder::where('owner', $username)->count();
 
-        return view('personal.myworkorders', compact('myworkorders', 'myworkorderscount'));
+        return view('personal.workorders', compact('myworkorders', 'myworkorderscount'));
     }
 
     public function index()
     {
-        //
+        // settings
+        return view('personal.index');
     }
 
     /**
