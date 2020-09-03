@@ -1,95 +1,67 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container">
-<div class="row">
-<div class="col">
-    <div class="card bg-light mb-3">
-        <div class="card-header font-weight-bold">
-            Pregled narudžbi
-        </div>
-        <div class="card-body">
-            @foreach($sparepartorders as $sparepartorder)
-            <div class="row">
-                <div class="col-2 text-truncate">
+
+@include('layouts.snippets.headerleft', ['title'=>'Narudžbe', 'subtitle' => ''])
+
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Datum</th>
+                <th>Opis</th>
+                <th class="text-center">Količina</th>
+                <th>Pozicija</th>
+                <th class="text-center">Potvrdi</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach($sparepartorders as $sparepartorder)
                     @if($today -> gt($sparepartorder -> date))
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"/>
-                            <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.053.224l-1.5 3a.5.5 0 1 1-.894-.448L7.5 8.882V5a.5.5 0 0 1 .5-.5z"/>
-                            <path d="M.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"/>
-                            <path fill-rule="evenodd" d="M11.646 14.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1-.708.708l-1-1a.5.5 0 0 1 0-.708zm-7.292 0a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708zM5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-                            <path d="M7 1h2v2H7V1z"/>
-                        </svg>
-                        <strong>{{ date('d. m. Y', strtotime($sparepartorder -> date)) }}</strong>
+                        <tr class="table-danger">
                     @else
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-alarm" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M8 15A6 6 0 1 0 8 3a6 6 0 0 0 0 12zm0 1A7 7 0 1 0 8 2a7 7 0 0 0 0 14z"/>
-                        <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.053.224l-1.5 3a.5.5 0 1 1-.894-.448L7.5 8.882V5a.5.5 0 0 1 .5-.5z"/>
-                        <path d="M.86 5.387A2.5 2.5 0 1 1 4.387 1.86 8.035 8.035 0 0 0 .86 5.387zM11.613 1.86a2.5 2.5 0 1 1 3.527 3.527 8.035 8.035 0 0 0-3.527-3.527z"/>
-                        <path fill-rule="evenodd" d="M11.646 14.146a.5.5 0 0 1 .708 0l1 1a.5.5 0 0 1-.708.708l-1-1a.5.5 0 0 1 0-.708zm-7.292 0a.5.5 0 0 0-.708 0l-1 1a.5.5 0 0 0 .708.708l1-1a.5.5 0 0 0 0-.708zM5.5.5A.5.5 0 0 1 6 0h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z"/>
-                        <path d="M7 1h2v2H7V1z"/>
-                      </svg>
-                        {{ date('d. m. Y', strtotime($sparepartorder -> date)) }}
+                        <tr>
                     @endif
-                </div>
-                <div class="col text-truncate">
-                    {{ $sparepartorder -> sparepart -> storage_number }} - {{ $sparepartorder -> sparepart -> description}}
-                </div>
-                <div class="col-1">
-                    {{ $sparepartorder -> amount }}
-                </div>
-                <div class="col-4 text-truncate">
-                    <a href="{{ route('positions.show', $sparepartorder -> position_id) }}" style="text-decoration: none;">
-                        {{ $sparepartorder -> position -> position }} - {{ $sparepartorder -> position -> name}}
-                    </a>
-                </div>
-                <div class="col-1">
-                    @if(($sparepartorder -> note) <> "")
-                        <a href="#" data-toggle="modal" data-target="#modal-{{ $sparepartorder -> id }}">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-medical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
-                            <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
-                            <path fill-rule="evenodd" d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                        </svg>
+                        <td scope="row">{{ date('d. m. Y', strtotime($sparepartorder -> date)) }}</td>
+                        <td class="text-nowrap">{{ $sparepartorder -> sparepart -> storage_number }} - {{ $sparepartorder -> sparepart -> description}}</td>
+                        <td class="text-nowrap text-center">{{ $sparepartorder -> amount }}</td>
+                        <td class="text-nowrap">
+                            <a href="{{ route('positions.show', $sparepartorder -> position_id) }}" style="text-decoration: none;">
+                                {{ $sparepartorder -> position -> position }} - {{ $sparepartorder -> position -> name}}
+                            </a>
 
-                        <div class="modal fade" id="modal-{{ $sparepartorder -> id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Napomena za narudžbu</h5>
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                  </button>
-                                </div>
-                                <div class="modal-body">
-                                  {{ $sparepartorder -> note }}
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                            @if(($sparepartorder -> note) <> "")
+                                <a href="#" data-toggle="modal" data-target="#modal-{{ $sparepartorder -> id }}">
+                                    @include('layouts.buttons.btnreadmore', ['color' => 'currentColor'])
+                                </a>
 
-                        </a>
-                    @else
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-medical" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 1h5v1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V6h1v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z"/>
-                        <path d="M9 4.5V1l5 5h-3.5A1.5 1.5 0 0 1 9 4.5z"/>
-                        <path fill-rule="evenodd" d="M7 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L8 6l.549.317a.5.5 0 1 1-.5.866L7.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L6 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 7 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
-                    </svg>
-                    @endif
-                    <a href="{{ route('confirmorder', $sparepartorder -> id) }}" title="Potvrdi narudžbu">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-check2-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M15.354 2.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L8 9.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                            <path fill-rule="evenodd" d="M8 2.5A5.5 5.5 0 1 0 13.5 8a.5.5 0 0 1 1 0 6.5 6.5 0 1 1-3.25-5.63.5.5 0 1 1-.5.865A5.472 5.472 0 0 0 8 2.5z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</div>
+                                <div class="modal fade" id="modal-{{ $sparepartorder -> id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Napomena za narudžbu</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        {{ $sparepartorder -> note }}
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            @endif
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ route('confirmorder', $sparepartorder -> id) }}" title="Potvrdi narudžbu">
+                                @include('layouts.buttons.btnconfirm', ['color' => 'currentColor'])
+                            </a>
+                        </td>
+                        </tr>
+                @endforeach
+            </tbody>
+    </table>
 </div>
 @endsection

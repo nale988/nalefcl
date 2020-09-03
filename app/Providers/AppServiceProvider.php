@@ -86,25 +86,21 @@ class AppServiceProvider extends ServiceProvider
                         ->where('done', 0)
                         ->count();
 
+                    $dueorders = SparePartOrder::where('user_id', $user -> id)
+                        ->where('done', 0)
+                        ->whereDate('date', '<=', Carbon::now())
+                        ->count();
+
                     $todoscount = ToDo::where('user_id', $user->id)
                         ->where('urgent', 1)
                         ->where('done', 0)
                         ->whereDate('date', '<=', Carbon::now())
                         ->count();
 
-                    if($usersettings -> theme == 1){
-                        $themecolor = 'primary';
-                    } elseif($usersettings -> theme == 2){
-                        $themecolor = 'secondary';
-                    } elseif($usersettings -> theme == 3){
-                        $themecolor = 'danger';
-                    } else {
-                        $themecolor = 'dark';
-                    }
-
                 }
                 else {
                     $orders = 0;
+                    $dueorders = 0;
                     $user = null;
                     $userrole = null;
                     $todoscount = 0;
@@ -120,8 +116,8 @@ class AppServiceProvider extends ServiceProvider
                     'user' => $user,
                     'userrole' => $userrole,
                     'usersettings' => $usersettings,
-                    'themecolor' => $themecolor,
                     'orders' => $orders,
+                    'dueorders' => $dueorders,
                     'todoscount' => $todoscount,
                     'favorites' => $favorites,
                     'urgenttodos' => $urgenttodos,

@@ -20,7 +20,7 @@ class CreateUserSettingsTable extends Migration
             $table->boolean('use_todos');
             $table->boolean('use_favorites');
             $table->boolean('show_home_pareto');
-            $table->tinyInteger('theme');
+            $table->tinyInteger('theme'); // not used
             $table->timestamps();
         });
     }

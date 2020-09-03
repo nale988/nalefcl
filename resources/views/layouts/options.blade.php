@@ -9,6 +9,15 @@
         </a>
     </li>
     @endif
+    <!-- spare parts orders -->
+    @if($userrole -> spare_parts_order && $orders > 0)
+    <li>
+        <a class="text-white" href="{{ route('sparepartorders.index') }}" title="Narudžbe">
+            @include('layouts.buttons.btnorders', ['color' => 'white'])
+            <small><span class="text-white">Narudžbe</span></small>
+        </a>
+    </li>
+    @endif
 
     <!-- units -->
     <li>
@@ -34,25 +43,23 @@
     </li>
 
     <!-- favorites -->
-    @if($userrole -> favorites && $usersettings -> use_favorites)
-        @if(count($favorites) > 0)
-            <li>
-                <a class="text-white dropdown-toggle" data-toggle="collapse" href="#cFavoritePositions" role="button" aria-expanded="false" aria-controls="cFavoritePositions">
-                    @include('layouts.buttons.btnfavoriteempty', ['color' => 'white'])
-                    <small><span class="text-white">Odabrane pozicije</span></small>
-                </a>
-                <div class="collapse" id="cFavoritePositions">
-                    @foreach($favorites as $favorite)
-                    <ul class="list-unstyled">
-                        <li>
-                            @include('layouts.buttons.btnrightarrow', ['color' => 'gray'])
-                            <small><a href="{{ route('positions.show', $favorite->position_id) }}" class="text-white text-truncate" style="text-decoration:none;">{{ $favorite -> position }} - {{ $favorite -> name }}</a></small>
-                        </li>
-                    </ul>
-                    @endforeach
-                </div>
-            </li>
-        @endif
+    @if($userrole -> favorites && $usersettings -> use_favorites && count($favorites) > 0)
+        <li>
+            <a class="text-white dropdown-toggle" data-toggle="collapse" href="#cFavoritePositions" role="button" aria-expanded="false" aria-controls="cFavoritePositions">
+                @include('layouts.buttons.btnfavoriteempty', ['color' => 'white'])
+                <small><span class="text-white">Odabrane pozicije</span></small>
+            </a>
+            <div class="collapse" id="cFavoritePositions">
+                @foreach($favorites as $favorite)
+                <ul class="list-unstyled">
+                    <li>
+                        @include('layouts.buttons.btnrightarrow', ['color' => 'gray'])
+                        <small><a href="{{ route('positions.show', $favorite->position_id) }}" class="text-white text-truncate" style="text-decoration:none;">{{ $favorite -> position }} - {{ $favorite -> name }}</a></small>
+                    </li>
+                </ul>
+                @endforeach
+            </div>
+        </li>
     @endif
 
     <!-- guest -->

@@ -17,7 +17,11 @@ class SparePartOrderController extends Controller
         $sparepartorder -> done = 1;
         $sparepartorder -> save();
 
-        return redirect()->back()->with('message', 'Potvrđena narudžba');
+        $sparepart = SparePart::where('id', $sparepartorder -> spare_part_id)->first();
+
+        $message = 'Potvrđena narudžba: '.$sparepart -> description;
+
+        return redirect()->back()->with('message', $message);
     }
 
     public function neworder($position_id, $spare_part_id, $amount){
