@@ -1,6 +1,7 @@
 <h4 class="text-white"><u>Opcije</u></h4>
 <ul class="list-unstyled">
     <!-- spare_parts_add -->
+    @auth
     @if($userrole -> spare_parts_add)
     <li>
         <a class="text-white" href="{{ url('/spareparts/create') }}" title="Dodaj novi rezervni dio">
@@ -18,7 +19,7 @@
         </a>
     </li>
     @endif
-
+    @endauth
     <!-- units -->
     <li>
         <a class="text-white dropdown-toggle" data-toggle="collapse" href="#cUnits" role="button" aria-expanded="false" aria-controls="cUnits">
@@ -43,6 +44,7 @@
     </li>
 
     <!-- favorites -->
+    @auth
     @if($userrole -> favorites && $usersettings -> use_favorites && count($favorites) > 0)
         <li>
             <a class="text-white dropdown-toggle" data-toggle="collapse" href="#cFavoritePositions" role="button" aria-expanded="false" aria-controls="cFavoritePositions">
@@ -61,6 +63,7 @@
             </div>
         </li>
     @endif
+    @endauth
 
     <!-- guest -->
         @guest
