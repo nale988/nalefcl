@@ -26,6 +26,7 @@ use App\BlowerService;
 use App\BlowerServiceFile;
 use App\CompressorService;
 use App\CompressorServiceFile;
+use App\Schematic;
 use App\Favorite;
 
 class PositionController extends Controller
@@ -33,7 +34,8 @@ class PositionController extends Controller
     public function showunits($id){
         $positions = Position::where('unit_id', $id)->get()->sortBy('position');
         $unit = Unit::where('id', $id)->first();
-        return view('positions.perunits', compact('positions', 'unit'));
+        $schematics = Schematic::where('unit_id', $id)->get();
+        return view('positions.perunits', compact('positions', 'unit', 'schematics'));
     }
 
     public function favorite($id){

@@ -1,5 +1,7 @@
 editovanje rez dijelova u obliku accordiona
 
+sheme
+
 pretraga u Navisionu samo na osnovu skladišnog broja
 
 can view other users
