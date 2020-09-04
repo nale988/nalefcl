@@ -103,11 +103,13 @@ class AppServiceProvider extends ServiceProvider
                     $dueorders = 0;
                     $user = null;
                     $userrole = null;
+                    $usersettings = collect();
                     $todoscount = 0;
                     $favorites = collect();
                     $urgents = collect();
                     $urgenttodos = collect();
                     $othertodos = collect();
+
                 }
 
                 $units = Unit::all()->sortBy('unit_number');
