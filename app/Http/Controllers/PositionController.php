@@ -492,7 +492,9 @@ class PositionController extends Controller
             $blowerservices = collect();
         }
 
+
         // $time_pre = microtime(true);
+        $time = -microtime(true);
 
         $spareparts = SparePartConnection::where('position_id', $id)
             ->leftJoin('spare_parts', 'spare_parts.id', '=', 'spare_part_connections.spare_part_id')
@@ -520,12 +522,8 @@ class PositionController extends Controller
             ->sortBy('spare_part_group_description')
             ->groupBy('spare_part_group_description');
 
-            // $time_post = microtime(true);
-            // $duration = $time_post - $time_pre;
-            // $hours = (int) ($duration / 60 / 60);
-            // $minutes = (int) ($duration / 60) - $hours * 60;
-            // $seconds = (int) $duration - $hours * 60 * 60 - $minutes * 60;
-            // dd($seconds);
+            $time +=microtime(true);
+            // dd(sprintf('%f',$time));
             // die;
 
         $position_files = PositionFile::where('position_id', $id)
