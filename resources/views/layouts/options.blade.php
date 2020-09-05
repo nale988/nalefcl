@@ -31,7 +31,7 @@
                 @foreach($units as $unit)
                 <li>
                     <a class="text-white" href="{{ route('showunits', $unit -> id)}}">
-                        <img src="{{ asset('/storage/icons/arrow-up-right.png') }}" />
+                        &#8729;
                         <small>{{ $unit -> unit_number }}: {{ $unit -> description }}</small>
                     </a>
                 </li>
@@ -52,8 +52,7 @@
                 @foreach($favorites as $favorite)
                 <ul class="list-unstyled">
                     <li>
-                        @include('layouts.buttons.btnrightarrow', ['color' => 'gray'])
-                        <small><a href="{{ route('positions.show', $favorite->position_id) }}" class="text-white text-truncate" style="text-decoration:none;">{{ $favorite -> position }} - {{ $favorite -> name }}</a></small>
+                        <small><a href="{{ route('positions.show', $favorite->position_id) }}" class="text-white text-truncate" style="text-decoration:none;">&#8729;&nbsp;{{ $favorite -> position }} - {{ $favorite -> name }}</a></small>
                     </li>
                 </ul>
                 @endforeach
@@ -83,40 +82,40 @@
                     @if($userrole -> worktimes)
                         <li>
                             <a class="text-white" href="{{ route('worktimes.index') }}">
-                                @include('layouts.buttons.btnrightarrow', ['color' => 'gray'])
+                                &#8729;
                                 <small><span class="text-white">Pregled radnih sati</span></small>
                             </a>
                         </li>
                         <li>
                             <a class="text-white" href="{{ route('worktimes.create') }}">
-                                @include('layouts.buttons.btnrightarrow', ['color' => 'gray'])
+                                &#8729;
                                 <small><span class="text-white">Unos radnih sati</span></small>
                             </a>
                         </li>
                     @endif
                     <li>
-                        @include('layouts.buttons.btnrightarrow', ['color' => 'gray'])
                         <a href="{{ route('personal.workorders')}}" class="text-white">
+                            &#8729;
                             <small>Moji radni nalozi</small>
                         </a>
                     </li>
                     @if($userrole -> admin)
                         <li>
                             <a class="text-white" href="{{ route('admin.index') }}" title="Opšti pregled">
-                                @include('layouts.buttons.btnrightarrow', ['color' => 'gray'])
+                                &#8729;
                                 <small><span class="text-white">Admin: Opšti pregled</span></small>
                             </a>
                         </li>
                         <li>
                             <a class="text-white" href="{{ route('admin.users') }}" title="Korisnici">
-                                @include('layouts.buttons.btnrightarrow', ['color' => 'gray'])
+                                &#8729;
                                 <small><span class="text-white">Admin: Korisnici</span></small>
                             </a>
                         </li>
                     @endif
                     <li>
-                        @include('layouts.buttons.btnrightarrow', ['color' => 'gray'])
                         <a href="{{ route('logout') }}" class="text-white" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            &#8729;
                             <small>Log-out</small>
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

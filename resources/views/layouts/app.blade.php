@@ -15,8 +15,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'FCL') }}</title>
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('img/icon.png') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -37,9 +35,7 @@
 </head>
 <body>
 <button onClick="topFunction()" id="btnTop" class="btn btn-danger">
-    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-shift-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M7.27 2.047a1 1 0 0 1 1.46 0l6.345 6.77c.6.638.146 1.683-.73 1.683H11.5v3a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-3H1.654C.78 10.5.326 9.455.924 8.816L7.27 2.047z"/>
-    </svg>
+    &#8673;
 </button>
 
 <div id="app">
@@ -101,7 +97,7 @@
                     @if($usersettings -> use_todos)
                         @if($todoscount > 0)
                         <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" data-target="#navbarHeader" title="Poslovi kojima je isteklo vrijeme">
+                            <a class="nav-link text-white" href="#" data-toggle="collapse" data-target="#navbarHeader" title="Poslovi kojima je isteklo vrijeme">
                                 @include('layouts.buttons.btnlightning', ['color' => 'white'])
                                 <span class="badge badge-pill badge-danger">{{ $todoscount }}</span>
                             </a>
