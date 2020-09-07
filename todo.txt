@@ -19,12 +19,3 @@ user settings   - rezervni dijelovi u jednoj tabeli
                 - rez dijelovi svaka strana odvojeno
                 - accordion
 
-$table->foreignId('from_id')->nullable()
-    ->references('id')->on('users')
-    ->onDelete('cascade');
-
-$table->boolean('seen')->default(false);
-
-mysql --user nale -D fcl --password < storage-spending.sql
-mysqldump -u nale -p fcl > /home/pi/dump.sql
-
