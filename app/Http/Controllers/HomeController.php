@@ -60,12 +60,22 @@ class HomeController extends Controller
         ->get()
         ->take(Config::get('sitesettings.pareto'));
 
-        // print_r(json_encode($pareto));
+        // $multiplied = $collection->map(function ($item, $key) {
+        //     return $item * 2;
+        // });
+
+        // $par =
+
+        // print_r(json_encode($pareto->toJson()));
+        // die;
+
+        $pareto2 = $pareto -> toJson();
+        // print_r($pareto2);
         // die;
 
         $today = now();
 
-        return view('welcome', compact('workorders', 'myworkorders', 'today', 'pareto'));
+        return view('welcome', compact('workorders', 'myworkorders', 'today', 'pareto', 'pareto2'));
     }
 }
 

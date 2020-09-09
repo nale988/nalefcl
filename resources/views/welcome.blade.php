@@ -2,6 +2,12 @@
 
 @section('content')
 
+{{-- <br />
+<br />
+<div id="myfirstchart" style="height: 250px;"></div>
+<br />
+<br /> --}}
+
 @auth
 @if($userrole -> workorders_view)
 @if($usersettings -> show_home_pareto)
@@ -113,4 +119,22 @@
 @endif
 @endif
 @endauth
+
+{{-- <script>
+new Morris.Line({
+  // ID of the element in which to draw the chart.
+  element: 'myfirstchart',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: [{{ $pareto2 }}],
+  // The name of the data record attribute that contains x-values.
+  xkey: {{ $pareto2 -> position }},
+  // A list of names of data record attributes that contain y-values.
+  ykeys: [{{ $pareto2 -> totalworkorders }}],
+  // Labels for the ykeys -- will be displayed when you hover over the
+  // chart.
+  labels: ['Value']
+});
+</script> --}}
+
 @endsection
