@@ -42,7 +42,6 @@ class LogVisitors
                         'region' => $details -> region,
                         'country' => $details -> country,
                         'loc' => $details -> loc,
-                        //'org' => $details -> org,
                         'user_id' => $user -> id
                     ]);
                 }
@@ -70,7 +69,6 @@ class LogVisitors
                     'region' => $details -> region,
                     'country' => $details -> country,
                     'loc' => $details -> loc,
-                    //'org' => $details -> org,
                     'user_id' => 0
                 ]);
             }
