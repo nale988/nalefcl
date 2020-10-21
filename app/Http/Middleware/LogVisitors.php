@@ -42,7 +42,7 @@ class LogVisitors
                         'region' => $details -> region,
                         'country' => $details -> country,
                         'loc' => $details -> loc,
-                        'org' => $details -> org,
+                        //'org' => $details -> org,
                         'user_id' => $user -> id
                     ]);
                 }
